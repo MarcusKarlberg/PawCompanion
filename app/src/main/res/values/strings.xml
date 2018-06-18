@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PawCompanion</string>
+    <string name="btn_addDog">Add New Companion</string>
+    <string name="btn_saveDog">Save Companion</string>
+
+    <string-array name="breed_array">
+        <item>Jack Russell</item>
+        <item>Lagatto</item>
+        <item>Mini Schnauzer</item>
+        <item>Pug</item>
+        <item>Tax</item>
+    </string-array>
+
+
+</resources>
