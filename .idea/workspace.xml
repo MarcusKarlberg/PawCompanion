@@ -20,17 +20,7 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/activity/DogInfoInputActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/activity/DogInfoInputActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/adapter/BreedSpinnerAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/adapter/BreedSpinnerAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/data/Breed.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/data/Breed.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/data/Dog.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/data/Dog.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/BreedRepo.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/BreedRepo.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/DogRepo.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/DogRepo.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/shared/Breed.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/shared/BreedRepo.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/shared/Dog.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/shared/DogRepo.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/shared/SPreferences.java" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,21 +44,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DogInfoInputActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DogInfoInputActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/activity/DogInfoInputActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1105">
-              <caret line="96" column="5" lean-forward="false" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
+            <state relative-caret-position="340">
+              <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BreedRepo.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BreedRepo.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/BreedRepo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="250">
+              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -2256,11 +2246,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/Adapter/DogListArrayAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/shared/Breed.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/DogRepo.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/BreedRepo.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/adapter/BreedSpinnerAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/data/Dog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/data/Breed.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/activity/DogInfoInputActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/BreedRepo.java" />
       </list>
     </option>
   </component>
@@ -2933,22 +2923,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/DogRepo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/BreedRepo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/data/Dog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -2978,8 +2952,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/activity/DogInfoInputActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="96" column="5" lean-forward="false" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
+        <state relative-caret-position="340">
+          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/DogRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/marcu/pawcompanion/repository/BreedRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
