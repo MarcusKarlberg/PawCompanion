@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * Created by marcu on 3/14/2018.
  */
 
-public class Dog implements Serializable{
+public final class Dog implements Serializable{
 
     private static final AtomicLong atomicCounter = new AtomicLong(0);
     private Long id;

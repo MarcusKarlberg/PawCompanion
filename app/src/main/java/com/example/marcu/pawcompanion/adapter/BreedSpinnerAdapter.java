@@ -45,7 +45,7 @@ public class BreedSpinnerAdapter extends ArrayAdapter<Breed> {
         Breed breedItem = getItem(position);
 
         if(breedItem != null){
-            breedTextView.setText(breedItem.getBreedName());
+            breedTextView.setText(breedItem.getName());
         }
 
         return convertView;

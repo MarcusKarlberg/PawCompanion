@@ -98,6 +98,7 @@ public class DogInfoInputActivity extends AppCompatActivity{
 
     private void setDogInfo(){
         nameEditText.setText(selectedDog.getName());
+        breedSpinner.setSelection(selectedDog.getBreed().getId());
         weightEditText.setText(String.valueOf(selectedDog.getWeight()));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/uuuu");
         birthdayTextView.setText(selectedDog.getBirthDate().format(formatter));

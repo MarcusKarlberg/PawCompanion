@@ -6,25 +6,43 @@ import java.io.Serializable;
  * Created by marcu on 3/18/2018.
  */
 
-public class Breed implements Serializable {
-    private String breedName;
+public final class Breed implements Serializable {
 
-    //Todo: integrate these variables
+    private int id;
+    private String name;
     private int activityLevel;
     private int sizeLevel;
 
-    public Breed(String breedName) {
-        this.breedName = breedName;
+    public Breed(int id, String name, int activityLevel, int sizeLevel) {
+        this.id = id;
+        this.name = name;
+        this.activityLevel = activityLevel;
+        this.sizeLevel = sizeLevel;
     }
 
-    public String getBreedName() {
-        return breedName;
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getActivityLevel() {
+        return activityLevel;
+    }
+
+    public int getSizeLevel() {
+        return sizeLevel;
     }
 
     @Override
     public String toString() {
         return "Breed{" +
-                "breedName='" + breedName + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", activityLevel=" + activityLevel +
+                ", sizeLevel=" + sizeLevel +
                 '}';
     }
 }
