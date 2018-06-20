@@ -23,9 +23,14 @@ public final class Dog implements Serializable{
     private LocalTime firstMealTime;
     private LocalTime firstWalkTime;
 
-    //Todo: Create logic for intervals - mock data now, 60 minute interval
-    private int IntervalMealTime = 60;
-    private int IntervalWalkTime = 60;
+    //In kilometers
+    private double walkingDistancePerDay;
+    //In minutes
+    private double walkingDurationPerDay;
+
+    //In minutes
+    private int intervalMealTime;
+    private int intervalWalkTime;
 
     private boolean isHighlighted;
 
@@ -36,6 +41,10 @@ public final class Dog implements Serializable{
         this.weight = weight;
 
         setBirthDate(birthDate);
+        setWalkingDurationPerDay(breed.getActivityLevel());
+        setWalkingDistancePerDay(breed.getActivityLevel());
+        setIntervalMealTime();
+        setIntervalWalkTime(breed.getActivityLevel());
         setFirstMealTime(firstMealTime);
         setFirstWalkTime(firstWalkTime);
     }
@@ -109,12 +118,95 @@ public final class Dog implements Serializable{
         this.portionSize = portionSize;
     }
 
+    //Todo: intervals - should be in minutes. 60min would be 1h interval between reminder
+
+    public void setIntervalMealTime(){
+        int ageInMonths = getAgeInMonths(this.birthDate);
+
+        if(ageInMonths > 6){
+            this.intervalMealTime = 2;
+        }else{
+            this.intervalMealTime = 3;
+        }
+    }
+
+    public void setIntervalWalkTime(int activityLevel){
+        /*Two months old puppy can hold his bladder for up to 3 hours.
+        Time increases an hour per month of age.
+        6 months of age he will be able to hold his bladder for 7-8 hours (a work day).
+        No dog of any age should be made to wait longer than 8 hours!*/
+
+        int ageInMonths = getAgeInMonths(this.birthDate);
+
+        if(ageInMonths <= 2){
+            this.intervalWalkTime = 180;
+        }
+        else if((ageInMonths >= 3) && (ageInMonths <= 6)){
+             this.intervalWalkTime = 180 + (60 * (ageInMonths - 3));
+        }
+        else {
+            this.intervalWalkTime = 480;
+        }
+
+        if(activityLevel > 3){
+            //Todo: activity level should affect the intervalWalkTime
+        }
+    }
+
+    public void setWalkingDistancePerDay(int activityLevel){
+        int ageInMonths = getAgeInMonths(this.birthDate);
+
+        if(activityLevel == 5){
+            this.walkingDistancePerDay = 0.5 * ageInMonths;
+        }
+        else if(activityLevel == 4){
+            this.walkingDistancePerDay = 0.42 * ageInMonths;
+        }
+        else if(activityLevel == 3){
+            this.walkingDistancePerDay = 0.33 * ageInMonths;
+        }
+        else if(activityLevel == 2){
+            this.walkingDistancePerDay = 0.25 * ageInMonths;
+        }
+        else {
+            this.walkingDistancePerDay = 0.2 * ageInMonths;
+        }
+    }
+
+    public void setWalkingDurationPerDay(int activityLevel){
+        int ageInMonths = getAgeInMonths(this.birthDate);
+
+        if(activityLevel == 5){
+            this.walkingDurationPerDay = 5 * ageInMonths;
+        }
+        else if(activityLevel == 4){
+            this.walkingDurationPerDay = 4.2 * ageInMonths;
+        }
+        else if(activityLevel == 3){
+            this.walkingDurationPerDay = 3.3 * ageInMonths;
+        }
+        else if(activityLevel == 2){
+            this.walkingDurationPerDay = 2.5 * ageInMonths;
+        }
+        else {
+            this.walkingDurationPerDay = 2 * ageInMonths;
+        }
+    }
+
+    private int getAgeInMonths(LocalDate birthDate){
+        LocalDate currentDate = LocalDate.now();
+        long diff = Duration.between(birthDate.atStartOfDay(), currentDate.atStartOfDay()).toMillis();
+        int ageInMonths = (int) (diff/2592000000L);
+
+        return ageInMonths;
+    }
+
     public int getIntervalMealTime() {
-        return IntervalMealTime;
+        return intervalMealTime;
     }
 
     public int getIntervalWalkTime() {
-        return IntervalWalkTime;
+        return intervalWalkTime;
     }
 
     @Override
