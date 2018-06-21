@@ -49,6 +49,9 @@ public class NotificationMngr {
         long firstWalkTime = dog.getFirstWalkTime().get(MILLI_OF_SECOND);
 
         Intent intent = new Intent(context.getApplicationContext(), WalkNotification.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("dogData", dog);
+        intent.putExtra("bundle", bundle);
         PendingIntent walkPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 50,intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
