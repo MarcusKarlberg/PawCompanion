@@ -29,7 +29,7 @@ public final class Dog implements Serializable{
     private double walkingDurationPerDay;
 
     //In minutes
-    private int intervalMealTime;
+    private int intervalMealTime = 10;
     private int intervalWalkTime;
 
     private boolean isHighlighted;
@@ -123,11 +123,11 @@ public final class Dog implements Serializable{
     public void setIntervalMealTime(){
         int ageInMonths = getAgeInMonths(this.birthDate);
 
-        if(ageInMonths > 6){
-            this.intervalMealTime = 2;
-        }else{
-            this.intervalMealTime = 3;
-        }
+//        if(ageInMonths > 6){
+//            this.intervalMealTime = 2;
+//        }else{
+//            this.intervalMealTime = 3;
+//        }
     }
 
     public void setIntervalWalkTime(int activityLevel){

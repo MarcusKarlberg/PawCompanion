@@ -7,11 +7,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.marcu.pawcompanion.activity.MealNotificationActivity;
 import com.example.marcu.pawcompanion.R;
+import com.example.marcu.pawcompanion.data.Dog;
 
 /**
  * Created by marcu on 3/18/2018.
@@ -20,20 +22,29 @@ import com.example.marcu.pawcompanion.R;
 public class MealNotification extends BroadcastReceiver {
     private static final String TAG = "MealNotification";
 
-    public static final String channelID2 = "channelID2";
+    public static final String channel2Id = "channel_ID_2";
     public static final String mealNotificationChannel = "mealNotificationChannel";
 
     private NotificationManager manager;
     private Intent iteratingIntent;
     private PendingIntent pendingIntent;
+    private Dog dog;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         if(manager == null){
             //To display the notification
             this.manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         }
+
+        Bundle bundle = intent.getBundleExtra("bundle");
+        if(bundle != null){
+            dog = (Dog)bundle.getSerializable("dogData");
+            Log.d(TAG, "DOG DATA:" + dog.toString() );
+        }else {
+            Log.d(TAG, "DOG DATA EMPTY:");
+        }
+
         createChannel();
         //to start new notification when clicked
         this.iteratingIntent = new Intent(context, MealNotificationActivity.class);
@@ -46,7 +57,7 @@ public class MealNotification extends BroadcastReceiver {
 
     public void createChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel(channelID2, mealNotificationChannel, NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel(channel2Id, mealNotificationChannel, NotificationManager.IMPORTANCE_HIGH);
             channel.enableLights(true);
             channel.enableVibration(true);
             channel.setLightColor(R.color.primary_dark);
@@ -56,20 +67,18 @@ public class MealNotification extends BroadcastReceiver {
             Log.d(TAG, "createChannel: MEAL CHANNEL CREATED");
         }
     }
-
+    //Todo: TEST: added channel .setChannelId(channel2Id) and removed .setPriority(Notification.PRIORITY_MAX)
     public void buildNotification(Context context){
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channelID2)
-                .setContentIntent(pendingIntent)
-                .setContentTitle("Meal Time!")
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channel2Id)
+                .setContentTitle("Feed: " + dog.getName() + "!")
                 .setSmallIcon(R.drawable.ic_notification2)
-                .setContentText("Time to feed ...")
+                .setContentText("Time to feed " + dog.getName())
                 .setColorized(true)
-                .setPriority(Notification.PRIORITY_MAX)
+                .setChannelId(channel2Id)
+                .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
         manager.notify(100, notificationBuilder.build());
-
-        Log.d(TAG, "onReceive: MEAL NOTIFICATION BUILT");
     }
 
 }

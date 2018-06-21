@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.example.marcu.pawcompanion.data.Dog;
@@ -27,27 +28,33 @@ public class NotificationMngr {
     }
 
     public void setMealNotification(Dog dog){
-        //Todo: interval time based on dogs age
-        long intervalBetweenMeals = TimeUnit.MINUTES.toMillis(dog.getIntervalMealTime());
+        long timeBetweenMeals = TimeUnit.MINUTES.toMillis(dog.getIntervalMealTime());
+        long firstMealTime = dog.getFirstMealTime().get(MILLI_OF_SECOND);
 
-        Intent mealIntent = new Intent(context.getApplicationContext(), MealNotification.class);
-        PendingIntent mealPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 100, mealIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(context.getApplicationContext(), MealNotification.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("dogData", dog);
+        intent.putExtra("bundle", bundle);
+        PendingIntent mealPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, dog.getFirstMealTime().get(MILLI_OF_SECOND), intervalBetweenMeals, mealPendingIntent);
-        Log.d(TAG, "setNotifications: MEAL ALARM SET!");
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstMealTime, timeBetweenMeals, mealPendingIntent);
+
+        Log.d(TAG, "Meal alarm set for: " + dog.getFirstMealTime());
+        Log.d(TAG, "Time between meals is: " + dog.getIntervalMealTime() + " minutes");
     }
 
     public void setWalkNotification(Dog dog){
+        long timeBetweenWalks = TimeUnit.MINUTES.toMillis(dog.getIntervalWalkTime());
+        long firstWalkTime = dog.getFirstWalkTime().get(MILLI_OF_SECOND);
 
-        long intervalBetweenWalks = TimeUnit.MINUTES.toMillis(dog.getIntervalWalkTime());
+        Intent intent = new Intent(context.getApplicationContext(), WalkNotification.class);
+        PendingIntent walkPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 50,intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent walkIntent = new Intent(context.getApplicationContext(), WalkNotification.class);
-        PendingIntent walkPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 50,walkIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        //getSystemService(String) anvands till en AlarmManager for att returnera en intent under en spesefik tid som anvandaren givit
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, dog.getFirstWalkTime().get(MILLI_OF_SECOND), intervalBetweenWalks, walkPendingIntent);
-        Log.d(TAG, "setNotifications: WALK ALARM SET FOR:" + dog.getName());
-    }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstWalkTime, timeBetweenWalks, walkPendingIntent);
 
+        Log.d(TAG, "Walk alarm set for: " + dog.getFirstWalkTime());
+        Log.d(TAG, "Time between walks is: " + dog.getIntervalWalkTime() + " minutes");
+    }
 }

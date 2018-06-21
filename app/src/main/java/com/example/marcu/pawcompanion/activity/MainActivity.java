@@ -138,6 +138,16 @@ public class MainActivity extends AppCompatActivity{
             if(!dog.getFirstMealTime().equals(updatedDog.getFirstMealTime())){
                 dog.setFirstMealTime(updatedDog.getFirstMealTime().toString());
             }
+
+            dog.setWalkingDurationPerDay(dog.getBreed().getActivityLevel());
+            dog.setWalkingDistancePerDay(dog.getBreed().getActivityLevel());
+            dog.setIntervalWalkTime(dog.getBreed().getActivityLevel());
+            dog.setIntervalMealTime();
+
+            //Todo: will the old notification be deleted/replaced
+            notificationMngr.setWalkNotification(dog);
+            notificationMngr.setMealNotification(dog);
+
             Log.i(TAG, "*** Dog has been update to: ***" + "ID: " + dog.getId() + " - " + dog);
         }
         else {
