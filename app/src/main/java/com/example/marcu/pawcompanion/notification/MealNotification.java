@@ -49,6 +49,7 @@ public class MealNotification extends BroadcastReceiver {
         //to start new notification when clicked
         this.iteratingIntent = new Intent(context, MealNotificationActivity.class);
         //flag_activity_clear_top - the current activity called will replace the same old activity
+        iteratingIntent.putExtra("bundle", bundle);
         iteratingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         this.pendingIntent = PendingIntent.getActivity(context, 100, iteratingIntent, PendingIntent.FLAG_UPDATE_CURRENT);

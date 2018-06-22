@@ -201,6 +201,14 @@ public final class Dog implements Serializable{
         return ageInMonths;
     }
 
+    public double getWalkingDistancePerDay() {
+        return walkingDistancePerDay;
+    }
+
+    public double getWalkingDurationPerDay() {
+        return walkingDurationPerDay;
+    }
+
     public int getIntervalMealTime() {
         return intervalMealTime;
     }

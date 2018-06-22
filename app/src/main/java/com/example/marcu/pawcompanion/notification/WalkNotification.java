@@ -48,6 +48,8 @@ public class WalkNotification extends BroadcastReceiver {
         createChannel();
         this.iteratingIntent = new Intent(context, WalkNotificationActivity.class);
         //flag_activity_clear_top - the current activity called will replace the same old activity
+        iteratingIntent.putExtra("bundle", bundle);
+        //Todo: figure out how flags work
         iteratingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         this.pendingIntent = PendingIntent.getActivity(context, 50, iteratingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -71,7 +73,9 @@ public class WalkNotification extends BroadcastReceiver {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channel1Id)
                 .setContentTitle("Walk " + dog.getName() + "!")
                 .setSmallIcon(R.drawable.ic_notification2)
-                .setContentText("Time to Walk " + dog.getName())
+                .setStyle(new NotificationCompat.InboxStyle()
+                        .addLine("Distance: " + dog.getWalkingDistancePerDay())
+                        .addLine("Duration: " + dog.getWalkingDurationPerDay() + "minutes"))
                 .setColorized(true)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setContentIntent(pendingIntent)

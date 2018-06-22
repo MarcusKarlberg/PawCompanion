@@ -15,28 +15,38 @@ import java.util.ArrayList;
 public class MealNotificationActivity extends AppCompatActivity {
 
     private static final String TAG = "MealNotificationActivity";
-    private Button addDog_btn;
-    TextView dogNameTextView;
+    TextView nameEditText;
     Button okButton;
     Button remindAgainButton;
+    Dog dog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_notification);
 
+        Bundle bundle = (getIntent().getExtras().getBundle("bundle"));
+        if(bundle != null){
+            dog = (Dog)bundle.getSerializable("dogData");
+            Log.d(TAG, "DOG DATA:" + dog.toString() );
+        }else {
+            Log.d(TAG, "DOG DATA EMPTY:");
+        }
+
         findViews();
-        setDogNameText();
+        setDogInfo();
 
         Log.d(TAG, "onCreate: MealNotificationActivity initiated");
     }
 
     public void findViews(){
-        dogNameTextView = (TextView) findViewById(R.id.dogNameEditText);
+        nameEditText = (TextView) findViewById(R.id.nameEditText);
         okButton = (Button) findViewById(R.id.okButton);
         remindAgainButton = (Button) findViewById(R.id.remindAgainButton);
     }
-    public void setDogNameText(){
-
+    public void setDogInfo(){
+        if (dog != null) {
+            nameEditText.setText(dog.getName());
+        }
     }
 }
