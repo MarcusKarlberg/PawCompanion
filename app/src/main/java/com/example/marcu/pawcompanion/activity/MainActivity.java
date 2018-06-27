@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity{
                     prefs.save(dogList);
                 }
 
-                //notificationMngr.setWalkNotification(dog);
+                notificationMngr.setWalkNotification(dog);
                 notificationMngr.setMealNotification(dog);
 
                 adapter.notifyDataSetChanged();

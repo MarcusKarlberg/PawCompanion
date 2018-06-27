@@ -9,6 +9,11 @@ import android.util.Log;
 
 import com.example.marcu.pawcompanion.data.Dog;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -29,8 +34,8 @@ public class NotificationMngr {
 
     public void setMealNotification(Dog dog){
         long timeBetweenMeals = TimeUnit.MINUTES.toMillis(dog.getIntervalMealTime());
-        long firstMealTime = dog.getFirstMealTime().get(MILLI_OF_SECOND);
-
+        long firstMealTime = localTimeToMillis(dog.getFirstMealTime());
+        Log.d(TAG, "Current Time: " + LocalTime.now());
         Intent intent = new Intent(context.getApplicationContext(), MealNotification.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("dogData", dog);
@@ -39,14 +44,11 @@ public class NotificationMngr {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstMealTime, timeBetweenMeals, mealPendingIntent);
-
-        Log.d(TAG, "Meal alarm set for: " + dog.getFirstMealTime());
-        Log.d(TAG, "Time between meals is: " + dog.getIntervalMealTime() + " minutes");
     }
 
     public void setWalkNotification(Dog dog){
         long timeBetweenWalks = TimeUnit.MINUTES.toMillis(dog.getIntervalWalkTime());
-        long firstWalkTime = dog.getFirstWalkTime().get(MILLI_OF_SECOND);
+        long firstWalkTime = localTimeToMillis(dog.getFirstWalkTime());
 
         Intent intent = new Intent(context.getApplicationContext(), WalkNotification.class);
         Bundle bundle = new Bundle();
@@ -56,8 +58,22 @@ public class NotificationMngr {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstWalkTime, timeBetweenWalks, walkPendingIntent);
+    }
 
-        Log.d(TAG, "Walk alarm set for: " + dog.getFirstWalkTime());
-        Log.d(TAG, "Time between walks is: " + dog.getIntervalWalkTime() + " minutes");
+    private long validateTime(long time){
+        return 0;
+    }
+
+    private long localTimeToMillis(LocalTime time){
+        LocalDate currentLocalDate = LocalDate.now();
+        LocalDateTime localDateTime = LocalDateTime.of(currentLocalDate, time);
+        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
+
+        if(time.isBefore(LocalTime.now())){
+            return zonedDateTime.plusDays(1).toInstant().toEpochMilli();
+        }
+        else{
+            return zonedDateTime.toInstant().toEpochMilli();
+        }
     }
 }
