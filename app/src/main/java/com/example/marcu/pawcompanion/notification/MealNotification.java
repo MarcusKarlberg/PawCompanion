@@ -15,6 +15,8 @@ import com.example.marcu.pawcompanion.activity.MealNotificationActivity;
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.data.Dog;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Created by marcu on 3/18/2018.
  */
@@ -22,7 +24,7 @@ import com.example.marcu.pawcompanion.data.Dog;
 public class MealNotification extends BroadcastReceiver {
     private static final String TAG = "MealNotification";
 
-    public static final String channel2Id = "channel_ID_2";
+    public static final String channelId = "channel_ID_2";
     public static final String mealNotificationChannel = "mealNotificationChannel";
 
     private NotificationManager manager;
@@ -40,7 +42,6 @@ public class MealNotification extends BroadcastReceiver {
         Bundle bundle = intent.getBundleExtra("bundle");
         if(bundle != null){
             dog = (Dog)bundle.getSerializable("dogData");
-            Log.d(TAG, "DOG DATA:" + dog.toString() );
         }else {
             Log.d(TAG, "DOG DATA EMPTY:");
         }
@@ -52,13 +53,13 @@ public class MealNotification extends BroadcastReceiver {
         iteratingIntent.putExtra("bundle", bundle);
         iteratingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        this.pendingIntent = PendingIntent.getActivity(context, 100, iteratingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        this.pendingIntent = PendingIntent.getActivity(context, (int)dog.getId().longValue(), iteratingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         buildNotification(context);
     }
 
     public void createChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel(channel2Id, mealNotificationChannel, NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel(channelId, mealNotificationChannel, NotificationManager.IMPORTANCE_HIGH);
             channel.enableLights(true);
             channel.enableVibration(true);
             channel.setLightColor(R.color.primary_dark);
@@ -70,16 +71,16 @@ public class MealNotification extends BroadcastReceiver {
     }
     //Todo: TEST: added channel .setChannelId(channel2Id) and removed .setPriority(Notification.PRIORITY_MAX)
     public void buildNotification(Context context){
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channel2Id)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channelId)
                 .setContentTitle("Feed: " + dog.getName() + "!")
                 .setSmallIcon(R.drawable.ic_notification2)
                 .setContentText("Time to feed " + dog.getName())
                 .setColorized(true)
-                .setChannelId(channel2Id)
+                .setChannelId(channelId)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
-        manager.notify(100, notificationBuilder.build());
+        manager.notify((int)dog.getId().longValue()+1, notificationBuilder.build());
     }
 
 }

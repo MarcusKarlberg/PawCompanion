@@ -45,7 +45,7 @@ public class NotificationMngr {
         bundle.putSerializable("dogData", dog);
         intent.putExtra("bundle", bundle);
 
-        PendingIntent mealPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent mealPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int)dog.getId().longValue(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstMealTime, timeBetweenMeals, mealPendingIntent);
@@ -59,7 +59,7 @@ public class NotificationMngr {
         Bundle bundle = new Bundle();
         bundle.putSerializable("dogData", dog);
         intent.putExtra("bundle", bundle);
-        PendingIntent walkPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 50,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent walkPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int)dog.getId().longValue()+1,intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstWalkTime, timeBetweenWalks, walkPendingIntent);
@@ -77,8 +77,8 @@ public class NotificationMngr {
         mealBundle.putSerializable("dogData", dog);
         mealIntent.putExtra("bundle", mealBundle);
 
-        PendingIntent walkPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 50,walkIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent mealPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 100, mealIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent walkPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int)dog.getId().longValue()+1,walkIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent mealPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int)dog.getId().longValue(), mealIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 

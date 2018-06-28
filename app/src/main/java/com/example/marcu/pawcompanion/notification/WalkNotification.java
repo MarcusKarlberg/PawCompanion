@@ -15,6 +15,8 @@ import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.activity.WalkNotificationActivity;
 import com.example.marcu.pawcompanion.data.Dog;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Created by marcu on 3/19/2018.
  */
@@ -22,7 +24,7 @@ import com.example.marcu.pawcompanion.data.Dog;
 public class WalkNotification extends BroadcastReceiver {
     private static final String TAG = "WalkNotification";
 
-    public static final String channel1Id = "channel_ID_1";
+    public static final String channelId = "channel_ID_1";
     public static final String walkNotificationChannel = "walkNotificationChannel";
 
     private NotificationManager manager;
@@ -40,7 +42,6 @@ public class WalkNotification extends BroadcastReceiver {
         Bundle bundle = intent.getBundleExtra("bundle");
         if(bundle != null){
             dog = (Dog)bundle.getSerializable("dogData");
-            Log.d(TAG, "DOG DATA:" + dog.toString() );
         }else {
             Log.d(TAG, "DOG DATA EMPTY:");
         }
@@ -52,13 +53,13 @@ public class WalkNotification extends BroadcastReceiver {
         //Todo: figure out how flags work
         iteratingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        this.pendingIntent = PendingIntent.getActivity(context, 50, iteratingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        this.pendingIntent = PendingIntent.getActivity(context, (int)dog.getId().longValue()+1, iteratingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         buildNotification(context);
     }
 
     public void createChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel(channel1Id, walkNotificationChannel, NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel(channelId, walkNotificationChannel, NotificationManager.IMPORTANCE_HIGH);
             channel.enableLights(true);
             channel.enableVibration(true);
             channel.setLightColor(R.color.primary_dark);
@@ -70,7 +71,7 @@ public class WalkNotification extends BroadcastReceiver {
     }
 
     public void buildNotification(Context context){
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channel1Id)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channelId)
                 .setContentTitle("Walk " + dog.getName() + "!")
                 .setSmallIcon(R.drawable.ic_notification2)
                 .setStyle(new NotificationCompat.InboxStyle()
@@ -81,7 +82,7 @@ public class WalkNotification extends BroadcastReceiver {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
-        manager.notify(50, notificationBuilder.build());
+        manager.notify((int)dog.getId().longValue()+1, notificationBuilder.build());
         Log.d(TAG, "buildNotification:  WALK NOTIFICATION BUILT!");
     }
 }
