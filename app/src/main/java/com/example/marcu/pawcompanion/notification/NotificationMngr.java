@@ -1,6 +1,7 @@
 package com.example.marcu.pawcompanion.notification;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -35,11 +36,15 @@ public class NotificationMngr {
     public void setMealNotification(Dog dog){
         long timeBetweenMeals = TimeUnit.MINUTES.toMillis(dog.getIntervalMealTime());
         long firstMealTime = localTimeToMillis(dog.getFirstMealTime());
+
         Log.d(TAG, "Current Time: " + LocalTime.now());
+
         Intent intent = new Intent(context.getApplicationContext(), MealNotification.class);
+
         Bundle bundle = new Bundle();
         bundle.putSerializable("dogData", dog);
         intent.putExtra("bundle", bundle);
+
         PendingIntent mealPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
@@ -60,8 +65,25 @@ public class NotificationMngr {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstWalkTime, timeBetweenWalks, walkPendingIntent);
     }
 
-    private long validateTime(long time){
-        return 0;
+    public void deleteNotifications(Dog dog){
+        Intent walkIntent = new Intent(context.getApplicationContext(), WalkNotification.class);
+        Intent mealIntent = new Intent(context.getApplicationContext(), MealNotification.class);
+
+        Bundle walkBundle = new Bundle();
+        walkBundle.putSerializable("dogData", dog);
+        walkIntent.putExtra("bundle", walkBundle);
+
+        Bundle mealBundle = new Bundle();
+        mealBundle.putSerializable("dogData", dog);
+        mealIntent.putExtra("bundle", mealBundle);
+
+        PendingIntent walkPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 50,walkIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent mealPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 100, mealIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
+        alarmManager.cancel(walkPendingIntent);
+        alarmManager.cancel(mealPendingIntent);
     }
 
     private long localTimeToMillis(LocalTime time){

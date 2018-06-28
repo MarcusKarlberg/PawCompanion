@@ -104,6 +104,8 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View view) {
                 if(selectedDog != null){
                     dogList.remove(selectedDog);
+
+                    notificationMngr.deleteNotifications(selectedDog);
                     //prefs.clearAllData();
                     prefs.save(dogList);
                     dogListView.invalidateViews();
