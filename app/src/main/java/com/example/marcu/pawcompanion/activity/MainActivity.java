@@ -16,10 +16,14 @@ import com.example.marcu.pawcompanion.repository.DogRepo;
 import com.example.marcu.pawcompanion.notification.NotificationMngr;
 import com.example.marcu.pawcompanion.sharedPrefs.SPreferences;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class MainActivity extends AppCompatActivity{
     private static final String TAG = "MainActivity";
@@ -139,6 +143,10 @@ public class MainActivity extends AppCompatActivity{
 
             if(!dog.getFirstMealTime().equals(updatedDog.getFirstMealTime())){
                 dog.setFirstMealTime(updatedDog.getFirstMealTime().toString());
+            }
+
+            if(!isBlank(updatedDog.getImageUriString())){
+                    dog.setImageUriString(updatedDog.getImageUriString());
             }
 
             dog.setWalkingDurationPerDay(dog.getBreed().getActivityLevel());

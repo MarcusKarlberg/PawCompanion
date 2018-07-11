@@ -75,4 +75,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/callEditText" />
+
+    <TextView
+        android:id="@+id/portionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Portion: 230g"
+        app:layout_constraintEnd_toEndOf="@+id/dogImageView"
+        app:layout_constraintStart_toStartOf="@+id/dogImageView"
+        app:layout_constraintTop_toBottomOf="@+id/dogImageView" />
 </android.support.constraint.ConstraintLayout>

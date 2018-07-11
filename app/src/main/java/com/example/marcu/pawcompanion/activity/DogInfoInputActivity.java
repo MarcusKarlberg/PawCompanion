@@ -3,8 +3,12 @@ package com.example.marcu.pawcompanion.activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -25,6 +30,7 @@ import com.example.marcu.pawcompanion.data.Dog;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -35,10 +41,13 @@ import static java.lang.String.format;
 
 public class DogInfoInputActivity extends AppCompatActivity{
     private static final String TAG = "DogInfoInputActivity";
+    private static final int ACCESS_PHOTO_LIB = 7686;
 
     private EditText nameEditText, weightEditText;
     private Spinner breedSpinner;
     private Button saveDogButton;
+    private ImageView imageView;
+    private Uri imageUri;
 
     private TextView birthdayTextView, walkTimeTextView, mealTimeTextView;
     private DatePickerDialog.OnDateSetListener birthdayDateSetListener;
@@ -80,6 +89,7 @@ public class DogInfoInputActivity extends AppCompatActivity{
         setMealTimeClickListener();
         setmealTimeListener();
         setAddNewCompanionButtonClickListener();
+        setImageViewClickListener();
 
         if(selectedDog != null){
             setDogInfo();
@@ -94,6 +104,7 @@ public class DogInfoInputActivity extends AppCompatActivity{
         mealTimeTextView = (TextView) findViewById(R.id.mealTimeTextView);
         breedSpinner = (Spinner) findViewById(R.id.breedSpinner);
         saveDogButton = (Button) findViewById(R.id.addCompanionButton);
+        imageView = (ImageView) findViewById(R.id.imageView);
     }
 
     private void setDogInfo(){
@@ -104,6 +115,7 @@ public class DogInfoInputActivity extends AppCompatActivity{
         birthdayTextView.setText(selectedDog.getBirthDate().format(formatter));
         walkTimeTextView.setText(selectedDog.getFirstWalkTime().toString());
         mealTimeTextView.setText(selectedDog.getFirstMealTime().toString());
+        setImageView();
     }
 
     private void setSpinnerListener(){
@@ -119,6 +131,35 @@ public class DogInfoInputActivity extends AppCompatActivity{
 
             }
         });
+    }
+
+    private void setImageViewClickListener(){
+        imageView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, ACCESS_PHOTO_LIB);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == ACCESS_PHOTO_LIB){
+            if(resultCode == RESULT_OK){
+                imageUri = data.getData();
+                Bitmap bitmap;
+                try {
+                    bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                    imageView.setImageBitmap(bitmap);
+                }catch (FileNotFoundException e){
+                    //Todo: what's the best practice to handle exceptions in android
+                    Log.d(TAG, "FileNotFoundException");
+                }
+            }
+        }
     }
 
     private void setBirthdayClickListener(){
@@ -225,6 +266,9 @@ public class DogInfoInputActivity extends AppCompatActivity{
 
             if(selectedDog == null){
                 Dog dog = new Dog(name, selectedBreed, birthday, weight, firstMealTime, firstWalkTime);
+                if(imageUri != null){
+                    dog.setImageUriString(imageUri.toString());
+                }
                 intent.putExtra("dog", dog);
                 setResult(RESULT_OK, intent);
                 Log.d(TAG, "DogInfoInputActivity: NEW DOG CREATED: " + dog.toString());
@@ -248,6 +292,10 @@ public class DogInfoInputActivity extends AppCompatActivity{
         selectedDog.setWeight(weight);
         selectedDog.setFirstMealTime(firstMealTime);
         selectedDog.setFirstWalkTime(firstWalkTime);
+
+        if(imageUri != null){
+            selectedDog.setImageUriString(imageUri.toString());
+        }
     }
 
     private boolean validateDogInput(){
@@ -272,5 +320,21 @@ public class DogInfoInputActivity extends AppCompatActivity{
         }
 
         return true;
+    }
+
+    private void setImageView(){
+        String imageUriString = selectedDog.getImageUriString();
+
+        if(imageUriString != null){
+            Uri imageUri = Uri.parse(imageUriString);
+            Bitmap bitmap;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                imageView.setImageBitmap(bitmap);
+            }catch (FileNotFoundException e){
+                //Todo: what's the best practice to handle exceptions in android
+                Log.d(TAG, "FileNotFoundException");
+            }
+        }
     }
 }

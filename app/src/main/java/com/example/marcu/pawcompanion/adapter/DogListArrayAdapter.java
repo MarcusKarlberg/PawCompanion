@@ -1,16 +1,23 @@
 package com.example.marcu.pawcompanion.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.data.Dog;
+
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -45,22 +52,25 @@ public class DogListArrayAdapter extends ArrayAdapter {
             convertView = inflater.inflate(layoutResource, parent, false);
         }
 
-        //Change color when selected
-//            convertView.setBackgroundColor(getContext().getResources().getColor(R.color.primary_light));
-//            convertView.invalidate();
-//
-//            convertView.setBackgroundColor(getContext().getResources().getColor(R.color.primary));
-//            convertView.invalidate();
-
-
         TextView dogNameTextView = (TextView) convertView.findViewById(R.id.dogNameTextView);
-        //ImageView dogPortraitImageView = (ImageView) convertView.findViewById(R.id.photoImageView);
+        ImageView dogPhoto = (ImageView) convertView.findViewById(R.id.photoImageView);
 
         Dog dog = dogs.get(position);
 
         dogNameTextView.setText(dog.getName());
-        //Todo: figure out how to change/set an image???
-        //photoImageView.setImageResource();
+        String imageUriString = dog.getImageUriString();
+
+        if(imageUriString != null){
+            Uri imageUri = Uri.parse(imageUriString);
+            Bitmap bitmap;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(imageUri));
+                dogPhoto.setImageBitmap(bitmap);
+            }catch (FileNotFoundException e){
+                //Todo: what's the best practice to handle exceptions in android
+                Log.d(TAG, "FileNotFoundException");
+            }
+        }
 
         return convertView;
     }

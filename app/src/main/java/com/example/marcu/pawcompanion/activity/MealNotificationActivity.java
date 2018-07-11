@@ -3,6 +3,7 @@ package com.example.marcu.pawcompanion.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ public class MealNotificationActivity extends AppCompatActivity {
 
     private static final String TAG = "MealNotificationActivity";
     TextView nameEditText;
+    TextView portionTextView;
     Button okButton;
     Button remindAgainButton;
     Dog dog;
@@ -35,18 +37,38 @@ public class MealNotificationActivity extends AppCompatActivity {
 
         findViews();
         setDogInfo();
-
-        Log.d(TAG, "onCreate: MealNotificationActivity initiated");
+        setOkButtonClickListener();
+        setRemindMeAgainButtonClickListener();
     }
 
     public void findViews(){
         nameEditText = (TextView) findViewById(R.id.nameEditText);
+        portionTextView = (TextView) findViewById(R.id.portionTextView);
         okButton = (Button) findViewById(R.id.okButton);
         remindAgainButton = (Button) findViewById(R.id.remindAgainButton);
     }
+
     public void setDogInfo(){
         if (dog != null) {
             nameEditText.setText(dog.getName());
         }
+    }
+
+    private void setOkButtonClickListener(){
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    private void setRemindMeAgainButtonClickListener(){
+        remindAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }

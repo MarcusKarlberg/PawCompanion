@@ -1,4 +1,7 @@
 package com.example.marcu.pawcompanion.data;
+import android.net.Uri;
+import android.widget.ImageView;
+
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -22,6 +25,7 @@ public final class Dog implements Serializable{
     private Double portionSize;
     private LocalTime firstMealTime;
     private LocalTime firstWalkTime;
+    private String imageUriString;
 
     //In kilometers
     private double walkingDistancePerDay;
@@ -31,8 +35,6 @@ public final class Dog implements Serializable{
     //In minutes
     private int intervalMealTime = 10;
     private int intervalWalkTime;
-
-    private boolean isHighlighted;
 
     public Dog(String name, Breed breed, String birthDate, double weight, String firstMealTime, String firstWalkTime) {
         this.id = atomicCounter.incrementAndGet();
@@ -47,6 +49,14 @@ public final class Dog implements Serializable{
         setIntervalWalkTime(breed.getActivityLevel());
         setFirstMealTime(firstMealTime);
         setFirstWalkTime(firstWalkTime);
+    }
+
+    public String getImageUriString() {
+        return imageUriString;
+    }
+
+    public void setImageUriString(String imageUriString) {
+        this.imageUriString = imageUriString;
     }
 
     public Long getId() {
