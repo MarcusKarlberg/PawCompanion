@@ -1,7 +1,6 @@
 package com.example.marcu.pawcompanion.notification;
 
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +15,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.concurrent.TimeUnit;
-
 import static android.content.Context.ALARM_SERVICE;
-import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
 
 /**
  * Created by marcu on 3/20/2018.

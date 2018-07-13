@@ -32,12 +32,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-
-import static java.lang.String.format;
 
 public class DogInfoInputActivity extends AppCompatActivity{
     private static final String TAG = "DogInfoInputActivity";

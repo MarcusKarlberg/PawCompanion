@@ -1,6 +1,4 @@
 package com.example.marcu.pawcompanion.data;
-import android.net.Uri;
-import android.widget.ImageView;
 
 import java.io.Serializable;
 import java.time.Duration;
@@ -155,51 +153,59 @@ public final class Dog implements Serializable{
              this.intervalWalkTime = 180 + (60 * (ageInMonths - 3));
         }
         else {
-            this.intervalWalkTime = 480;
-        }
-
-        if(activityLevel > 3){
-            //Todo: activity level should affect the intervalWalkTime
+            this.intervalWalkTime = 420;
         }
     }
 
     public void setWalkingDistancePerDay(int activityLevel){
         int ageInMonths = getAgeInMonths(this.birthDate);
+        double distance;
 
         if(activityLevel == 5){
-            this.walkingDistancePerDay = 0.5 * ageInMonths;
+            distance = 0.5 * ageInMonths;
+            this.walkingDistancePerDay = distance <= 6 ? distance : 6;
         }
         else if(activityLevel == 4){
-            this.walkingDistancePerDay = 0.42 * ageInMonths;
+            distance = 0.42 * ageInMonths;
+            this.walkingDistancePerDay = distance <= 5 ? distance : 5;
         }
         else if(activityLevel == 3){
-            this.walkingDistancePerDay = 0.33 * ageInMonths;
+            distance = 0.33 * ageInMonths;
+            this.walkingDistancePerDay = distance <= 4 ? distance : 4;
         }
         else if(activityLevel == 2){
-            this.walkingDistancePerDay = 0.25 * ageInMonths;
+            distance = 0.25 * ageInMonths;
+            this.walkingDistancePerDay = distance <= 3 ? distance : 3;
         }
         else {
-            this.walkingDistancePerDay = 0.2 * ageInMonths;
+            distance = 0.2 * ageInMonths;
+            this.walkingDistancePerDay = distance <= 2.4 ? distance : 2.4;
         }
     }
 
     public void setWalkingDurationPerDay(int activityLevel){
         int ageInMonths = getAgeInMonths(this.birthDate);
+        double duration;
 
         if(activityLevel == 5){
-            this.walkingDurationPerDay = 5 * ageInMonths;
+            duration = 5 * ageInMonths;
+            this.walkingDurationPerDay = duration <= 60 ? duration : 60;
         }
         else if(activityLevel == 4){
-            this.walkingDurationPerDay = 4.2 * ageInMonths;
+            duration = 4.2 * ageInMonths;
+            this.walkingDurationPerDay = duration <= 50 ? duration : 50;
         }
         else if(activityLevel == 3){
-            this.walkingDurationPerDay = 3.3 * ageInMonths;
+            duration = 3.3 * ageInMonths;
+            this.walkingDurationPerDay = duration <= 40 ? duration : 40;
         }
         else if(activityLevel == 2){
-            this.walkingDurationPerDay = 2.5 * ageInMonths;
+            duration = 2.5 * ageInMonths;
+            this.walkingDurationPerDay = duration <= 30 ? duration : 30;
         }
         else {
-            this.walkingDurationPerDay = 2 * ageInMonths;
+            duration = 2 * ageInMonths;
+            this.walkingDurationPerDay = duration <= 24 ? duration : 24;
         }
     }
 

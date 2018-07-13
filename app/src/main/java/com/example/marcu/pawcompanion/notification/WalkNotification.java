@@ -15,8 +15,6 @@ import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.activity.WalkNotificationActivity;
 import com.example.marcu.pawcompanion.data.Dog;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * Created by marcu on 3/19/2018.
  */

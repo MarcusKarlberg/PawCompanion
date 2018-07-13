@@ -16,12 +16,9 @@ import com.example.marcu.pawcompanion.repository.DogRepo;
 import com.example.marcu.pawcompanion.notification.NotificationMngr;
 import com.example.marcu.pawcompanion.sharedPrefs.SPreferences;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

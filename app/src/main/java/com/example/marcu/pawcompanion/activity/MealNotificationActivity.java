@@ -1,22 +1,24 @@
 package com.example.marcu.pawcompanion.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.data.Dog;
-import com.example.marcu.pawcompanion.sharedPrefs.SPreferences;
-
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 
 public class MealNotificationActivity extends AppCompatActivity {
 
     private static final String TAG = "MealNotificationActivity";
     TextView nameEditText;
+    private ImageView imageView;
     TextView portionTextView;
     Button okButton;
     Button remindAgainButton;
@@ -41,16 +43,18 @@ public class MealNotificationActivity extends AppCompatActivity {
         setRemindMeAgainButtonClickListener();
     }
 
-    public void findViews(){
+    private void findViews(){
         nameEditText = (TextView) findViewById(R.id.nameEditText);
+        imageView = (ImageView) findViewById(R.id.imageView);
         portionTextView = (TextView) findViewById(R.id.portionTextView);
         okButton = (Button) findViewById(R.id.okButton);
         remindAgainButton = (Button) findViewById(R.id.remindAgainButton);
     }
 
-    public void setDogInfo(){
+    private void setDogInfo(){
         if (dog != null) {
             nameEditText.setText(dog.getName());
+            setImageView();
         }
     }
 
@@ -70,5 +74,21 @@ public class MealNotificationActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void setImageView(){
+        String imageUriString = dog.getImageUriString();
+
+        if(imageUriString != null){
+            Uri imageUri = Uri.parse(imageUriString);
+            Bitmap bitmap;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                imageView.setImageBitmap(bitmap);
+            }catch (FileNotFoundException e){
+                //Todo: what's the best practice to handle exceptions in android
+                Log.d(TAG, "FileNotFoundException");
+            }
+        }
     }
 }
