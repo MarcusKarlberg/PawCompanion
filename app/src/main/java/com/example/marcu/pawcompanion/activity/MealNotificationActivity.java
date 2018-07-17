@@ -12,7 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.data.Dog;
+import com.example.marcu.pawcompanion.notification.NotificationMngr;
+
 import java.io.FileNotFoundException;
+import java.time.LocalTime;
 
 public class MealNotificationActivity extends AppCompatActivity {
 
@@ -71,7 +74,12 @@ public class MealNotificationActivity extends AppCompatActivity {
         remindAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                NotificationMngr notificationMngr = new NotificationMngr(getApplicationContext());
+                LocalTime firstMealTime = dog.getFirstMealTime();
+                dog.setFirstMealTime(LocalTime.now().plusMinutes(10L).toString());
+                notificationMngr.setMealNotification(dog);
+                dog.setFirstMealTime(firstMealTime.toString());
+                finish();
             }
         });
     }

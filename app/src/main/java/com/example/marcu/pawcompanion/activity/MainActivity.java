@@ -154,6 +154,7 @@ public class MainActivity extends AppCompatActivity{
             //Todo: will the old notification be deleted/replaced
             notificationMngr.setWalkNotification(dog);
             notificationMngr.setMealNotification(dog);
+            notificationMngr.setAlarmToResetDailyNotificationAlarms(dog);
 
             Log.i(TAG, "*** Dog has been update to: ***" + "ID: " + dog.getId() + " - " + dog);
         }
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity{
 
                 notificationMngr.setWalkNotification(dog);
                 notificationMngr.setMealNotification(dog);
+                notificationMngr.setAlarmToResetDailyNotificationAlarms(dog);
 
                 adapter.notifyDataSetChanged();
             }

@@ -22,7 +22,7 @@ public class MealNotification extends BroadcastReceiver {
     private static final String TAG = "MealNotification";
 
     public static final String channelId = "channel_ID_2";
-    public static final String mealNotificationChannel = "mealNotificationChannel";
+    public static final String channelName = "mealNotificationChannel";
 
     private NotificationManager manager;
     private Intent iteratingIntent;
@@ -56,7 +56,7 @@ public class MealNotification extends BroadcastReceiver {
 
     public void createChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel(channelId, mealNotificationChannel, NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
             channel.enableLights(true);
             channel.enableVibration(true);
             channel.setLightColor(R.color.primary_dark);

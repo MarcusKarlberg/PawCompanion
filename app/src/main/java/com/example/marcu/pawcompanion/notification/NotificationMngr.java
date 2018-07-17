@@ -62,6 +62,19 @@ public class NotificationMngr {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstWalkTime, timeBetweenWalks, walkPendingIntent);
     }
 
+    public void setAlarmToResetDailyNotificationAlarms(Dog dog){
+        long midnight = localTimeToMillis(LocalTime.MIDNIGHT);
+        Intent intent = new Intent(context.getApplicationContext(), ResetAlarmsBroadcastReceiver.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("dogData", dog);
+        intent.putExtra("bundle", bundle);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int)dog.getId().longValue()+2,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC, midnight, pendingIntent);
+    }
+
     public void deleteNotifications(Dog dog){
         Intent walkIntent = new Intent(context.getApplicationContext(), WalkNotification.class);
         Intent mealIntent = new Intent(context.getApplicationContext(), MealNotification.class);
