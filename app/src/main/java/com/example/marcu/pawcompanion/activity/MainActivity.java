@@ -11,11 +11,18 @@ import android.widget.ListView;
 
 import com.example.marcu.pawcompanion.adapter.DogListArrayAdapter;
 import com.example.marcu.pawcompanion.R;
+import com.example.marcu.pawcompanion.data.Breed;
 import com.example.marcu.pawcompanion.data.Dog;
+import com.example.marcu.pawcompanion.data.JsonUtils;
+import com.example.marcu.pawcompanion.network.NetworkAsyncResponse;
+import com.example.marcu.pawcompanion.network.NetworkTask;
+import com.example.marcu.pawcompanion.network.NetworkUtils;
 import com.example.marcu.pawcompanion.repository.DogRepo;
 import com.example.marcu.pawcompanion.notification.NotificationMngr;
 import com.example.marcu.pawcompanion.sharedPrefs.SPreferences;
 
+import java.io.IOException;
+import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -33,6 +40,7 @@ public class MainActivity extends AppCompatActivity{
     DogListArrayAdapter adapter;
     DogRepo dogRepo;
     ArrayList<Dog> dogList;
+    ArrayList<Breed> breeds;
     SPreferences prefs;
     NotificationMngr notificationMngr;
 

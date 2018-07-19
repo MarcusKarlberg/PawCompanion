@@ -25,17 +25,22 @@ import android.widget.TimePicker;
 import com.example.marcu.pawcompanion.adapter.BreedSpinnerAdapter;
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.data.Breed;
+import com.example.marcu.pawcompanion.data.JsonUtils;
+import com.example.marcu.pawcompanion.network.NetworkAsyncResponse;
+import com.example.marcu.pawcompanion.network.NetworkTask;
+import com.example.marcu.pawcompanion.network.NetworkUtils;
 import com.example.marcu.pawcompanion.repository.BreedRepo;
 import com.example.marcu.pawcompanion.data.Dog;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class DogInfoInputActivity extends AppCompatActivity{
+public class DogInfoInputActivity extends AppCompatActivity implements NetworkAsyncResponse{
     private static final String TAG = "DogInfoInputActivity";
     private static final int ACCESS_PHOTO_LIB = 7686;
 
@@ -50,46 +55,20 @@ public class DogInfoInputActivity extends AppCompatActivity{
     private TimePickerDialog.OnTimeSetListener walkTimeSetListener, mealTimeSetListener;
 
     private ArrayList<Breed> breedList;
-    private BreedRepo breedRepo;
+    //private BreedRepo breedRepo;
     private BreedSpinnerAdapter spinnerAdapter;
     private Breed selectedBreed;
     private Dog selectedDog;
 
     private LocalDate currentDate;
+    private boolean networkTaskCompleted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        currentDate = LocalDate.now();
-
         setContentView(R.layout.activity_dog_info_input);
 
-        breedRepo = new BreedRepo();
-        breedList = breedRepo.getAllBreeds();
-        findViews();
-        Log.d(TAG, "DogInfoInputActivity:SECOND ACTIVITY ACTIVATED");
-
-        spinnerAdapter = new BreedSpinnerAdapter(this, breedList);
-        breedSpinner.setAdapter(spinnerAdapter);
-
-        Intent intent = getIntent();
-        selectedDog = (Dog) intent.getSerializableExtra("selectedDog");
-        Log.d(TAG, "DOG TO BE UPDATED 2: " + selectedDog);
-
-        setSpinnerListener();
-        setBirthdayClickListener();
-        setBirthdatDateListener();
-        setWalkTimeClickListener();
-        setWalkTimeListener();
-        setMealTimeClickListener();
-        setmealTimeListener();
-        setAddNewCompanionButtonClickListener();
-        setImageViewClickListener();
-
-        if(selectedDog != null){
-            setDogInfo();
-        }
+        accesBreedDatabaseData();
     }
 
     private void findViews(){
@@ -331,6 +310,52 @@ public class DogInfoInputActivity extends AppCompatActivity{
                 //Todo: what's the best practice to handle exceptions in android
                 Log.d(TAG, "FileNotFoundException");
             }
+        }
+    }
+
+    private void accesBreedDatabaseData(){
+        URL url = NetworkUtils.buildUrl();
+        NetworkTask networkTask = new NetworkTask();
+        networkTask.delegate = this;
+        networkTask.execute(url);
+    }
+
+    @Override
+    public void returnResult(String searchResults) {
+        Log.i(TAG, "SEARCH RESULTS:" + searchResults );
+
+        breedList = JsonUtils.JsonToJavaBreedObjects(searchResults);
+        Log.i(TAG, "SEARCH RESULTS BREED OBJECTS:" + breedList );
+
+        currentDate = LocalDate.now();
+
+//        breedRepo = new BreedRepo();
+//        breedList = breedRepo.getAllBreeds();
+        findViews();
+        Log.d(TAG, "DogInfoInputActivity:SECOND ACTIVITY ACTIVATED");
+    }
+
+    @Override
+    public void displayResult() {
+        spinnerAdapter = new BreedSpinnerAdapter(this, breedList);
+        breedSpinner.setAdapter(spinnerAdapter);
+
+        Intent intent = getIntent();
+        selectedDog = (Dog) intent.getSerializableExtra("selectedDog");
+        Log.d(TAG, "DOG TO BE UPDATED 2: " + selectedDog);
+
+        setSpinnerListener();
+        setBirthdayClickListener();
+        setBirthdatDateListener();
+        setWalkTimeClickListener();
+        setWalkTimeListener();
+        setMealTimeClickListener();
+        setmealTimeListener();
+        setAddNewCompanionButtonClickListener();
+        setImageViewClickListener();
+
+        if(selectedDog != null){
+            setDogInfo();
         }
     }
 }

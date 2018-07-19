@@ -24,9 +24,11 @@ public class ResetAlarmsBroadcastReceiver extends BroadcastReceiver {
             dog = (Dog)bundle.getSerializable("dogData");
             Log.d(TAG, "DOG DATA:" + dog.toString() );
 
+            //Todo: .deletenotification method might not be needed. Test without.
             notificationManager.deleteNotifications(dog);
             notificationManager.setWalkNotification(dog);
             notificationManager.setMealNotification(dog);
+            notificationManager.setAlarmToResetDailyNotificationAlarms(dog);
 
         }else {
             Log.d(TAG, "DOG DATA EMPTY:");
