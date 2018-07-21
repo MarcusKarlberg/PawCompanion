@@ -61,7 +61,6 @@ public class DogInfoInputActivity extends AppCompatActivity implements NetworkAs
     private Dog selectedDog;
 
     private LocalDate currentDate;
-    private boolean networkTaskCompleted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
