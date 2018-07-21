@@ -26,8 +26,11 @@
 
         <receiver android:name=".notification.MealNotification" />
 
-        <activity android:name=".activity.WalkNotificationActivity"></activity>
+        <activity android:name=".activity.WalkNotificationActivity" />
+
         <receiver android:name=".notification.WalkNotification" />
+
+        <activity android:name=".activity.SelectBreedActivity"></activity>
     </application>
 
 </manifest>

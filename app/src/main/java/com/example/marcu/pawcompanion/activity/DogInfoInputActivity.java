@@ -38,21 +38,23 @@ import java.util.ArrayList;
 public class DogInfoInputActivity extends AppCompatActivity{
     private static final String TAG = "DogInfoInputActivity";
     private static final int ACCESS_PHOTO_LIB = 7686;
+    private static final int SELECT_BREED_REQUEST = 2733;
 
     private EditText nameEditText, weightEditText;
-    private Spinner breedSpinner;
     private Button saveDogButton;
     private ImageView imageView;
     private Uri imageUri;
 
-    private TextView birthdayTextView, walkTimeTextView, mealTimeTextView;
+    private TextView birthdayTextView, walkTimeTextView, mealTimeTextView, breedTextView;
     private DatePickerDialog.OnDateSetListener birthdayDateSetListener;
     private TimePickerDialog.OnTimeSetListener walkTimeSetListener, mealTimeSetListener;
 
     private ArrayList<Breed> breedList;
     private BreedRepo breedRepo;
-    private BreedSpinnerAdapter spinnerAdapter;
+
     private Breed selectedBreed;
+    String selectedBreedstring;
+
     private Dog selectedDog;
 
     private LocalDate currentDate;
@@ -70,14 +72,11 @@ public class DogInfoInputActivity extends AppCompatActivity{
         findViews();
         Log.d(TAG, "DogInfoInputActivity:SECOND ACTIVITY ACTIVATED");
 
-        spinnerAdapter = new BreedSpinnerAdapter(this, breedList);
-        breedSpinner.setAdapter(spinnerAdapter);
-
         Intent intent = getIntent();
         selectedDog = (Dog) intent.getSerializableExtra("selectedDog");
         Log.d(TAG, "DOG TO BE UPDATED 2: " + selectedDog);
 
-        setSpinnerListener();
+        setBreedClickListener();
         setBirthdayClickListener();
         setBirthdatDateListener();
         setWalkTimeClickListener();
@@ -98,35 +97,20 @@ public class DogInfoInputActivity extends AppCompatActivity{
         weightEditText = (EditText) findViewById(R.id.weightEditText);
         walkTimeTextView = (TextView) findViewById(R.id.walkTimeTextView);
         mealTimeTextView = (TextView) findViewById(R.id.mealTimeTextView);
-        breedSpinner = (Spinner) findViewById(R.id.breedSpinner);
+        breedTextView = (TextView) findViewById(R.id.breedTextView);
         saveDogButton = (Button) findViewById(R.id.addCompanionButton);
         imageView = (ImageView) findViewById(R.id.imageView);
     }
 
     private void setDogInfo(){
         nameEditText.setText(selectedDog.getName());
-        breedSpinner.setSelection(selectedDog.getBreed().getId());
+        breedTextView.setText(selectedDog.getBreed().getName());
         weightEditText.setText(String.valueOf(selectedDog.getWeight()));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/uuuu");
         birthdayTextView.setText(selectedDog.getBirthDate().format(formatter));
         walkTimeTextView.setText(selectedDog.getFirstWalkTime().toString());
         mealTimeTextView.setText(selectedDog.getFirstMealTime().toString());
         setImageView();
-    }
-
-    private void setSpinnerListener(){
-        breedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                selectedBreed = (Breed) adapterView.getItemAtPosition(position);
-                Log.d(TAG, "onItemSelected: ITEM SELECTED: " + selectedBreed.toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
     }
 
     private void setImageViewClickListener(){
@@ -156,6 +140,25 @@ public class DogInfoInputActivity extends AppCompatActivity{
                 }
             }
         }
+        if(requestCode == SELECT_BREED_REQUEST){
+            if(resultCode == RESULT_OK){
+                //Select the breed
+                this.selectedBreedstring = data.getStringExtra("selectedBreed");
+                breedTextView.setText(this.selectedBreedstring);
+                selectedBreed = breedRepo.getBreedByName(selectedBreedstring);
+            }
+        }
+    }
+
+    private void setBreedClickListener(){
+        breedTextView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view){
+                Intent pickBreedIntent = new Intent(DogInfoInputActivity.this, SelectBreedActivity.class);
+                startActivityForResult(pickBreedIntent, SELECT_BREED_REQUEST);
+            }
+        });
     }
 
     private void setBirthdayClickListener(){
