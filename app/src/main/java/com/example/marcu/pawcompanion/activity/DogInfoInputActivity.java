@@ -13,16 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
+
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
+
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.example.marcu.pawcompanion.adapter.BreedSpinnerAdapter;
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.data.Breed;
 import com.example.marcu.pawcompanion.repository.BreedRepo;
