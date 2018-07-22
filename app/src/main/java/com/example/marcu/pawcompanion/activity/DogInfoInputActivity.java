@@ -92,13 +92,13 @@ public class DogInfoInputActivity extends AppCompatActivity{
     }
 
     private void findViews(){
-        nameEditText = (EditText) findViewById(R.id.callEditText);
+        nameEditText = (EditText) findViewById(R.id.dogNameEditText);
         birthdayTextView = (TextView) findViewById(R.id.birthdayTextView);
         weightEditText = (EditText) findViewById(R.id.weightEditText);
         walkTimeTextView = (TextView) findViewById(R.id.walkTimeTextView);
         mealTimeTextView = (TextView) findViewById(R.id.mealTimeTextView);
         breedTextView = (TextView) findViewById(R.id.breedTextView);
-        saveDogButton = (Button) findViewById(R.id.addCompanionButton);
+        saveDogButton = (Button) findViewById(R.id.saveCompanionButton);
         imageView = (ImageView) findViewById(R.id.imageView);
     }
 
