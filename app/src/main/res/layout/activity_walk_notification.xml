@@ -89,7 +89,6 @@
         android:id="@+id/walkingDurationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="duration: 20 min"
         app:layout_constraintEnd_toEndOf="@+id/walkingDistanceTextView"
         app:layout_constraintStart_toStartOf="@+id/walkingDistanceTextView"
