@@ -37,11 +37,13 @@
     <ListView
         android:id="@+id/dogListView"
         android:layout_width="match_parent"
-        android:layout_height="457dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:choiceMode="singleChoice"
+        android:listSelector="@color/primary_dark"
+        app:layout_constraintBottom_toTopOf="@+id/addDog_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:choiceMode="singleChoice"
-        android:listSelector="@color/primary_dark"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
