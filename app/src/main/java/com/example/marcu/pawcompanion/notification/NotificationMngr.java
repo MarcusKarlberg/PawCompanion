@@ -9,11 +9,9 @@ import android.util.Log;
 
 import com.example.marcu.pawcompanion.data.Dog;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
+
 import java.util.concurrent.TimeUnit;
 import static android.content.Context.ALARM_SERVICE;
 
@@ -96,16 +94,14 @@ public class NotificationMngr {
         alarmManager.cancel(mealPendingIntent);
     }
 
-    private long localTimeToMillis(LocalTime time){
-        LocalDate currentLocalDate = LocalDate.now();
-        LocalDateTime localDateTime = LocalDateTime.of(currentLocalDate, time);
-        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
+    private static long localTimeToMillis(LocalTime time){
+        DateTime dateTime = DateTime.now().withTime(time);
 
         if(time.isBefore(LocalTime.now())){
-            return zonedDateTime.plusDays(1).toInstant().toEpochMilli();
+            return dateTime.plusDays(1).getMillis();
         }
         else{
-            return zonedDateTime.toInstant().toEpochMilli();
+            return dateTime.getMillis();
         }
     }
 }

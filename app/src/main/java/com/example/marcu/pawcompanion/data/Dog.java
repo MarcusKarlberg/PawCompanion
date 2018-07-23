@@ -1,10 +1,13 @@
 package com.example.marcu.pawcompanion.data;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
+import org.joda.time.Period;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.io.Serializable;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -98,7 +101,7 @@ public final class Dog implements Serializable{
     }
 
     public void setBirthDate(String birthDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/uuuu");
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/uuuu");
         this.birthDate = LocalDate.parse(birthDate, formatter);
     }
 
@@ -211,10 +214,10 @@ public final class Dog implements Serializable{
 
     private int getAgeInMonths(LocalDate birthDate){
         LocalDate currentDate = LocalDate.now();
-        long diff = Duration.between(birthDate.atStartOfDay(), currentDate.atStartOfDay()).toMillis();
-        int ageInMonths = (int) (diff/2592000000L);
-
-        return ageInMonths;
+        //long diff =  Duration.between(birthDate.atStartOfDay(), currentDate.atStartOfDay()).toMillis();
+        //int ageInMonths = (int) (diff/2592000000L);
+        //return ageInMonths;
+        return Period.fieldDifference(birthDate, currentDate).getMonths();
     }
 
     public double getWalkingDistancePerDay() {

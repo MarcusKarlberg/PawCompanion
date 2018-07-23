@@ -28,10 +28,11 @@ import com.example.marcu.pawcompanion.repository.BreedRepo;
 import com.example.marcu.pawcompanion.data.Dog;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DogInfoInputActivity extends AppCompatActivity{
@@ -105,8 +106,8 @@ public class DogInfoInputActivity extends AppCompatActivity{
         nameEditText.setText(selectedDog.getName());
         breedTextView.setText(selectedDog.getBreed().getName());
         weightEditText.setText(String.valueOf(selectedDog.getWeight()));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/uuuu");
-        birthdayTextView.setText(selectedDog.getBirthDate().format(formatter));
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/uuuu");
+        birthdayTextView.setText(selectedDog.getBirthDate().toString(formatter));
         walkTimeTextView.setText(selectedDog.getFirstWalkTime().toString());
         mealTimeTextView.setText(selectedDog.getFirstMealTime().toString());
         setImageView();
@@ -168,7 +169,7 @@ public class DogInfoInputActivity extends AppCompatActivity{
                 int year, month, day;
 
                     year = currentDate.getYear();
-                    month = currentDate.getMonthValue();
+                    month = currentDate.getMonthOfYear();
                     day = currentDate.getDayOfMonth();
 
                 DatePickerDialog dialog = new DatePickerDialog(DogInfoInputActivity.this,
