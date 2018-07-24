@@ -1,14 +1,18 @@
 package com.example.marcu.pawcompanion.activity;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +25,7 @@ import android.widget.ImageView;
 
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.data.Breed;
@@ -106,21 +111,41 @@ public class DogInfoInputActivity extends AppCompatActivity{
         nameEditText.setText(selectedDog.getName());
         breedTextView.setText(selectedDog.getBreed().getName());
         weightEditText.setText(String.valueOf(selectedDog.getWeight()));
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/uuuu");
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
         birthdayTextView.setText(selectedDog.getBirthDate().toString(formatter));
         walkTimeTextView.setText(selectedDog.getFirstWalkTime().toString());
         mealTimeTextView.setText(selectedDog.getFirstMealTime().toString());
-        setImageView();
+        setImageView(selectedDog.getImageUriString());
     }
 
     private void setImageViewClickListener(){
         imageView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, ACCESS_PHOTO_LIB);
+
+                if(ActivityCompat.checkSelfPermission(DogInfoInputActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(DogInfoInputActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, ACCESS_PHOTO_LIB);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, ACCESS_PHOTO_LIB);
+                }
+
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
+    {
+        if(requestCode == ACCESS_PHOTO_LIB){
+            //If request is denied array is empty
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, ACCESS_PHOTO_LIB);
+            } else {
+                Toast.makeText(DogInfoInputActivity.this, "Couldn't access photo-library", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
@@ -130,14 +155,7 @@ public class DogInfoInputActivity extends AppCompatActivity{
         if(requestCode == ACCESS_PHOTO_LIB){
             if(resultCode == RESULT_OK){
                 imageUri = data.getData();
-                Bitmap bitmap;
-                try {
-                    bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                    imageView.setImageBitmap(bitmap);
-                }catch (FileNotFoundException e){
-                    //Todo: what's the best practice to handle exceptions in android
-                    Log.d(TAG, "FileNotFoundException");
-                }
+                setImageView(imageUri.toString());
             }
         }
         if(requestCode == SELECT_BREED_REQUEST){
@@ -302,33 +320,39 @@ public class DogInfoInputActivity extends AppCompatActivity{
             return false;
         }
 
-        if(birthdayTextView.getText().toString().equalsIgnoreCase("select date")){
+        if(birthdayTextView.getText().toString().equalsIgnoreCase("set date")){
             return false;
         }
 
-        if(StringUtils.isBlank(weightEditText.getText())){
+        if(StringUtils.isBlank(weightEditText.getText()) || !StringUtils.isNumeric(weightEditText.getText()) || Double.parseDouble(weightEditText.getText().toString()) == 0){
             return false;
         }
 
-        if(walkTimeTextView.getText().toString().equalsIgnoreCase("select time")){
+        if(walkTimeTextView.getText().toString().equalsIgnoreCase("set time")){
             return false;
         }
 
-        if(mealTimeTextView.getText().toString().equalsIgnoreCase("select time")){
+        if(mealTimeTextView.getText().toString().equalsIgnoreCase("set time")){
             return false;
         }
 
         return true;
     }
 
-    private void setImageView(){
-        String imageUriString = selectedDog.getImageUriString();
+    private void setImageView(String imageUriString){
 
         if(imageUriString != null){
             Uri imageUri = Uri.parse(imageUriString);
+
+            //to minimize memory -  outofmemoryerror
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            options.inSampleSize = 2;
             Bitmap bitmap;
+
             try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                //Bitmap bitmap = BitmapFactory.decodeStream(stream, null, options);
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri), null, options);
                 imageView.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
                 //Todo: what's the best practice to handle exceptions in android

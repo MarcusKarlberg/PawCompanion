@@ -22,7 +22,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity{
 //        if(optionalDog.isPresent()){
 //            Dog dog = optionalDog.get();
 
-        Dog dog = findDogByIdLowSdk(updatedDog.getId());
+        Dog dog = findDogById(updatedDog.getId());
 
         if(dog != null){
 
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity{
                 dog.setBreed(updatedDog.getBreed());
             }
             if(!dog.getBirthDate().equals(updatedDog.getBirthDate())){
-                DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/uuuu");
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
                 dog.setBirthDate(updatedDog.getBirthDate().toString(formatter));
             }
             if(dog.getWeight() != updatedDog.getWeight()){
@@ -171,12 +170,7 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private Optional<Dog> findDogById(long id){
-        return dogList.stream().filter(d -> d.getId() == id).findFirst();
-    }
-
-    private Dog findDogByIdLowSdk (long id){
+    private Dog findDogById (long id){
         Dog dog = null;
         for(Dog d: dogList){
             if(d.getId() == id){

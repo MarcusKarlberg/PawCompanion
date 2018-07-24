@@ -101,7 +101,7 @@ public final class Dog implements Serializable{
     }
 
     public void setBirthDate(String birthDate) {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/uuuu");
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
         this.birthDate = LocalDate.parse(birthDate, formatter);
     }
 

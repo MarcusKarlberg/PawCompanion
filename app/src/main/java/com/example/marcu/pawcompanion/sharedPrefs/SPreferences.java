@@ -5,7 +5,10 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.marcu.pawcompanion.data.Dog;
+import com.fatboyindustrial.gsonjodatime.Converters;
+
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -31,7 +34,10 @@ public class SPreferences {
 
     public ArrayList<Dog> load(){
         prefs = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
-        Gson gson = new Gson();
+        //Gson gson = new Gson();
+        final Gson gson = Converters.registerLocalDate(Converters
+                .registerLocalTime(new GsonBuilder())).create();
+
         String json = prefs.getString(DOG_INFO, null);
         //generic arrayList dog
         Type dogListType = new TypeToken<ArrayList<Dog>>() {}.getType();
@@ -44,25 +50,17 @@ public class SPreferences {
 
         Log.d(TAG, "load: SHAREDPREFERENCES LOADED! " + dogData.toString());
         return this.dogData;
-
     }
 
     public void save(ArrayList<Dog> dogList){
         prefs = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson();
+        final Gson gson = Converters.registerLocalDate(Converters
+                .registerLocalTime(new GsonBuilder())).create();
         String dogListJson = gson.toJson(dogList);
         editor.putString(DOG_INFO, dogListJson);
         editor.apply();
 
         Log.d(TAG, "save: SHAREDPREFERENCES SAVED! " + dogList.toString());
-    }
-
-    //Todo: A method to clear specific data needs to be implemented
-    public void clearAllData(){
-        prefs = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.clear();
-        editor.commit();
     }
 }
