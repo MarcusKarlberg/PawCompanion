@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 
 import android.widget.Button;
@@ -33,6 +34,7 @@ import com.example.marcu.pawcompanion.repository.BreedRepo;
 import com.example.marcu.pawcompanion.data.Dog;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -110,11 +112,12 @@ public class DogInfoInputActivity extends AppCompatActivity{
     private void setDogInfo(){
         nameEditText.setText(selectedDog.getName());
         breedTextView.setText(selectedDog.getBreed().getName());
+        selectedBreed = selectedDog.getBreed();
         weightEditText.setText(String.valueOf(selectedDog.getWeight()));
         DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
         birthdayTextView.setText(selectedDog.getBirthDate().toString(formatter));
-        walkTimeTextView.setText(selectedDog.getFirstWalkTime().toString());
-        mealTimeTextView.setText(selectedDog.getFirstMealTime().toString());
+        walkTimeTextView.setText(selectedDog.getFirstWalkTime().toString("hh:mm"));
+        mealTimeTextView.setText(selectedDog.getFirstMealTime().toString("hh:mm"));
         setImageView(selectedDog.getImageUriString());
     }
 
@@ -265,6 +268,7 @@ public class DogInfoInputActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 if(validateDogInput()){
+                    Log.d(TAG, "Validation TRUE");
                     saveDogInfo(view);
                 }
             }
@@ -317,22 +321,27 @@ public class DogInfoInputActivity extends AppCompatActivity{
 
     private boolean validateDogInput(){
         if(StringUtils.isBlank(nameEditText.getText())){
+           showToast("invalid name");
             return false;
         }
 
         if(birthdayTextView.getText().toString().equalsIgnoreCase("set date")){
+            showToast("invalid birthday");
             return false;
         }
 
-        if(StringUtils.isBlank(weightEditText.getText()) || !StringUtils.isNumeric(weightEditText.getText()) || Double.parseDouble(weightEditText.getText().toString()) == 0){
+        if(StringUtils.isBlank(weightEditText.getText()) || NumberUtils.isDigits(weightEditText.getText().toString()) || Double.parseDouble(weightEditText.getText().toString()) == 0){
+            showToast("invalid weight");
             return false;
         }
 
         if(walkTimeTextView.getText().toString().equalsIgnoreCase("set time")){
+            showToast("invalid walktime");
             return false;
         }
 
         if(mealTimeTextView.getText().toString().equalsIgnoreCase("set time")){
+            showToast("invalid mealtime");
             return false;
         }
 
@@ -359,5 +368,10 @@ public class DogInfoInputActivity extends AppCompatActivity{
                 Log.d(TAG, "FileNotFoundException");
             }
         }
+    }
+    private void showToast(String message){
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER_VERTICAL| Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
     }
 }
