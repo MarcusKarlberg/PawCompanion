@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity{
                     //prefs.clearAllData();
                     prefs.save(dogList);
                     dogListView.invalidateViews();
+                    adapter.notifyDataSetChanged();
                 }
             }
         });

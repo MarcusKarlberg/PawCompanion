@@ -3,12 +3,14 @@ package com.example.marcu.pawcompanion.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.repository.BreedRepo;
@@ -94,8 +96,16 @@ public class SelectBreedActivity extends AppCompatActivity {
                     intent.putExtra("selectedBreed", selectedBreed);
                     setResult(RESULT_OK, intent);
                     finish();
+                } else {
+                    showToast("Invalid Breed - Choose a breed");
                 }
             }
         });
+    }
+
+    private void showToast(String message){
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER_VERTICAL| Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
     }
 }

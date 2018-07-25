@@ -325,12 +325,16 @@ public class DogInfoInputActivity extends AppCompatActivity{
             return false;
         }
 
+        if(breedTextView.getText().toString().equalsIgnoreCase("Set Breed")){
+            return false;
+        }
+
         if(birthdayTextView.getText().toString().equalsIgnoreCase("set date")){
             showToast("invalid birthday");
             return false;
         }
 
-        if(StringUtils.isBlank(weightEditText.getText()) || NumberUtils.isDigits(weightEditText.getText().toString()) || Double.parseDouble(weightEditText.getText().toString()) == 0){
+        if(StringUtils.isBlank(weightEditText.getText()) || !weightEditText.getText().toString().matches("^[1-9]\\d*(\\.\\d+)?$") || Double.parseDouble(weightEditText.getText().toString()) == 0){
             showToast("invalid weight");
             return false;
         }

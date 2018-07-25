@@ -22,7 +22,7 @@ public class ResetAlarmsBroadcastReceiver extends BroadcastReceiver {
         Bundle bundle = (intent.getExtras().getBundle("bundle"));
         if(bundle != null){
             dog = (Dog)bundle.getSerializable("dogData");
-            Log.d(TAG, "DOG DATA:" + dog.toString() );
+            Log.d(TAG, "DOG DATA:" + dog.toString());
 
             notificationManager.deleteNotifications(dog);
             notificationManager.setWalkNotification(dog);
