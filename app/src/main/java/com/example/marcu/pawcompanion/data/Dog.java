@@ -1,7 +1,10 @@
 package com.example.marcu.pawcompanion.data;
 
+import android.util.Log;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+import org.joda.time.Months;
 import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -16,6 +19,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public final class Dog implements Serializable{
 
+    private static final String TAG = "Dog";
     private static final AtomicLong atomicCounter = new AtomicLong(0);
     private Long id;
     private String name;
@@ -144,7 +148,7 @@ public final class Dog implements Serializable{
     public void setIntervalWalkTime(int activityLevel){
         /*Two months old puppy can hold his bladder for up to 3 hours.
         Time increases an hour per month of age.
-        6 months of age he will be able to hold his bladder for 7-8 hours (a work day).
+        6 months of age he will be able to hold his bladder for 7-8 hours.
         No dog of any age should be made to wait longer than 8 hours!*/
 
         int ageInMonths = getAgeInMonths(this.birthDate);
@@ -214,10 +218,9 @@ public final class Dog implements Serializable{
 
     private int getAgeInMonths(LocalDate birthDate){
         LocalDate currentDate = LocalDate.now();
-        //long diff =  Duration.between(birthDate.atStartOfDay(), currentDate.atStartOfDay()).toMillis();
-        //int ageInMonths = (int) (diff/2592000000L);
-        //return ageInMonths;
-        return Period.fieldDifference(birthDate, currentDate).getMonths();
+        return Months.monthsBetween(birthDate.withDayOfMonth(this.birthDate.getDayOfMonth()),
+                currentDate.withDayOfMonth(currentDate.getDayOfMonth())).getMonths()+1;
+
     }
 
     public double getWalkingDistancePerDay() {

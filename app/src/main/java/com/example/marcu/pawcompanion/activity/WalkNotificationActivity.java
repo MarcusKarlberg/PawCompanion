@@ -123,7 +123,8 @@ public class WalkNotificationActivity extends AppCompatActivity {
                 break;
             default: numberOfWalksPerDay = 3;
         }
-        return (int) Math.round(durationPerDay/numberOfWalksPerDay);
+
+        return (int) Math.round(Math.abs(durationPerDay/numberOfWalksPerDay));
     }
 
     @SuppressLint("LongLogTag")
