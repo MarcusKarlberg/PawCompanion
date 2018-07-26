@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.notification.NotificationMngr;
@@ -86,7 +88,7 @@ public class WalkNotificationActivity extends AppCompatActivity {
     private void setDogInfo(){
         if (dog != null) {
             dogNameTextView.setText(dog.getName());
-            setImageView();
+            setImageView(dog.getImageUriString());
             walkingDistanceTextView.setText(String.format("Distance %.1f km", getDistancePerWalk(dog.getWalkingDistancePerDay())));
             walkingDurationTextView.setText(String.format("Duration: %d min", getDurationPerWalk(dog.getWalkingDurationPerDay())));
         }
@@ -128,18 +130,27 @@ public class WalkNotificationActivity extends AppCompatActivity {
     }
 
     @SuppressLint("LongLogTag")
-    private void setImageView(){
-        String imageUriString = dog.getImageUriString();
+    private void setImageView(String imageUriString){
 
         if(imageUriString != null){
             Uri imageUri = Uri.parse(imageUriString);
+
+            //to minimize memory -  outofmemoryerror
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            options.inSampleSize = 2;
             Bitmap bitmap;
+
             try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                //Bitmap bitmap = BitmapFactory.decodeStream(stream, null, options);
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri), null, options);
                 imageView.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
                 //Todo: what's the best practice to handle exceptions in android
                 Log.d(TAG, "FileNotFoundException");
+            } catch (SecurityException s){
+                Toast.makeText(getApplicationContext(), "Permission denied: Photo Library", Toast.LENGTH_SHORT);
+                s.printStackTrace();
             }
         }
     }
