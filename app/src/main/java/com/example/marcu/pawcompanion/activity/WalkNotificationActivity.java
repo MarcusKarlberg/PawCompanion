@@ -1,5 +1,6 @@
 package com.example.marcu.pawcompanion.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -14,8 +15,9 @@ import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.notification.NotificationMngr;
 
+import org.joda.time.LocalTime;
+
 import java.io.FileNotFoundException;
-import java.time.LocalTime;
 
 public class WalkNotificationActivity extends AppCompatActivity {
 
@@ -29,6 +31,7 @@ public class WalkNotificationActivity extends AppCompatActivity {
     private Button remindAgainButton;
     private Dog dog;
 
+    @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +66,7 @@ public class WalkNotificationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 NotificationMngr notificationMngr = new NotificationMngr(getApplicationContext());
                 LocalTime firstWalkTime = dog.getFirstMealTime();
-                dog.setFirstWalkTime(LocalTime.now().plusMinutes(10L).toString());
+                dog.setFirstWalkTime(LocalTime.now().plusMinutes(10).toString());
                 notificationMngr.setWalkNotification(dog);
                 dog.setFirstWalkTime(firstWalkTime.toString());
                 finish();
@@ -120,9 +123,11 @@ public class WalkNotificationActivity extends AppCompatActivity {
                 break;
             default: numberOfWalksPerDay = 3;
         }
-        return (int) Math.round(durationPerDay/numberOfWalksPerDay);
+
+        return (int) Math.round(Math.abs(durationPerDay/numberOfWalksPerDay));
     }
 
+    @SuppressLint("LongLogTag")
     private void setImageView(){
         String imageUriString = dog.getImageUriString();
 

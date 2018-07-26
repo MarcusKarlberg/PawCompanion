@@ -1,6 +1,8 @@
 package com.example.marcu.pawcompanion.activity;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,9 +18,10 @@ import com.example.marcu.pawcompanion.repository.DogRepo;
 import com.example.marcu.pawcompanion.notification.NotificationMngr;
 import com.example.marcu.pawcompanion.sharedPrefs.SPreferences;
 
-import java.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
-import java.util.Optional;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -110,15 +113,20 @@ public class MainActivity extends AppCompatActivity{
                     //prefs.clearAllData();
                     prefs.save(dogList);
                     dogListView.invalidateViews();
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
     }
 
     private void updateDog(Dog updatedDog){
-        Optional<Dog> optionalDog = findDogById(updatedDog.getId());
-        if(optionalDog.isPresent()){
-            Dog dog = optionalDog.get();
+        //Optional<Dog> optionalDog = findDogById(updatedDog.getId());
+//        if(optionalDog.isPresent()){
+//            Dog dog = optionalDog.get();
+
+        Dog dog = findDogById(updatedDog.getId());
+
+        if(dog != null){
 
             if(!dog.getName().equalsIgnoreCase(updatedDog.getName())){
                 dog.setName(updatedDog.getName());
@@ -127,8 +135,8 @@ public class MainActivity extends AppCompatActivity{
                 dog.setBreed(updatedDog.getBreed());
             }
             if(!dog.getBirthDate().equals(updatedDog.getBirthDate())){
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/uuuu");
-                dog.setBirthDate(updatedDog.getBirthDate().format(formatter));
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+                dog.setBirthDate(updatedDog.getBirthDate().toString(formatter));
             }
             if(dog.getWeight() != updatedDog.getWeight()){
                 dog.setWeight(updatedDog.getWeight());
@@ -163,9 +171,17 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    private Optional<Dog> findDogById(long id){
-        return dogList.stream().filter(d -> d.getId() == id).findFirst();
+    private Dog findDogById (long id){
+        Dog dog = null;
+        for(Dog d: dogList){
+            if(d.getId() == id){
+                dog =  d;
+            }
+        }
+
+        return dog;
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

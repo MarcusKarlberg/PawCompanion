@@ -62,10 +62,17 @@ public class DogListArrayAdapter extends ArrayAdapter {
 
         if(imageUriString != null){
             Uri imageUri = Uri.parse(imageUriString);
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            options.inSampleSize = 2;
             Bitmap bitmap;
+
             try {
-                bitmap = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(imageUri));
+                //Bitmap bitmap = BitmapFactory.decodeStream(stream, null, options);
+                bitmap = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(imageUri), null, options);
                 dogPhoto.setImageBitmap(bitmap);
+
             }catch (FileNotFoundException e){
                 //Todo: what's the best practice to handle exceptions in android
                 Log.d(TAG, "FileNotFoundException");

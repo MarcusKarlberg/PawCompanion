@@ -1,5 +1,6 @@
 package com.example.marcu.pawcompanion.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -13,9 +14,8 @@ import android.widget.TextView;
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.notification.NotificationMngr;
-
+import org.joda.time.LocalTime;
 import java.io.FileNotFoundException;
-import java.time.LocalTime;
 
 public class MealNotificationActivity extends AppCompatActivity {
 
@@ -27,6 +27,7 @@ public class MealNotificationActivity extends AppCompatActivity {
     Button remindAgainButton;
     Dog dog;
 
+    @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +77,7 @@ public class MealNotificationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 NotificationMngr notificationMngr = new NotificationMngr(getApplicationContext());
                 LocalTime firstMealTime = dog.getFirstMealTime();
-                dog.setFirstMealTime(LocalTime.now().plusMinutes(10L).toString());
+                dog.setFirstMealTime(LocalTime.now().plusMinutes(10).toString());
                 notificationMngr.setMealNotification(dog);
                 dog.setFirstMealTime(firstMealTime.toString());
                 finish();
@@ -84,6 +85,7 @@ public class MealNotificationActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("LongLogTag")
     private void setImageView(){
         String imageUriString = dog.getImageUriString();
 
