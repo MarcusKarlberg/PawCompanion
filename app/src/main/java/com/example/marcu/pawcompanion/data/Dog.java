@@ -36,9 +36,7 @@ public final class Dog implements Serializable{
     private double walkingDistancePerDay;
     //In minutes
     private double walkingDurationPerDay;
-
-    //In minutes
-    private int intervalMealTime = 10;
+    private int intervalMealTime;
     private int intervalWalkTime;
 
     public Dog(String name, Breed breed, String birthDate, double weight, String firstMealTime, String firstWalkTime) {
