@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+import org.joda.time.Minutes;
 import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -46,13 +47,13 @@ public final class Dog implements Serializable{
         this.breed = breed;
         this.weight = weight;
 
+        setFirstMealTime(firstMealTime);
+        setFirstWalkTime(firstWalkTime);
         setBirthDate(birthDate);
         setWalkingDurationPerDay(breed.getActivityLevel());
         setWalkingDistancePerDay(breed.getActivityLevel());
         setIntervalMealTime();
         setIntervalWalkTime(breed.getActivityLevel());
-        setFirstMealTime(firstMealTime);
-        setFirstWalkTime(firstWalkTime);
     }
 
     public String getImageUriString() {
@@ -137,11 +138,24 @@ public final class Dog implements Serializable{
     public void setIntervalMealTime(){
         int ageInMonths = getAgeInMonths(this.birthDate);
 
-//        if(ageInMonths > 6){
-//            this.intervalMealTime = 2;
-//        }else{
-//            this.intervalMealTime = 3;
-//        }
+        LocalTime latestMealTime = this.firstWalkTime.minusHours(10);
+        Log.d(TAG, "latestMealTime: " + latestMealTime);
+
+        if(ageInMonths <= 2){
+            intervalMealTime = 240;
+        }
+        else if(ageInMonths > 2 && ageInMonths <= 4){
+            intervalMealTime = 360;
+        }
+        else {
+            LocalTime nextMealTime = firstMealTime.plusHours(12);
+
+            if(nextMealTime.isAfter(latestMealTime)){
+                nextMealTime = latestMealTime;
+            }
+
+            intervalMealTime = Minutes.minutesBetween(firstMealTime, nextMealTime).getMinutes();
+        }
     }
 
     public void setIntervalWalkTime(int activityLevel){
@@ -248,6 +262,11 @@ public final class Dog implements Serializable{
                 ", weight=" + weight +
                 ", firstMealTime=" + firstMealTime +
                 ", firstWalkTime=" + firstWalkTime +
+                ", imageUriString='" + imageUriString + '\'' +
+                ", walkingDistancePerDay=" + walkingDistancePerDay +
+                ", walkingDurationPerDay=" + walkingDurationPerDay +
+                ", intervalMealTime=" + intervalMealTime +
+                ", intervalWalkTime=" + intervalWalkTime +
                 '}';
     }
 }
