@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Walk me!"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -24,13 +24,10 @@
         android:id="@+id/dogNameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="dogName"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/callEditText" />
@@ -55,42 +52,41 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:text="Remind me again"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/okButton"
+        app:layout_constraintStart_toStartOf="@+id/okButton" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/okButton"
+        app:layout_constraintBottom_toTopOf="@+id/walkingDistanceTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/callEditText"
+        app:layout_constraintTop_toBottomOf="@+id/dogNameEditText"
         app:srcCompat="@drawable/placeholder" />
 
     <TextView
         android:id="@+id/walkingDistanceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="distance: 2.5 km"
+        app:layout_constraintBottom_toTopOf="@+id/walkingDurationTextView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/walkingDurationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="duration: 20 min"
+        app:layout_constraintBottom_toTopOf="@+id/okButton"
         app:layout_constraintEnd_toEndOf="@+id/walkingDistanceTextView"
-        app:layout_constraintStart_toStartOf="@+id/walkingDistanceTextView"
-        app:layout_constraintTop_toBottomOf="@+id/walkingDistanceTextView" />
+        app:layout_constraintStart_toStartOf="@+id/walkingDistanceTextView" />
 </android.support.constraint.ConstraintLayout>
