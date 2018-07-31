@@ -10,11 +10,11 @@ import java.util.*;
  */
 
 public final class BreedRepo {
-    private ArrayList<Breed> breeds = new ArrayList<>();
 
-    // Todo: assign a 5 level system for activity level and size level.
-    //Todo: add search bar
+    private List<Breed> breeds = new LinkedList<>();
+    private List<Breed> filteredBreeds = new LinkedList<>();
 
+    // Todo: Add all breeds and assign a 5 level system for activity level and size level.
     public BreedRepo() {
         breeds.add(new Breed(0,"Australian Sheperds",0 ,0 ));
         breeds.add(new Breed(1,"Beagle",0 ,0 ));
@@ -49,8 +49,12 @@ public final class BreedRepo {
         breeds.add(new Breed(30,"Yorkshire Terrier",0 ,0 ));
     }
 
-    public ArrayList<Breed> getAllBreeds(){
-        return this.breeds;
+    public List<Breed> getAllBreeds(){
+        return this.filteredBreeds;
+    }
+
+    public void setAll(List<Breed> breeds) {
+        this.filteredBreeds = breeds;
     }
 
     public Breed getBreedByName(String name){
@@ -72,4 +76,26 @@ public final class BreedRepo {
 
         return names;
     }
+    public Breed getByIndex(int index){
+        return breeds.get(index);
+    }
+
+    public Breed get(int id){
+        return filteredBreeds.get(id);
+    }
+
+    public int getIndexOf(int position) {
+        return this.breeds.indexOf(this.filteredBreeds.get(position));
+    }
+
+    public void update(int id, Breed breed) {
+        this.breeds.set(id, breed);
+        this.filteredBreeds = this.breeds;
+    }
+
+    public List<Breed> resetFilteredList() {
+        this.filteredBreeds = this.breeds;
+        return this.getAllBreeds();
+    }
+
 }

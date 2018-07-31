@@ -31,6 +31,7 @@ public final class Dog implements Serializable{
     private LocalTime firstMealTime;
     private LocalTime firstWalkTime;
     private String imageUriString;
+    private boolean isSelected;
 
     //In kilometers
     private double walkingDistancePerDay;
@@ -52,6 +53,15 @@ public final class Dog implements Serializable{
         setWalkingDistancePerDay(breed.getActivityLevel());
         setIntervalMealTime();
         setIntervalWalkTime(breed.getActivityLevel());
+    }
+
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public String getImageUriString() {

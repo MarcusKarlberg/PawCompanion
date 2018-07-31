@@ -1,0 +1,24 @@
+package com.example.marcu.pawcompanion.controller.constant;
+
+public enum Action {
+    ADD_DOG,
+    REMOVE_DOG,
+    UPDATE_DOG,
+    UPDATE_BREED,
+    TOGGLE_DOG_SELECT,
+    TOGGLE_BREED_SELECT,
+    OPEN_DOG_INFO_ADD_VIEW,
+    OPEN_DOG_INFO_UPDATE_VIEW,
+    OPEN_SELECT_BREED_VIEW,
+    REFRESH_MAIN_VIEW,
+    REFRESH_DOG_INPUT_VIEW,
+    REFRESH_SELECT_BREED_VIEW,
+    SET_BIRTHDAY,
+    SET_DATE,
+    SET_WALK_TIME,
+    SET_MEAL_TIME,
+    SET_NAME,
+    SET_WEIGHT,
+    SET_BREED,
+    FINISH_SELECT_BREED_VIEW
+}

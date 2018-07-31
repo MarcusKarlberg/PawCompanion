@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <com.example.marcu.pawcompanion.component.ButtonComponent
         android:id="@+id/saveCompanionButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <com.example.marcu.pawcompanion.component.EditTextComponent
                     android:id="@+id/dogNameEditText"
                     android:maxLines="1"
                     android:inputType="text"
@@ -86,7 +86,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <com.example.marcu.pawcompanion.component.TextViewComponent
                     android:id="@+id/breedTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.example.marcu.pawcompanion.component.TextViewComponent
                     android:id="@+id/birthdayTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <com.example.marcu.pawcompanion.component.EditTextComponent
                     android:id="@+id/weightEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.example.marcu.pawcompanion.component.TextViewComponent
                     android:id="@+id/walkTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -227,7 +227,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.example.marcu.pawcompanion.component.TextViewComponent
                     android:id="@+id/mealTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
