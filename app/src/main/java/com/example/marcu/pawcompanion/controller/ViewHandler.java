@@ -13,6 +13,8 @@ import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Breed;
 import com.example.marcu.pawcompanion.data.Dog;
 
+import org.apache.commons.lang3.StringUtils;
+
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
@@ -64,10 +66,6 @@ public class ViewHandler extends Handler implements ActionHandlerContract.Action
                 Intent intentAdd = new Intent(getMainActivity(), DogInfoInputActivity.class);
                 getMainActivity().startActivityForResult(intentAdd, MainActivity.ADD_DOG_REQUEST);
             break;
-//
-//            case REFRESH_DOG_INPUT_VIEW:
-//
-//            break;
 
             case OPEN_SELECT_BREED_VIEW:
                 Log.d(TAG, "updateView: set breed tex pressed");
@@ -80,17 +78,26 @@ public class ViewHandler extends Handler implements ActionHandlerContract.Action
             break;
 
             case FINISH_SELECT_BREED_VIEW:
-               if(validate(getBreedListComponent().getSelectedBreed())){
+               if(validateSelectedBreed(getBreedListComponent().getSelectedBreed())){
                    Intent intent = new Intent();
                    intent.putExtra("breed", getBreedListComponent().getSelectedBreed());
                    getSelectBreedActivity().setResult(RESULT_OK, intent);
                    getSelectBreedActivity().finish();
                }
             break;
+
+            case FINISH_DOG_INFO_INPUT_VIEW:
+                if(validateDogInput()){
+//                    Intent intent = new Intent();
+//                    intent.putExtra("dog", dog);
+//                    getSelectBreedActivity().setResult(RESULT_OK, intent);
+                    getDogInfoInputActivity().finish();
+                }
+            break;
         }
     }
 
-    private boolean validate(Breed breed){
+    private boolean validateSelectedBreed(Breed breed){
         if(breed != null){
             return true;
         } else {
@@ -99,8 +106,42 @@ public class ViewHandler extends Handler implements ActionHandlerContract.Action
         }
     }
 
+    private boolean validateDogInput(){
+        if(StringUtils.isBlank(getDogInfoInputActivity().getNameEditText())){
+            showToast("invalid name");
+            return false;
+        }
+
+        if(getDogInfoInputActivity().getSelectedBreed() == null){
+            return false;
+        }
+
+        if(getDogInfoInputActivity().getBirthDayText().equalsIgnoreCase("set date")){
+            showToast("invalid birthday");
+            return false;
+        }
+
+        String weight = getDogInfoInputActivity().getWeighText();
+        if(StringUtils.isBlank(weight) || !weight.matches("^[1-9]\\d*(\\.\\d+)?$") || Double.parseDouble(weight) == 0){
+            showToast("invalid weight");
+            return false;
+        }
+
+        if(getDogInfoInputActivity().getWalkTimeText().equalsIgnoreCase("set time")){
+            showToast("invalid walktime");
+            return false;
+        }
+
+        if(getDogInfoInputActivity().getMealTimeText().equalsIgnoreCase("set time")){
+            showToast("invalid mealtime");
+            return false;
+        }
+
+        return true;
+    }
+
     private void showToast(String message){
-        Toast toast = Toast.makeText(getSelectBreedActivity().getBaseContext(), message, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getDogInfoInputActivity().getBaseContext(), message, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER_VERTICAL| Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
     }

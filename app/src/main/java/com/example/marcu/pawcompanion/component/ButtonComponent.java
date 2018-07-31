@@ -32,6 +32,10 @@ public class ButtonComponent extends AppCompatButton{
             break;
             case SELECT:
                 this.setOnClickListener(onClickSelectBreed());
+            break;
+            case SAVE:
+                this.setOnClickListener(onClickSaveDog());
+            break;
         }
     }
 
@@ -50,6 +54,12 @@ public class ButtonComponent extends AppCompatButton{
     OnClickListener onClickSelectBreed(){
         return view -> {
             rootActionHandler.invokeAction(HandlerType.VIEW, Action.FINISH_SELECT_BREED_VIEW);
+        };
+    }
+
+    OnClickListener onClickSaveDog(){
+        return view -> {
+            rootActionHandler.invokeAction(HandlerType.VIEW, Action.FINISH_DOG_INFO_INPUT_VIEW);
         };
     }
 

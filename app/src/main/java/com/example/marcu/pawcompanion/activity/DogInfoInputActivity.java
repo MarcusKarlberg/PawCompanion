@@ -108,6 +108,34 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         birthdayTextView.setText(birthday);
     }
 
+    public void setWalkTimeTextView(String time){
+        walkTimeTextView.setText(time);
+    }
+
+    public void setMealTimeTextView(String time){
+        mealTimeTextView.setText(time);
+    }
+
+    public String getBirthDayText(){
+        return birthdayTextView.getText().toString();
+    }
+
+    public String getWalkTimeText(){
+        return walkTimeTextView.getText().toString();
+    }
+
+    public String getMealTimeText(){
+        return mealTimeTextView.getText().toString();
+    }
+
+    public String getWeighText(){
+        return weightEditText.getText().toString();
+    }
+
+    public String getNameEditText(){
+        return nameEditText.getText().toString();
+    }
+
     public Breed getSelectedBreed(){
         return this.selectedBreed;
     }
@@ -218,98 +246,6 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
 //        });
 //    }
 
-//    private void setBirthdayClickListener(){
-//        birthdayTextView.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//
-//                int year, month, day;
-//
-//                    year = currentDate.getYear();
-//                    month = currentDate.getMonthOfYear();
-//                    day = currentDate.getDayOfMonth();
-//
-//                DatePickerDialog dialog = new DatePickerDialog(DogInfoInputActivity.this,
-//                        android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-//                        birthdayDateSetListener,
-//                        year, month, day);
-//
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                dialog.show();
-//            }
-//        });
-//    }
-
-//    private void setBirthdatDateListener(){
-//        birthdayDateSetListener = new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-//                month += 1;
-//                String date = String.format("%02d", month) + "/" + String.format("%02d", day) + "/" + year;
-//                birthdayTextView.setText(date);
-//            }
-//        };
-//    }
-
-//    private void setWalkTimeClickListener(){
-//        walkTimeTextView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                TimePickerDialog dialog = new TimePickerDialog(DogInfoInputActivity.this,
-//                        android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-//                        walkTimeSetListener, 7,0, true);
-//
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                dialog.show();
-//            }
-//        });
-//    }
-
-//    private void setWalkTimeListener(){
-//        walkTimeSetListener = (new TimePickerDialog.OnTimeSetListener() {
-//            @Override
-//            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-//                String time = String.format("%02d", hour) + ":" + String.format("%02d", minute);
-//                walkTimeTextView.setText(time);
-//            }
-//        });
-//    }
-
-//    private void setMealTimeClickListener(){
-//        mealTimeTextView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                TimePickerDialog dialog = new TimePickerDialog(DogInfoInputActivity.this,
-//                        android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-//                        mealTimeSetListener, 7,0, true);
-//
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                dialog.show();
-//            }
-//        });
-//    }
-
-//    private void setmealTimeListener(){
-//        mealTimeSetListener = (new TimePickerDialog.OnTimeSetListener() {
-//            @Override
-//            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-//                String time = String.format("%02d", hour) + ":" + String.format("%02d", minute);
-//                mealTimeTextView.setText(time);
-//            }
-//        });
-//    }
-
-//    private void setAddNewCompanionButtonClickListener(){
-//        saveDogButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(validateDogInput()){
-//                    Log.d(TAG, "Validation TRUE");
-//                    saveDogInfo(view);
-//                }
-//            }
-//        });
-//    }
 
 //    private void saveDogInfo(View view) {
 //            Log.d(TAG, "DogInfoInputActivity:SAVE BUTTON PRESSED");

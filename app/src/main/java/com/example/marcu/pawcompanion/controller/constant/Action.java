@@ -1,6 +1,7 @@
 package com.example.marcu.pawcompanion.controller.constant;
 
 public enum Action {
+    CREATE_DOG,
     ADD_DOG,
     REMOVE_DOG,
     UPDATE_DOG,
@@ -20,5 +21,6 @@ public enum Action {
     SET_NAME,
     SET_WEIGHT,
     SET_BREED,
-    FINISH_SELECT_BREED_VIEW
+    FINISH_SELECT_BREED_VIEW,
+    FINISH_DOG_INFO_INPUT_VIEW
 }
