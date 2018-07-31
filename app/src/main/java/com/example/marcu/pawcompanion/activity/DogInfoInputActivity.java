@@ -3,8 +3,10 @@ package com.example.marcu.pawcompanion.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.marcu.pawcompanion.R;
+import com.example.marcu.pawcompanion.component.BreedListComponent;
 import com.example.marcu.pawcompanion.component.ButtonComponent;
 import com.example.marcu.pawcompanion.component.EditTextComponent;
 import com.example.marcu.pawcompanion.component.TextViewComponent;
@@ -14,6 +16,7 @@ import com.example.marcu.pawcompanion.controller.MainActivityHandler;
 import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
+import com.example.marcu.pawcompanion.data.Breed;
 
 public class DogInfoInputActivity extends AppCompatActivity implements ActionHandlerContract.RootActionHandler{
     private static final String TAG = "DogInfoInputActivity";
@@ -24,7 +27,7 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
     private ButtonComponent saveDogButton;
     private TextViewComponent breedTextView, birthdayTextView, walkTimeTextView, mealTimeTextView;
     private EditTextComponent nameEditText, weightEditText;
-
+    private Breed selectedBreed;
 
 //    private DatePickerDialog.OnDateSetListener birthdayDateSetListener;
 //    private TimePickerDialog.OnTimeSetListener walkTimeSetListener, mealTimeSetListener;
@@ -96,6 +99,19 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         this.actionHandler = handler;
     }
 
+    public void setBreedText(String breedName){
+        Log.d(TAG, "setBreedText: " + breedName);
+        breedTextView.setText(breedName);
+    }
+
+    public void setBirthdayTextView(String birthday){
+        birthdayTextView.setText(birthday);
+    }
+
+    public Breed getSelectedBreed(){
+        return this.selectedBreed;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         super.onActivityResult(requestCode, resultCode, intent);
@@ -103,11 +119,12 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         if(resultCode == RESULT_OK){
             switch (requestCode){
                 case SELECT_BREED_REQUEST:
+                    this.selectedBreed = (Breed) intent.getSerializableExtra("breed");
                     invokeAction(HandlerType.MODEL, Action.SET_BREED);
                 break;
-//                case ACCESS_PHOTO_LIB:
-//                    invokeAction(HandlerType.MODEL, Action.SET_PHOTO);
-//                break;
+                case ACCESS_PHOTO_LIB:
+                    //invokeAction(HandlerType.MODEL, Action.SET_PHOTO);
+                break;
             }
         }
 

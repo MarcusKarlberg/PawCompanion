@@ -52,6 +52,7 @@ public abstract class Handler {
     DogListComponent getDogListComponent(){
         return getMainActivity().getListComponent();
     }
+
     BreedListComponent getBreedListComponent(){
         return getSelectBreedActivity().getBreedListComponent();
     }
