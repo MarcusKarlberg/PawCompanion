@@ -6,17 +6,17 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.marcu.pawcompanion.R;
-import com.example.marcu.pawcompanion.component.BreedListComponent;
 import com.example.marcu.pawcompanion.component.ButtonComponent;
 import com.example.marcu.pawcompanion.component.EditTextComponent;
 import com.example.marcu.pawcompanion.component.TextViewComponent;
 import com.example.marcu.pawcompanion.controller.ActionHandlerContract;
 import com.example.marcu.pawcompanion.controller.DogInfoInputHandler;
-import com.example.marcu.pawcompanion.controller.MainActivityHandler;
+import com.example.marcu.pawcompanion.controller.ValidateInputHandler;
 import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Breed;
+import com.example.marcu.pawcompanion.data.Dog;
 
 public class DogInfoInputActivity extends AppCompatActivity implements ActionHandlerContract.RootActionHandler{
     private static final String TAG = "DogInfoInputActivity";
@@ -28,6 +28,7 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
     private TextViewComponent breedTextView, birthdayTextView, walkTimeTextView, mealTimeTextView;
     private EditTextComponent nameEditText, weightEditText;
     private Breed selectedBreed;
+    private Dog dog;
 
 //    private DatePickerDialog.OnDateSetListener birthdayDateSetListener;
 //    private TimePickerDialog.OnTimeSetListener walkTimeSetListener, mealTimeSetListener;
@@ -50,6 +51,14 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
 //        if(selectedDog != null){
 //            setDogInfo();
 //        }
+    }
+
+    public Dog getDog() {
+        return dog;
+    }
+
+    public void setDog(Dog dog) {
+        this.dog = dog;
     }
 
     private void findViews(){
@@ -80,8 +89,10 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
     private void setHandlers(){
         ActionHandlerContract.ActionHandler dogInfoInputHandler = new DogInfoInputHandler(this);
         ActionHandlerContract.ActionHandler viewHandler = new ViewHandler(this);
+        ActionHandlerContract.ActionHandler userInputHandler = new ValidateInputHandler(this);
 
         viewHandler.setNextHandler(dogInfoInputHandler);
+        dogInfoInputHandler.setNextHandler(userInputHandler);
         setActionHandler(viewHandler);
     }
 
@@ -147,6 +158,7 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         if(resultCode == RESULT_OK){
             switch (requestCode){
                 case SELECT_BREED_REQUEST:
+                    Log.d(TAG, "onActivityResult: RESULT OK");
                     this.selectedBreed = (Breed) intent.getSerializableExtra("breed");
                     invokeAction(HandlerType.MODEL, Action.SET_BREED);
                 break;
@@ -155,7 +167,6 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
                 break;
             }
         }
-
     }
 
 //    private void setDogInfo(){
@@ -235,16 +246,7 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
 //        }
 //    }
 
-//    private void setBreedClickListener(){
-//        breedTextView.setOnClickListener(new View.OnClickListener(){
-//
-//            @Override
-//            public void onClick(View view){
-//                Intent pickBreedIntent = new Intent(DogInfoInputActivity.this, SelectBreedActivity.class);
-//                startActivityForResult(pickBreedIntent, SELECT_BREED_REQUEST);
-//            }
-//        });
-//    }
+
 
 
 //    private void saveDogInfo(View view) {
@@ -291,38 +293,6 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
 //        }
 //    }
 
-//    private boolean validateDogInput(){
-//        if(StringUtils.isBlank(nameEditText.getText())){
-//           showToast("invalid name");
-//            return false;
-//        }
-//
-//        if(breedTextView.getText().toString().equalsIgnoreCase("Set Breed")){
-//            return false;
-//        }
-//
-//        if(birthdayTextView.getText().toString().equalsIgnoreCase("set date")){
-//            showToast("invalid birthday");
-//            return false;
-//        }
-//
-//        if(StringUtils.isBlank(weightEditText.getText()) || !weightEditText.getText().toString().matches("^[1-9]\\d*(\\.\\d+)?$") || Double.parseDouble(weightEditText.getText().toString()) == 0){
-//            showToast("invalid weight");
-//            return false;
-//        }
-//
-//        if(walkTimeTextView.getText().toString().equalsIgnoreCase("set time")){
-//            showToast("invalid walktime");
-//            return false;
-//        }
-//
-//        if(mealTimeTextView.getText().toString().equalsIgnoreCase("set time")){
-//            showToast("invalid mealtime");
-//            return false;
-//        }
-//
-//        return true;
-//    }
 
 //    private void setImageView(String imageUriString){
 //

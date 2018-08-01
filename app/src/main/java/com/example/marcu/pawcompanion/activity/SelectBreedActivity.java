@@ -9,8 +9,8 @@ import com.example.marcu.pawcompanion.adapter.BreedListAdapter;
 import com.example.marcu.pawcompanion.component.BreedListComponent;
 import com.example.marcu.pawcompanion.component.ButtonComponent;
 import com.example.marcu.pawcompanion.controller.ActionHandlerContract;
-import com.example.marcu.pawcompanion.controller.MainActivityHandler;
 import com.example.marcu.pawcompanion.controller.SelectBreedHandler;
+import com.example.marcu.pawcompanion.controller.ValidateInputHandler;
 import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
@@ -34,7 +34,10 @@ public class SelectBreedActivity extends AppCompatActivity implements ActionHand
     private void setHandlers(){
         ActionHandlerContract.ActionHandler viewHandler = new ViewHandler(this);
         ActionHandlerContract.ActionHandler selectBreedHandler = new SelectBreedHandler(this);
+        ActionHandlerContract.ActionHandler userInputHandler = new ValidateInputHandler(this);
+
         viewHandler.setNextHandler(selectBreedHandler);
+        selectBreedHandler.setNextHandler(userInputHandler);
         setActionHandler(viewHandler);
     }
 

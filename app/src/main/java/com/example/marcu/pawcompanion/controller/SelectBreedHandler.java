@@ -7,8 +7,6 @@ import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Breed;
 
-import static android.content.ContentValues.TAG;
-
 public class SelectBreedHandler extends Handler implements ActionHandlerContract.ActionHandler {
 
     public ActionHandlerContract.ActionHandler nextHandler;
@@ -34,16 +32,13 @@ public class SelectBreedHandler extends Handler implements ActionHandlerContract
     private void updateModel(Action action){
         Breed breed = getBreedListComponent().getSelectedBreed();
 
-            switch (action){
-                case UPDATE_BREED:
-                    int breedPosition = getBreedListComponent().getSelectedPosition();
-                    breedPosition = getBreedRepo().getIndexOf(breedPosition);
-                    getBreedRepo().update(breedPosition, breed);
-                break;
-                case TOGGLE_BREED_SELECT:
-                    Log.d(TAG, "updateModel: you selected: " + breed.getName());
-                    getSelectBreedActivity().setSearchViewText(breed.getName());
-                break;
+        switch (action){
+            case TOGGLE_BREED_SELECT:
+                int breedPosition = getBreedListComponent().getSelectedPosition();
+                breedPosition = getBreedRepo().getIndexOf(breedPosition);
+                getBreedRepo().update(breedPosition, breed);
+                getSelectBreedActivity().setSearchViewText(breed.getName());
+            break;
         }
 
         getSelectBreedRootActionHandler().invokeAction(HandlerType.VIEW, Action.REFRESH_SELECT_BREED_VIEW);

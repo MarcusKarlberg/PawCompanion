@@ -3,6 +3,7 @@ package com.example.marcu.pawcompanion.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.marcu.pawcompanion.adapter.DogListAdapter;
 import com.example.marcu.pawcompanion.R;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
         if(resultCode == RESULT_OK){
             Dog dog = (Dog) intent.getSerializableExtra("dog");
             int position = intent.getIntExtra("dogPosition", -1);
-
+            Log.d(TAG, "onActivityResult: " + dog);
             getListComponent().setSelectedDog(dog);
             getListComponent().setSelectedPosition(position);
 
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
                     invokeAction(HandlerType.VIEW, Action.UPDATE_DOG);
                 break;
             }
+        } else {
+            Log.d(TAG, "onActivityResult: FAIL RESULT NOT OK");
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.marcu.pawcompanion.controller;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
@@ -12,9 +13,11 @@ import com.example.marcu.pawcompanion.activity.DogInfoInputActivity;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Breed;
+import com.example.marcu.pawcompanion.data.Dog;
 
 import org.joda.time.LocalDate;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 public class DogInfoInputHandler extends Handler implements ActionHandlerContract.ActionHandler {
@@ -43,9 +46,6 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
     private void updateModel(Action action){
 
         switch (action){
-            case SET_NAME:
-                //Todo: activate EditText and setText
-            break;
 
             case SET_BREED:
                 Breed breed = getDogInfoInputActivity().getSelectedBreed();
@@ -54,10 +54,6 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
 
             case SET_BIRTHDAY:
                 setDate();
-            break;
-
-            case SET_WEIGHT:
-                //Todo: activate edit\text and setText
             break;
 
             case SET_WALK_TIME:
@@ -69,12 +65,11 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
             break;
 
             case CREATE_DOG:
-
+                createDog();
+                getDogInfoInputRootActionHandler().invokeAction(HandlerType.VIEW, Action.FINISH_DOG_INFO_INPUT_VIEW);
             break;
 
         }
-
-        getDogInfoInputRootActionHandler().invokeAction(HandlerType.VIEW, Action.REFRESH_DOG_INPUT_VIEW);
     }
 
     private void setDate(){
@@ -135,5 +130,23 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+    }
+
+    private void createDog(){
+            Log.d(TAG, "DogInfoInputActivity:SAVE BUTTON PRESSED");
+            DogInfoInputActivity activity = getDogInfoInputActivity();
+
+            String name = activity.getNameEditText();
+            Double weight = Double.parseDouble(activity.getWeighText());
+            Breed selectedBreed = activity.getSelectedBreed();
+            String birthday = activity.getBirthDayText();
+            String firstMealTime = activity.getMealTimeText();
+            String firstWalkTime = activity.getWalkTimeText();
+
+            Dog dog = new Dog(name, selectedBreed, birthday, weight, firstMealTime, firstWalkTime);
+            Log.d(TAG, "DogInfoInputActivity: NEW DOG CREATED: " + dog.toString());
+            getDogInfoInputActivity().setDog(dog);
+
+//            }
     }
 }

@@ -53,13 +53,13 @@ public class ButtonComponent extends AppCompatButton{
 
     OnClickListener onClickSelectBreed(){
         return view -> {
-            rootActionHandler.invokeAction(HandlerType.VIEW, Action.FINISH_SELECT_BREED_VIEW);
+            rootActionHandler.invokeAction(HandlerType.USER_INPUT, Action.VALIDATE_BREED);
         };
     }
 
     OnClickListener onClickSaveDog(){
         return view -> {
-            rootActionHandler.invokeAction(HandlerType.VIEW, Action.FINISH_DOG_INFO_INPUT_VIEW);
+            rootActionHandler.invokeAction(HandlerType.USER_INPUT, Action.VALIDATE_DOG);
         };
     }
 
