@@ -16,9 +16,13 @@ import com.example.marcu.pawcompanion.data.Breed;
 import com.example.marcu.pawcompanion.data.Dog;
 
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
+import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.CREATE;
+import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.UPDATE;
 
 public class DogInfoInputHandler extends Handler implements ActionHandlerContract.ActionHandler {
 
@@ -42,33 +46,31 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
         }
     }
 
-    //Todo: divide handlers
     private void updateModel(Action action){
 
         switch (action){
-
             case SET_BREED:
                 Breed breed = getDogInfoInputActivity().getSelectedBreed();
                 getDogInfoInputActivity().setBreedText(breed.getName());
             break;
-
             case SET_BIRTHDAY:
                 setDate();
             break;
-
             case SET_WALK_TIME:
                 setWalkTime();
             break;
-
             case SET_MEAL_TIME:
                 setMealTime();
             break;
-
             case CREATE_DOG:
-                createDog();
+                saveDog();
                 getDogInfoInputRootActionHandler().invokeAction(HandlerType.VIEW, Action.FINISH_DOG_INFO_INPUT_VIEW);
             break;
-
+            case SET_DOG_INFO:
+                Dog dog = getDogInfoInputActivity().getDog();
+                setDogInfo(dog);
+                Log.d(TAG, "DOG TO BE UPDATED 2: " + dog);
+            break;
         }
     }
 
@@ -124,6 +126,7 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
                 getDogInfoInputActivity().setMealTimeTextView(time);
             }
         });
+
         TimePickerDialog dialog = new TimePickerDialog(getDogInfoInputActivity(),
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
                 mealTimeSetListener, 7,0, true);
@@ -132,21 +135,45 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
         dialog.show();
     }
 
-    private void createDog(){
-            Log.d(TAG, "DogInfoInputActivity:SAVE BUTTON PRESSED");
-            DogInfoInputActivity activity = getDogInfoInputActivity();
+    private void saveDog(){
+        DogInfoInputActivity activity = getDogInfoInputActivity();
 
-            String name = activity.getNameEditText();
-            Double weight = Double.parseDouble(activity.getWeighText());
-            Breed selectedBreed = activity.getSelectedBreed();
-            String birthday = activity.getBirthDayText();
-            String firstMealTime = activity.getMealTimeText();
-            String firstWalkTime = activity.getWalkTimeText();
+        String name = activity.getNameEditText();
+        Double weight = Double.parseDouble(activity.getWeighText());
+        Breed selectedBreed = activity.getSelectedBreed();
+        String birthday = activity.getBirthDayText();
+        String firstMealTime = activity.getMealTimeText();
+        String firstWalkTime = activity.getWalkTimeText();
 
-            Dog dog = new Dog(name, selectedBreed, birthday, weight, firstMealTime, firstWalkTime);
-            Log.d(TAG, "DogInfoInputActivity: NEW DOG CREATED: " + dog.toString());
-            getDogInfoInputActivity().setDog(dog);
+        Dog dog = null;
 
-//            }
+        switch (getDogInfoInputActivity().purposeOfActivity){
+            case CREATE:
+                dog = new Dog(name, selectedBreed, birthday, weight, firstMealTime, firstWalkTime);
+            break;
+            case UPDATE:
+                dog = getDogInfoInputActivity().getDog();
+                dog.setName(name);
+                dog.setWeight(weight);
+                dog.setBreed(selectedBreed);
+                dog.setBirthDate(birthday);
+                dog.setFirstWalkTime(firstWalkTime);
+                dog.setFirstMealTime(firstMealTime);
+            break;
+        }
+        getDogInfoInputActivity().setDog(dog);
+    }
+
+    private void setDogInfo(Dog dog){
+        DogInfoInputActivity activity = getDogInfoInputActivity();
+        activity.setNameText(dog.getName());
+        activity.setBreedText(dog.getBreed().getName());
+        activity.setSelectedBreed(dog.getBreed());
+        activity.setWeightText(String.valueOf(dog.getWeight()));
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+        activity.setBirthdayTextView(dog.getBirthDate().toString(formatter));
+        activity.setWalkTimeTextView(dog.getFirstWalkTime().toString("hh:mm"));
+        activity.setMealTimeTextView(dog.getFirstMealTime().toString("hh:mm"));
+        //setImageView(dog.getImageUriString());
     }
 }

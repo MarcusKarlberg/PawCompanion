@@ -22,6 +22,8 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
     private static final String TAG = "DogInfoInputActivity";
     public static final int ACCESS_PHOTO_LIB = 7686;
     public static final int SELECT_BREED_REQUEST = 2733;
+    public static final int UPDATE = 0;
+    public static final int CREATE = 1;
 
     private ActionHandlerContract.ActionHandler actionHandler;
     private ButtonComponent saveDogButton;
@@ -29,9 +31,7 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
     private EditTextComponent nameEditText, weightEditText;
     private Breed selectedBreed;
     private Dog dog;
-
-//    private DatePickerDialog.OnDateSetListener birthdayDateSetListener;
-//    private TimePickerDialog.OnTimeSetListener walkTimeSetListener, mealTimeSetListener;
+    public int purposeOfActivity = CREATE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +41,13 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         findViews();
         setHandlers();
 
-//        breedRepo = new BreedRepo();
-//        breedList = breedRepo.getAllBreeds();
-
-//        Intent intent = getIntent();
-//        selectedDog = (Dog) intent.getSerializableExtra("selectedDog");
-//        Log.d(TAG, "DOG TO BE UPDATED 2: " + selectedDog);
-
-//        if(selectedDog != null){
-//            setDogInfo();
-//        }
+        Intent intent = getIntent();
+        Dog dog = (Dog) intent.getSerializableExtra("selectedDog");
+        if(dog != null){
+            this.dog = dog;
+            purposeOfActivity = UPDATE;
+            invokeAction(HandlerType.MODEL, Action.SET_DOG_INFO);
+        }
     }
 
     public Dog getDog() {
@@ -151,6 +148,18 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         return this.selectedBreed;
     }
 
+    public void setNameText(String name) {
+        this.nameEditText.setText(name);
+    }
+
+    public void setWeightText(String weight) {
+        this.weightEditText.setText(weight);
+    }
+
+    public void setSelectedBreed(Breed selectedBreed) {
+        this.selectedBreed = selectedBreed;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         super.onActivityResult(requestCode, resultCode, intent);
@@ -158,28 +167,15 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         if(resultCode == RESULT_OK){
             switch (requestCode){
                 case SELECT_BREED_REQUEST:
-                    Log.d(TAG, "onActivityResult: RESULT OK");
                     this.selectedBreed = (Breed) intent.getSerializableExtra("breed");
                     invokeAction(HandlerType.MODEL, Action.SET_BREED);
                 break;
                 case ACCESS_PHOTO_LIB:
-                    //invokeAction(HandlerType.MODEL, Action.SET_PHOTO);
+                    //Todo: Create ImageHandler  and invokeAction(HandlerType.MODEL, Action.SET_PHOTO);
                 break;
             }
         }
     }
-
-//    private void setDogInfo(){
-//        nameEditText.setText(selectedDog.getName());
-//        breedTextView.setText(selectedDog.getBreed().getName());
-//        selectedBreed = selectedDog.getBreed();
-//        weightEditText.setText(String.valueOf(selectedDog.getWeight()));
-//        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
-//        birthdayTextView.setText(selectedDog.getBirthDate().toString(formatter));
-//        walkTimeTextView.setText(selectedDog.getFirstWalkTime().toString("hh:mm"));
-//        mealTimeTextView.setText(selectedDog.getFirstMealTime().toString("hh:mm"));
-//        setImageView(selectedDog.getImageUriString());
-//    }
 
 //    private void setImageViewClickListener(){
 //        imageView.setOnClickListener(new View.OnClickListener(){
@@ -246,52 +242,6 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
 //        }
 //    }
 
-
-
-
-//    private void saveDogInfo(View view) {
-//            Log.d(TAG, "DogInfoInputActivity:SAVE BUTTON PRESSED");
-//            String name = nameEditText.getText().toString();
-//            String birthday = birthdayTextView.getText().toString();
-//            Double weight = Double.parseDouble(weightEditText.getText().toString());
-//            String firstMealTime = mealTimeTextView.getText().toString();
-//            String firstWalkTime = walkTimeTextView.getText().toString();
-//
-//            Intent intent = new Intent();
-//
-//            if(selectedDog == null){
-//                Dog dog = new Dog(name, selectedBreed, birthday, weight, firstMealTime, firstWalkTime);
-//                if(imageUri != null){
-//                    dog.setImageUriString(imageUri.toString());
-//                }
-//                intent.putExtra("dog", dog);
-//                setResult(RESULT_OK, intent);
-//                Log.d(TAG, "DogInfoInputActivity: NEW DOG CREATED: " + dog.toString());
-//                finish();
-//            }else{
-//                updateSelectedDog(name, birthday, weight, firstMealTime, firstWalkTime);
-//                intent.putExtra("dog", selectedDog);
-//                setResult(RESULT_OK, intent);
-//                Log.d(TAG, "DogInfoInputActivity: DOG UPDATED: " + selectedDog.toString());
-//                finish();
-//            }
-//
-//
-//            Log.d(TAG, "DogInfoInputActivity: FINISH INITIATED");
-//    }
-
-//    private void updateSelectedDog(String name, String birthday, double weight, String firstMealTime, String firstWalkTime){
-//        selectedDog.setName(name);
-//        selectedDog.setBreed(selectedBreed);
-//        selectedDog.setBirthDate(birthday);
-//        selectedDog.setWeight(weight);
-//        selectedDog.setFirstMealTime(firstMealTime);
-//        selectedDog.setFirstWalkTime(firstWalkTime);
-//
-//        if(imageUri != null){
-//            selectedDog.setImageUriString(imageUri.toString());
-//        }
-//    }
 
 
 //    private void setImageView(String imageUriString){

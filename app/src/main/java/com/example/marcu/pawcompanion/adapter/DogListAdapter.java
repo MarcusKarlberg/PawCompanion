@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marcu.pawcompanion.R;
+import com.example.marcu.pawcompanion.component.DogListComponent;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.repository.DogRepository;
 
@@ -51,7 +52,6 @@ public class DogListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        findViews(view);
         Dog dog = (Dog) this.getItem(position);
 
         if(view == null){
@@ -59,12 +59,12 @@ public class DogListAdapter extends BaseAdapter {
                     .inflate(R.layout.list_item, viewGroup, false);
         }
 
-        return view;
-    }
+        if(dog != null){
+            TextView dogNameTextView = view.findViewById(R.id.dogNameTextView);
+            dogNameTextView.setText(dog.getName());
+        }
 
-    private void findViews(View view){
-        TextView dogNameTextView = (TextView) view.findViewById(R.id.dogNameTextView);
-        ImageView dogPhoto = (ImageView) view.findViewById(R.id.photoImageView);
+        return view;
     }
 
 

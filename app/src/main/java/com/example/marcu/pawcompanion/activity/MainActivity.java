@@ -62,20 +62,17 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
         if(resultCode == RESULT_OK){
             Dog dog = (Dog) intent.getSerializableExtra("dog");
             int position = intent.getIntExtra("dogPosition", -1);
-            Log.d(TAG, "onActivityResult: " + dog);
             getListComponent().setSelectedDog(dog);
             getListComponent().setSelectedPosition(position);
 
             switch (requestCode){
                 case ADD_DOG_REQUEST:
-                    invokeAction(HandlerType.VIEW, Action.ADD_DOG);
+                    invokeAction(HandlerType.MODEL, Action.ADD_DOG);
                 break;
                 case UPDATE_DOG_REQUEST:
-                    invokeAction(HandlerType.VIEW, Action.UPDATE_DOG);
+                    invokeAction(HandlerType.MODEL, Action.UPDATE_DOG);
                 break;
             }
-        } else {
-            Log.d(TAG, "onActivityResult: FAIL RESULT NOT OK");
         }
     }
 

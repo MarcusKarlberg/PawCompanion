@@ -15,8 +15,7 @@ import com.example.marcu.pawcompanion.data.Dog;
 
 public class DogListComponent extends ListView
         implements AdapterView.OnItemClickListener,
-        AdapterView.OnItemLongClickListener,
-        MenuItem.OnMenuItemClickListener {
+        AdapterView.OnItemLongClickListener{
 
     private Dog selectedDog;
     private int selectedPosition;
@@ -26,31 +25,31 @@ public class DogListComponent extends ListView
         super(context, attrs);
         this.rootActionHandler = (ActionHandlerContract.RootActionHandler) context;
 
-        initalize();
+        initialize();
     }
 
-    private void initalize() {
+    private void initialize() {
         this.setAdapter(new DogListAdapter());
         this.setOnItemClickListener(this);
         this.setOnItemLongClickListener(this);
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-        AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) menuItem.getMenuInfo();
-        this.setSelectedPosition(menuInfo.position);
-        this.setSelectedDog((Dog) getItemAtPosition(menuInfo.position));
-
-        String menuActionSelection = menuItem.getTitle().toString();
-
-        if(menuActionSelection.equals("Update")) {
-            rootActionHandler.invokeAction(HandlerType.VIEW, Action.OPEN_DOG_INFO_UPDATE_VIEW);
-        }
-        else if(menuActionSelection.equals("Remove")) {
-            rootActionHandler.invokeAction(HandlerType.MODEL, Action.REMOVE_DOG);
-        }
-        return false;
-    }
+//    @Override
+//    public boolean onMenuItemClick(MenuItem menuItem) {
+//        AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) menuItem.getMenuInfo();
+//        this.setSelectedPosition(menuInfo.position);
+//        this.setSelectedDog((Dog) getItemAtPosition(menuInfo.position));
+//
+//        String menuActionSelection = menuItem.getTitle().toString();
+//
+//        if(menuActionSelection.equals("Update")) {
+//            rootActionHandler.invokeAction(HandlerType.VIEW, Action.OPEN_DOG_INFO_UPDATE_VIEW);
+//        }
+//        else if(menuActionSelection.equals("Remove")) {
+//            rootActionHandler.invokeAction(HandlerType.MODEL, Action.REMOVE_DOG);
+//        }
+//        return false;
+//    }
 
 
     @Override
@@ -80,12 +79,11 @@ public class DogListComponent extends ListView
 
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-        //Todo: when clicked we want to update dog info
         setSelectedPosition(i);
         Dog selectedDog = (Dog) getItemAtPosition(i);
         setSelectedDog(selectedDog);
 
-        this.rootActionHandler.invokeAction(HandlerType.MODEL, Action.UPDATE_DOG);
+        this.rootActionHandler.invokeAction(HandlerType.VIEW, Action.OPEN_DOG_INFO_UPDATE_VIEW);
         return false;
     }
 }

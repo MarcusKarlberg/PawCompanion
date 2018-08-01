@@ -60,9 +60,6 @@ public class BreedListAdapter extends BaseAdapter implements Filterable{
         if(breed != null){
             TextView breedTextView = view.findViewById(R.id.textViewBreed);
             breedTextView.setText(breed.getName());
-            //Todo: add boolean in breedRepo that the breed is selected
-            //breedItemView.setCheckMarkTintList();
-            //breedItemView.setChecked(breed.isChecked);
         }
         return view;
     }

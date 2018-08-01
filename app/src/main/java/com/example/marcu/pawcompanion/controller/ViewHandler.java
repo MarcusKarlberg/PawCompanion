@@ -52,8 +52,7 @@ public class ViewHandler extends Handler implements ActionHandlerContract.Action
 
             case OPEN_DOG_INFO_UPDATE_VIEW:
                 Intent intentUpdate = new Intent(getMainActivity(), DogInfoInputActivity.class);
-                int position = getDogListComponent().getSelectedPosition();
-                Dog dog = getDogRepo().getById(getDogRepo().getIdByPosition(position));
+                Dog dog = getDogListComponent().getSelectedDog();
                 intentUpdate.putExtra("selectedDog", dog);
                 getMainActivity().startActivityForResult(intentUpdate, MainActivity.UPDATE_DOG_REQUEST);
             break;

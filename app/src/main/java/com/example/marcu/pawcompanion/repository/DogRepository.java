@@ -1,7 +1,12 @@
 package com.example.marcu.pawcompanion.repository;
+import android.util.Log;
+
 import com.example.marcu.pawcompanion.data.Dog;
 
 import java.util.*;
+
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by marcu on 3/14/2018.
  */
@@ -20,8 +25,10 @@ public class DogRepository {
         this.dogs.remove(dog);
     }
 
-    public void updateDog(int id, Dog dog) {
-        dogs.set(id, dog);
+    public void updateDog(Dog dogToUpdate) {
+        Dog dog = getByDogId(dogToUpdate.getId());
+        int index = dogs.indexOf(dog);
+        dogs.set(index, dogToUpdate);
     }
 
     public Dog getDogByListIndex(int id){
@@ -40,8 +47,14 @@ public class DogRepository {
         return dogs.get(id);
     }
 
-    public void remove(Dog dog){
-        dogs.remove(dog);
+    private Dog getByDogId(long id){
+        List<Dog> dogs = getAllDogs();
+        Dog dog = null;
+        for (Dog d: dogs){
+            if(id == d.getId()){
+                dog = d;
+            }
+        }
+        return dog;
     }
-
 }
