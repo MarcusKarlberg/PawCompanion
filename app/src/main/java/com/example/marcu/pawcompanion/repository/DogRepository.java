@@ -21,6 +21,12 @@ public class DogRepository {
         this.dogs.add(dog);
     }
 
+    public void load(List<Dog> dogsFromSharedPrefs){
+        for (Dog d: dogsFromSharedPrefs){
+            addDog(d);
+        }
+    }
+
     public  void removeDog(Dog dog){
         this.dogs.remove(dog);
     }

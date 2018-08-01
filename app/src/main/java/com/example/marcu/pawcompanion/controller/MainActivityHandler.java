@@ -37,6 +37,7 @@ public class MainActivityHandler extends Handler implements ActionHandlerContrac
         switch (action){
             case ADD_DOG:
                 getDogRepo().addDog(dog);
+                getMainRootActionHandler().invokeAction(HandlerType.PREFERENCES, Action.SAVE_PREFERENCES);
             break;
             case REMOVE_DOG:
                 getDogRepo().removeDog(dog);
@@ -50,6 +51,7 @@ public class MainActivityHandler extends Handler implements ActionHandlerContrac
 //                int position = getDogListComponent().getSelectedPosition();
 //                position = getDogRepo().getIdByPosition(position);
                 getDogRepo().updateDog(dogToUpdate);
+                getMainRootActionHandler().invokeAction(HandlerType.PREFERENCES, Action.SAVE_PREFERENCES);
             break;
         }
         getMainRootActionHandler().invokeAction(HandlerType.VIEW, Action.REFRESH_MAIN_VIEW);

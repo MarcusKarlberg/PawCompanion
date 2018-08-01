@@ -11,19 +11,19 @@ import com.example.marcu.pawcompanion.component.ButtonComponent;
 import com.example.marcu.pawcompanion.component.DogListComponent;
 import com.example.marcu.pawcompanion.controller.ActionHandlerContract;
 import com.example.marcu.pawcompanion.controller.MainActivityHandler;
+import com.example.marcu.pawcompanion.controller.PreferencesHandler;
 import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Dog;
 
 public class MainActivity extends AppCompatActivity implements ActionHandlerContract.RootActionHandler{
-    private static final String TAG = "MainActivity";
+
     public static final int ADD_DOG_REQUEST = 0;
     public static final int UPDATE_DOG_REQUEST = 1;
 
     private ActionHandlerContract.ActionHandler actionHandler;
 
-    private DogListAdapter adapter;
     private DogListComponent listView;
     private ButtonComponent addDogButton;
     private ButtonComponent deleteDogButton;
@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
 
         findViews();
         setHandlers();
+
+        invokeAction(HandlerType.PREFERENCES, Action.LOAD_PREFERENCES);
     }
 
     @Override
@@ -87,19 +89,13 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
     private void setHandlers(){
         ActionHandlerContract.ActionHandler modelHandler = new MainActivityHandler(this);
         ActionHandlerContract.ActionHandler viewHandler = new ViewHandler(this);
+        ActionHandlerContract.ActionHandler preferencesHandler = new PreferencesHandler(this);
 
         viewHandler.setNextHandler(modelHandler);
+        modelHandler.setNextHandler(preferencesHandler);
         setActionHandler(viewHandler);
     }
 
-    //Todo: add this to a PrefrencesHandler class
-//    private void loadSavedDogsFromPrefs(){
-//        prefs = new SPreferences(this);
-//        dogList = prefs.load();
-//        for (Dog d: dogList){
-//            dogRepository.addDog(d);
-//        }
-//    }
 
 //          //Todo: NotificationHandler/AlarmHandler
 //            dog.setWalkingDurationPerDay(dog.getBreed().getActivityLevel());
