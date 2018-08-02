@@ -7,6 +7,7 @@ import com.example.marcu.pawcompanion.adapter.BreedListAdapter;
 import com.example.marcu.pawcompanion.adapter.DogListAdapter;
 import com.example.marcu.pawcompanion.component.BreedListComponent;
 import com.example.marcu.pawcompanion.component.DogListComponent;
+import com.example.marcu.pawcompanion.component.ImageViewComponent;
 import com.example.marcu.pawcompanion.repository.BreedRepo;
 import com.example.marcu.pawcompanion.repository.DogRepository;
 
@@ -62,6 +63,10 @@ public abstract class Handler {
     }
     BreedListAdapter getBreedListAdapter(){
         return (BreedListAdapter) getBreedListComponent().getAdapter();
+    }
+
+    ImageViewComponent getImageViewComponent(){
+        return getDogInfoInputActivity().getImageViewComponent();
     }
 
     DogRepository getDogRepo(){

@@ -53,7 +53,7 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
+                <com.example.marcu.pawcompanion.component.ImageViewComponent
                     android:id="@+id/imageView"
                     android:layout_width="60dp"
                     android:layout_height="40dp"

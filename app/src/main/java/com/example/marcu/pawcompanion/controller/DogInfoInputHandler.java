@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -144,8 +145,12 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
         String birthday = activity.getBirthDayText();
         String firstMealTime = activity.getMealTimeText();
         String firstWalkTime = activity.getWalkTimeText();
-
+        Uri imageUri = getImageViewComponent().getSelectedImage();
         Dog dog = null;
+
+        if(imageUri != null){
+            dog.setImageUriString(imageUri.toString());
+        }
 
         switch (getDogInfoInputActivity().purposeOfActivity){
             case CREATE:
@@ -174,6 +179,6 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
         activity.setBirthdayTextView(dog.getBirthDate().toString(formatter));
         activity.setWalkTimeTextView(dog.getFirstWalkTime().toString("hh:mm"));
         activity.setMealTimeTextView(dog.getFirstMealTime().toString("hh:mm"));
-        //setImageView(dog.getImageUriString());
+        activity.invokeAction(HandlerType.IMAGE, Action.SET_IMAGE);
     }
 }

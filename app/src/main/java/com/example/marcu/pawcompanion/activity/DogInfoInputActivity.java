@@ -1,16 +1,22 @@
 package com.example.marcu.pawcompanion.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.component.ButtonComponent;
 import com.example.marcu.pawcompanion.component.EditTextComponent;
+import com.example.marcu.pawcompanion.component.ImageViewComponent;
 import com.example.marcu.pawcompanion.component.TextViewComponent;
 import com.example.marcu.pawcompanion.controller.ActionHandlerContract;
 import com.example.marcu.pawcompanion.controller.DogInfoInputHandler;
+import com.example.marcu.pawcompanion.controller.ImageHandler;
 import com.example.marcu.pawcompanion.controller.ValidateInputHandler;
 import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
@@ -32,6 +38,7 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
     private Breed selectedBreed;
     private Dog dog;
     public int purposeOfActivity = CREATE;
+    public ImageViewComponent imageViewComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,17 +87,25 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         saveDogButton = findViewById(R.id.saveCompanionButton);
         saveDogButton.setButtonType(ButtonComponent.ButtonType.SAVE);
 
-        //imageView = (ImageView) findViewById(R.id.imageView);
+        imageViewComponent = findViewById(R.id.imageView);
+        imageViewComponent.setImageViewType(ImageViewComponent.ImageViewType.ADD);
     }
 
     private void setHandlers(){
         ActionHandlerContract.ActionHandler dogInfoInputHandler = new DogInfoInputHandler(this);
         ActionHandlerContract.ActionHandler viewHandler = new ViewHandler(this);
         ActionHandlerContract.ActionHandler userInputHandler = new ValidateInputHandler(this);
+        ActionHandlerContract.ActionHandler imageHandler = new ImageHandler(this);
 
-        viewHandler.setNextHandler(dogInfoInputHandler);
-        dogInfoInputHandler.setNextHandler(userInputHandler);
+        viewHandler.setNextHandler(userInputHandler);
+        userInputHandler.setNextHandler(dogInfoInputHandler);
+        dogInfoInputHandler.setNextHandler(imageHandler);
         setActionHandler(viewHandler);
+
+//        viewHandler.setNextHandler(dogInfoInputHandler);
+//        dogInfoInputHandler.setNextHandler(imageHandler);
+//        imageHandler.setNextHandler(userInputHandler);
+//        setActionHandler(viewHandler);
     }
 
     @Override
@@ -110,6 +125,10 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
     public void setBreedText(String breedName){
         Log.d(TAG, "setBreedText: " + breedName);
         breedTextView.setText(breedName);
+    }
+
+    public ImageViewComponent getImageViewComponent() {
+        return imageViewComponent;
     }
 
     public void setBirthdayTextView(String birthday){
@@ -171,8 +190,23 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
                     invokeAction(HandlerType.MODEL, Action.SET_BREED);
                 break;
                 case ACCESS_PHOTO_LIB:
-                    //Todo: Create ImageHandler  and invokeAction(HandlerType.MODEL, Action.SET_PHOTO);
+                    getImageViewComponent().setSelectedImage(intent.getData());
+                    invokeAction(HandlerType.IMAGE, Action.SET_IMAGE);
                 break;
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
+    {
+        if(requestCode == ACCESS_PHOTO_LIB){
+            //If request is denied array is empty
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                invokeAction(HandlerType.IMAGE, Action.ACCESS_PHOTO_LIB);
+            }
+            else {
+                Toast.makeText(DogInfoInputActivity.this, "Couldn't access photo-library", Toast.LENGTH_LONG).show();
             }
         }
     }

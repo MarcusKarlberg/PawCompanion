@@ -53,7 +53,7 @@ public class PreferencesHandler extends Handler implements ActionHandlerContract
                 load();
             break;
         }
-        getMainRootActionHandler().invokeAction(HandlerType.VIEW, Action.REFRESH_DOG_INPUT_VIEW);
+        getMainRootActionHandler().invokeAction(HandlerType.VIEW, Action.REFRESH_MAIN_VIEW);
     }
 
     private void save(){

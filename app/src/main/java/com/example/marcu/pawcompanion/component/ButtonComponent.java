@@ -14,7 +14,7 @@ public class ButtonComponent extends AppCompatButton{
     public enum ButtonType {
         ADD, REMOVE, SAVE, SELECT
     }
-
+    
     private ActionHandlerContract.RootActionHandler rootActionHandler;
 
     public ButtonComponent(Context context, AttributeSet attrs) {

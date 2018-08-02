@@ -1,7 +1,5 @@
 package com.example.marcu.pawcompanion.controller;
 
-import android.util.Log;
-
 import com.example.marcu.pawcompanion.activity.MainActivity;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
@@ -37,23 +35,20 @@ public class MainActivityHandler extends Handler implements ActionHandlerContrac
         switch (action){
             case ADD_DOG:
                 getDogRepo().addDog(dog);
-                getMainRootActionHandler().invokeAction(HandlerType.PREFERENCES, Action.SAVE_PREFERENCES);
             break;
             case REMOVE_DOG:
                 getDogRepo().removeDog(dog);
             break;
             case TOGGLE_DOG_SELECT:
                 dog.setSelected(!dog.isSelected());
+                getMainRootActionHandler().invokeAction(HandlerType.VIEW, Action.REFRESH_MAIN_VIEW);
             break;
             case UPDATE_DOG:
                 Dog dogToUpdate = getDogListComponent().getSelectedDog();
-                Log.d(TAG, "updateModel: " + dogToUpdate.toString());
-//                int position = getDogListComponent().getSelectedPosition();
-//                position = getDogRepo().getIdByPosition(position);
                 getDogRepo().updateDog(dogToUpdate);
-                getMainRootActionHandler().invokeAction(HandlerType.PREFERENCES, Action.SAVE_PREFERENCES);
             break;
         }
-        getMainRootActionHandler().invokeAction(HandlerType.VIEW, Action.REFRESH_MAIN_VIEW);
+
+        getMainRootActionHandler().invokeAction(HandlerType.PREFERENCES, Action.SAVE_PREFERENCES);
     }
 }

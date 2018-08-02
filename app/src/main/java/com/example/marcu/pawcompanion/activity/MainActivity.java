@@ -10,6 +10,7 @@ import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.component.ButtonComponent;
 import com.example.marcu.pawcompanion.component.DogListComponent;
 import com.example.marcu.pawcompanion.controller.ActionHandlerContract;
+import com.example.marcu.pawcompanion.controller.ImageHandler;
 import com.example.marcu.pawcompanion.controller.MainActivityHandler;
 import com.example.marcu.pawcompanion.controller.PreferencesHandler;
 import com.example.marcu.pawcompanion.controller.ViewHandler;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
             getListComponent().setSelectedDog(dog);
             getListComponent().setSelectedPosition(position);
 
+
             switch (requestCode){
                 case ADD_DOG_REQUEST:
                     invokeAction(HandlerType.MODEL, Action.ADD_DOG);
@@ -90,10 +92,16 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
         ActionHandlerContract.ActionHandler modelHandler = new MainActivityHandler(this);
         ActionHandlerContract.ActionHandler viewHandler = new ViewHandler(this);
         ActionHandlerContract.ActionHandler preferencesHandler = new PreferencesHandler(this);
+        ActionHandlerContract.ActionHandler imageHandler = new ImageHandler(this);
 
         viewHandler.setNextHandler(modelHandler);
         modelHandler.setNextHandler(preferencesHandler);
+        preferencesHandler.setNextHandler(imageHandler);
         setActionHandler(viewHandler);
+
+//        viewHandler.setNextHandler(modelHandler);
+//        modelHandler.setNextHandler(preferencesHandler);
+//        setActionHandler(viewHandler);
     }
 
 
