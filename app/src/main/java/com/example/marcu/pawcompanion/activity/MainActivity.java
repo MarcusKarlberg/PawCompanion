@@ -10,6 +10,7 @@ import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.component.ButtonComponent;
 import com.example.marcu.pawcompanion.component.DogListComponent;
 import com.example.marcu.pawcompanion.controller.ActionHandlerContract;
+import com.example.marcu.pawcompanion.controller.Handler;
 import com.example.marcu.pawcompanion.controller.ImageHandler;
 import com.example.marcu.pawcompanion.controller.MainActivityHandler;
 import com.example.marcu.pawcompanion.controller.PreferencesHandler;
@@ -67,19 +68,11 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
             getListComponent().setSelectedDog(dog);
             getListComponent().setSelectedPosition(position);
 
-//            dog.setWalkingDurationPerDay(dog.getBreed().getActivityLevel());
-//            dog.setWalkingDistancePerDay(dog.getBreed().getActivityLevel());
-//            dog.setIntervalWalkTime(dog.getBreed().getActivityLevel());
-//            dog.setIntervalMealTime();
-
-//                notificationMngr.setWalkNotification(dog);
-//                notificationMngr.setMealNotification(dog);
-//                notificationMngr.setAlarmToResetDailyNotificationAlarms(dog);
-
             switch (requestCode){
                 case ADD_DOG_REQUEST:
                     invokeAction(HandlerType.MODEL, Action.ADD_DOG);
                     invokeAction(HandlerType.IMAGE, Action.SET_IMAGE);
+                    invokeAction(HandlerType.NOTIFICATION, Action.ADD_NOTIFICATION);
                 break;
                 case UPDATE_DOG_REQUEST:
                     invokeAction(HandlerType.MODEL, Action.UPDATE_DOG);
