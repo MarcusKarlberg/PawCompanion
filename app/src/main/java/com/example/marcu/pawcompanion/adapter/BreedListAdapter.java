@@ -74,25 +74,25 @@ public class BreedListAdapter extends BaseAdapter implements Filterable{
 
     public class BreedFilter extends Filter{
 
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<Breed> breeds = breedRepo.resetFilteredList();
+    @Override
+    protected FilterResults performFiltering(CharSequence charSequence) {
+        List<Breed> breeds = breedRepo.resetFilteredList();
 
-            if(isBlank(charSequence)){
-                return setFilteredBreeds(breeds);
-            }
-            else {
-                String charSequenceString = charSequence.toString().toLowerCase();
-                List<Breed> filteredBreeds = new ArrayList<>();
-
-                for(Breed b: breeds){
-                    if(b.getName().toLowerCase().contains(charSequenceString)){
-                        filteredBreeds.add(b);
-                    }
-                }
-                return setFilteredBreeds(filteredBreeds);
-            }
+        if(isBlank(charSequence)){
+            return setFilteredBreeds(breeds);
         }
+        else {
+            String charSequenceString = charSequence.toString().toLowerCase();
+            List<Breed> filteredBreeds = new ArrayList<>();
+
+            for(Breed b: breeds){
+                if(b.getName().toLowerCase().contains(charSequenceString)){
+                    filteredBreeds.add(b);
+                }
+            }
+            return setFilteredBreeds(filteredBreeds);
+        }
+    }
 
         private FilterResults setFilteredBreeds(List<Breed> breeds) {
             FilterResults results = new FilterResults();

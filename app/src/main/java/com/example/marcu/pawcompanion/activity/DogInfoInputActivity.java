@@ -3,6 +3,7 @@ package com.example.marcu.pawcompanion.activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,65 +48,7 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
 
         findViews();
         setHandlers();
-
-        Intent intent = getIntent();
-        Dog dog = (Dog) intent.getSerializableExtra("selectedDog");
-        if(dog != null){
-            this.dog = dog;
-            purposeOfActivity = UPDATE;
-            invokeAction(HandlerType.MODEL, Action.SET_DOG_INFO);
-        }
-    }
-
-    public Dog getDog() {
-        return dog;
-    }
-
-    public void setDog(Dog dog) {
-        this.dog = dog;
-    }
-
-    private void findViews(){
-        nameEditText = findViewById(R.id.dogNameEditText);
-        nameEditText.setEditTextType(EditTextComponent.EditTextType.SET_NAME);
-
-        birthdayTextView = findViewById(R.id.birthdayTextView);
-        birthdayTextView.setTextViewType(TextViewComponent.TextViewType.SET_BIRTHDAY);
-
-        weightEditText = findViewById(R.id.weightEditText);
-        weightEditText.setEditTextType(EditTextComponent.EditTextType.SET_WEIGHT);
-
-        walkTimeTextView = findViewById(R.id.walkTimeTextView);
-        walkTimeTextView.setTextViewType(TextViewComponent.TextViewType.SET_WALK_TIME);
-
-        mealTimeTextView = findViewById(R.id.mealTimeTextView);
-        mealTimeTextView.setTextViewType(TextViewComponent.TextViewType.SET_MEAL_TIME);
-
-        breedTextView = findViewById(R.id.breedTextView);
-        breedTextView.setTextViewType(TextViewComponent.TextViewType.BREED_SELECT);
-
-        saveDogButton = findViewById(R.id.saveCompanionButton);
-        saveDogButton.setButtonType(ButtonComponent.ButtonType.SAVE);
-
-        imageViewComponent = findViewById(R.id.imageView);
-        imageViewComponent.setImageViewType(ImageViewComponent.ImageViewType.ADD);
-    }
-
-    private void setHandlers(){
-        ActionHandlerContract.ActionHandler dogInfoInputHandler = new DogInfoInputHandler(this);
-        ActionHandlerContract.ActionHandler viewHandler = new ViewHandler(this);
-        ActionHandlerContract.ActionHandler userInputHandler = new ValidateInputHandler(this);
-        ActionHandlerContract.ActionHandler imageHandler = new ImageHandler(this);
-
-        viewHandler.setNextHandler(userInputHandler);
-        userInputHandler.setNextHandler(dogInfoInputHandler);
-        dogInfoInputHandler.setNextHandler(imageHandler);
-        setActionHandler(viewHandler);
-
-//        viewHandler.setNextHandler(dogInfoInputHandler);
-//        dogInfoInputHandler.setNextHandler(imageHandler);
-//        imageHandler.setNextHandler(userInputHandler);
-//        setActionHandler(viewHandler);
+        handleIntent();
     }
 
     @Override
@@ -179,29 +122,17 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         this.selectedBreed = selectedBreed;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
-        super.onActivityResult(requestCode, resultCode, intent);
+    public Dog getDog() {
+        return dog;
+    }
 
-        if(resultCode == RESULT_OK){
-            switch (requestCode){
-                case SELECT_BREED_REQUEST:
-                    this.selectedBreed = (Breed) intent.getSerializableExtra("breed");
-                    invokeAction(HandlerType.MODEL, Action.SET_BREED);
-                break;
-                case ACCESS_PHOTO_LIB:
-                    getImageViewComponent().setSelectedImage(intent.getData());
-                    invokeAction(HandlerType.IMAGE, Action.SET_IMAGE);
-                break;
-            }
-        }
+    public void setDog(Dog dog) {
+        this.dog = dog;
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         if(requestCode == ACCESS_PHOTO_LIB){
-            //If request is denied array is empty
             if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 invokeAction(HandlerType.IMAGE, Action.ACCESS_PHOTO_LIB);
             }
@@ -211,97 +142,63 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         }
     }
 
-//    private void setImageViewClickListener(){
-//        imageView.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//
-//                if(ActivityCompat.checkSelfPermission(DogInfoInputActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-//                    ActivityCompat.requestPermissions(DogInfoInputActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, ACCESS_PHOTO_LIB);
-//                } else {
-////                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-////                    startActivityForResult(intent, ACCESS_PHOTO_LIB);
-//                    Intent intent;
-//                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-//                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                    } else {
-//                        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                    }
-//                    intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-//                    startActivityForResult(intent, ACCESS_PHOTO_LIB);
-//                }
-//
-//            }
-//        });
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        super.onActivityResult(requestCode, resultCode, intent);
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
-//    {
-//        if(requestCode == ACCESS_PHOTO_LIB){
-//            //If request is denied array is empty
-//            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                Intent intent;
-//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-//                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                } else {
-//                    intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                }
-//                //Todo: figure out what flags do and if this flag is necessary
-//                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-//                startActivityForResult(intent, ACCESS_PHOTO_LIB);
-//            } else {
-//                Toast.makeText(DogInfoInputActivity.this, "Couldn't access photo-library", Toast.LENGTH_LONG).show();
-//            }
-//        }
-//    }
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                case SELECT_BREED_REQUEST:
+                    this.selectedBreed = (Breed) intent.getSerializableExtra("breed");
+                    invokeAction(HandlerType.MODEL, Action.SET_BREED);
+                    break;
+                case ACCESS_PHOTO_LIB:
+                    getImageViewComponent().setSelectedImage(intent.getData());
+                    invokeAction(HandlerType.IMAGE, Action.SET_IMAGE);
+                    break;
+            }
+        }
+    }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(requestCode == ACCESS_PHOTO_LIB){
-//            if(resultCode == RESULT_OK){
-//                imageUri = data.getData();
-//                setImageView(imageUri.toString());
-//            }
-//        }
-//        if(requestCode == SELECT_BREED_REQUEST){
-//            if(resultCode == RESULT_OK){
-//                //Select the breed
-//                this.selectedBreedstring = data.getStringExtra("selectedBreed");
-//                breedTextView.setText(this.selectedBreedstring);
-//                selectedBreed = breedRepo.getBreedByName(selectedBreedstring);
-//            }
-//        }
-//    }
+    private void handleIntent(){
+        Intent intent = getIntent();
+        Dog dog = (Dog) intent.getSerializableExtra("selectedDog");
+        if(dog != null){
+            this.dog = dog;
+            purposeOfActivity = UPDATE;
+            getImageViewComponent().setSelectedImage(Uri.parse(dog.getImageUriString()));
+            invokeAction(HandlerType.MODEL, Action.SET_DOG_INFO);
+        }
+    }
 
+    private void findViews(){
+        nameEditText = findViewById(R.id.dogNameEditText);
+        nameEditText.setEditTextType(EditTextComponent.EditTextType.SET_NAME);
+        birthdayTextView = findViewById(R.id.birthdayTextView);
+        birthdayTextView.setTextViewType(TextViewComponent.TextViewType.SET_BIRTHDAY);
+        weightEditText = findViewById(R.id.weightEditText);
+        weightEditText.setEditTextType(EditTextComponent.EditTextType.SET_WEIGHT);
+        walkTimeTextView = findViewById(R.id.walkTimeTextView);
+        walkTimeTextView.setTextViewType(TextViewComponent.TextViewType.SET_WALK_TIME);
+        mealTimeTextView = findViewById(R.id.mealTimeTextView);
+        mealTimeTextView.setTextViewType(TextViewComponent.TextViewType.SET_MEAL_TIME);
+        breedTextView = findViewById(R.id.breedTextView);
+        breedTextView.setTextViewType(TextViewComponent.TextViewType.BREED_SELECT);
+        saveDogButton = findViewById(R.id.saveCompanionButton);
+        saveDogButton.setButtonType(ButtonComponent.ButtonType.SAVE);
+        imageViewComponent = findViewById(R.id.imageView);
+        imageViewComponent.setImageViewType(ImageViewComponent.ImageViewType.ADD);
+    }
 
+    private void setHandlers(){
+        ActionHandlerContract.ActionHandler dogInfoInputHandler = new DogInfoInputHandler(this);
+        ActionHandlerContract.ActionHandler viewHandler = new ViewHandler(this);
+        ActionHandlerContract.ActionHandler userInputHandler = new ValidateInputHandler(this);
+        ActionHandlerContract.ActionHandler imageHandler = new ImageHandler(this);
 
-//    private void setImageView(String imageUriString){
-//
-//        if(imageUriString != null){
-//            Uri imageUri = Uri.parse(imageUriString);
-//
-//            //to minimize memory -  outofmemoryerror
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inPreferredConfig = Bitmap.Config.RGB_565;
-//            options.inSampleSize = 2;
-//            Bitmap bitmap;
-//
-//            try {
-//                //Bitmap bitmap = BitmapFactory.decodeStream(stream, null, options);
-//                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri), null, options);
-//                imageView.setImageBitmap(bitmap);
-//            }catch (FileNotFoundException e){
-//                //Todo: what's the best practice to handle exceptions in android
-//                Log.d(TAG, "FileNotFoundException");
-//            }
-//        }
-//    }
-//    private void showToast(String message){
-//        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-//        toast.setGravity(Gravity.CENTER_VERTICAL| Gravity.CENTER_HORIZONTAL, 0, 0);
-//        toast.show();
-//    }
+        viewHandler.setNextHandler(userInputHandler);
+        userInputHandler.setNextHandler(dogInfoInputHandler);
+        dogInfoInputHandler.setNextHandler(imageHandler);
+        setActionHandler(viewHandler);
+    }
 }

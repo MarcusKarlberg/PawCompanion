@@ -11,7 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.example.marcu.pawcompanion.activity.DogInfoInputActivity;
-import com.example.marcu.pawcompanion.activity.MainActivity;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 
@@ -23,10 +22,6 @@ import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.ACCES
 public class ImageHandler extends Handler implements ActionHandlerContract.ActionHandler {
 
     public ActionHandlerContract.ActionHandler nextHandler;
-
-    public ImageHandler(MainActivity activity) {
-        super(activity);
-    }
 
     public ImageHandler(DogInfoInputActivity activity) {
         super(activity);
@@ -62,8 +57,6 @@ public class ImageHandler extends Handler implements ActionHandlerContract.Actio
     }
 
     private void setImage(String imageUriString){
-
-        //Todo: add if statement that sets activity to either MainActivity or DogInfoInputActivity
 
         if(imageUriString != null){
             Uri imageUri = Uri.parse(imageUriString);

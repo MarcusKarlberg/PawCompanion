@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Rigby" />
 
-    <ImageView
+    <com.example.marcu.pawcompanion.component.ImageViewComponent
         android:id="@+id/photoImageView"
         android:layout_width="80dp"
         android:layout_height="0dp"

@@ -148,13 +148,12 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
         Uri imageUri = getImageViewComponent().getSelectedImage();
         Dog dog = null;
 
-        if(imageUri != null){
-            dog.setImageUriString(imageUri.toString());
-        }
-
         switch (getDogInfoInputActivity().purposeOfActivity){
             case CREATE:
                 dog = new Dog(name, selectedBreed, birthday, weight, firstMealTime, firstWalkTime);
+                if(imageUri != null){
+                    dog.setImageUriString(imageUri.toString());
+                }
             break;
             case UPDATE:
                 dog = getDogInfoInputActivity().getDog();
@@ -164,6 +163,9 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
                 dog.setBirthDate(birthday);
                 dog.setFirstWalkTime(firstWalkTime);
                 dog.setFirstMealTime(firstMealTime);
+                if(imageUri != null){
+                    dog.setImageUriString(imageUri.toString());
+                }
             break;
         }
         getDogInfoInputActivity().setDog(dog);

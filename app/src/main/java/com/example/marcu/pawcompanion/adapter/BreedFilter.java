@@ -23,7 +23,7 @@ public class BreedFilter extends Filter{
         if(isBlank(charSequence)){
             return setFilteredBreeds(breeds);
         }
-        else {
+        else{
             String charSequenceString = charSequence.toString().toLowerCase();
             this.filteredBreeds = new ArrayList<>(breeds.size());
 
@@ -37,16 +37,16 @@ public class BreedFilter extends Filter{
         }
     }
 
+    @Override
+    protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+        Log.d(TAG, "publishResults: " + filterResults.values);
+        breedRepo.setAll((List<Breed>) filterResults.values);
+    }
+
     private FilterResults setFilteredBreeds(List<Breed> breeds) {
         FilterResults results = new FilterResults();
         results.count = breeds.size();
         results.values = breeds;
         return results;
-    }
-
-    @Override
-    protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            Log.d(TAG, "publishResults: " + filterResults.values);
-            breedRepo.setAll((List<Breed>) filterResults.values);
     }
 }

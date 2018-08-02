@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
     public static final int UPDATE_DOG_REQUEST = 1;
 
     private ActionHandlerContract.ActionHandler actionHandler;
-
     private DogListComponent listView;
     private ButtonComponent addDogButton;
     private ButtonComponent deleteDogButton;
@@ -68,10 +67,19 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
             getListComponent().setSelectedDog(dog);
             getListComponent().setSelectedPosition(position);
 
+//            dog.setWalkingDurationPerDay(dog.getBreed().getActivityLevel());
+//            dog.setWalkingDistancePerDay(dog.getBreed().getActivityLevel());
+//            dog.setIntervalWalkTime(dog.getBreed().getActivityLevel());
+//            dog.setIntervalMealTime();
+
+//                notificationMngr.setWalkNotification(dog);
+//                notificationMngr.setMealNotification(dog);
+//                notificationMngr.setAlarmToResetDailyNotificationAlarms(dog);
 
             switch (requestCode){
                 case ADD_DOG_REQUEST:
                     invokeAction(HandlerType.MODEL, Action.ADD_DOG);
+                    invokeAction(HandlerType.IMAGE, Action.SET_IMAGE);
                 break;
                 case UPDATE_DOG_REQUEST:
                     invokeAction(HandlerType.MODEL, Action.UPDATE_DOG);
@@ -92,64 +100,9 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
         ActionHandlerContract.ActionHandler modelHandler = new MainActivityHandler(this);
         ActionHandlerContract.ActionHandler viewHandler = new ViewHandler(this);
         ActionHandlerContract.ActionHandler preferencesHandler = new PreferencesHandler(this);
-        ActionHandlerContract.ActionHandler imageHandler = new ImageHandler(this);
 
         viewHandler.setNextHandler(modelHandler);
         modelHandler.setNextHandler(preferencesHandler);
-        preferencesHandler.setNextHandler(imageHandler);
         setActionHandler(viewHandler);
-
-//        viewHandler.setNextHandler(modelHandler);
-//        modelHandler.setNextHandler(preferencesHandler);
-//        setActionHandler(viewHandler);
     }
-
-
-//          //Todo: NotificationHandler/AlarmHandler
-//            dog.setWalkingDurationPerDay(dog.getBreed().getActivityLevel());
-//            dog.setWalkingDistancePerDay(dog.getBreed().getActivityLevel());
-//            dog.setIntervalWalkTime(dog.getBreed().getActivityLevel());
-//            dog.setIntervalMealTime();
-//
-//            notificationMngr.setWalkNotification(dog);
-//            notificationMngr.setMealNotification(dog);
-//            notificationMngr.setAlarmToResetDailyNotificationAlarms(dog);
-//
-
-
-
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == ADD_DOG_REQUEST) {
-//
-//            if (resultCode == RESULT_OK) {
-//                Dog dog = (Dog) data.getSerializableExtra("dog");
-//
-//                dogRepository.addDog(dog);
-//                if(dogRepository.getAllDogs() != null){
-//                    dogList = dogRepository.getAllDogs();
-//                    prefs.save(dogList);
-//                }
-//
-//                notificationMngr.setWalkNotification(dog);
-//                notificationMngr.setMealNotification(dog);
-//                notificationMngr.setAlarmToResetDailyNotificationAlarms(dog);
-//
-//            }
-//        }
-//
-//        if (requestCode == UPDATE_DOG_REQUEST){
-//
-//            if(resultCode == RESULT_OK){
-//                Dog dog = (Dog) data.getSerializableExtra("dog");
-//                Log.i(TAG, "*** Dog info to update: ***" + dog);
-//                updateDog(dog);
-//                prefs.save(dogList);
-//                adapter.notifyDataSetChanged();
-//            }
-//        }
-//    }
 }

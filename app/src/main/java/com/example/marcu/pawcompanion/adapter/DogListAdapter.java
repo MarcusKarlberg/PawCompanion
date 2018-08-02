@@ -1,8 +1,10 @@
 package com.example.marcu.pawcompanion.adapter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.component.DogListComponent;
+import com.example.marcu.pawcompanion.component.ImageViewComponent;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.repository.DogRepository;
 
@@ -26,6 +29,7 @@ public class DogListAdapter extends BaseAdapter {
 
     private static final String TAG = "ListAdapter";
     private DogRepository dogRepository;
+    private ImageViewComponent imageViewComponent;
 
     public DogListAdapter(){
         this.dogRepository = new DogRepository();
@@ -61,37 +65,31 @@ public class DogListAdapter extends BaseAdapter {
 
         if(dog != null){
             TextView dogNameTextView = view.findViewById(R.id.dogNameTextView);
+            imageViewComponent = view.findViewById(R.id.photoImageView);
+            imageViewComponent.setSelectedImage(Uri.parse(dog.getImageUriString()));
             dogNameTextView.setText(dog.getName());
+            setImageView(dog.getImageUriString(), viewGroup);
         }
 
         return view;
     }
 
+    private void setImageView(String imageUriString, ViewGroup viewGroup){
+        if(imageUriString != null){
+            Uri imageUri = Uri.parse(imageUriString);
 
-    //Todo: reformat setImage method
-//    private void setImageView(){
-//
-//        Dog dog = dogs.get(position);
-//        dogNameTextView.setText(dog.getName());
-//        String imageUriString = dog.getImageUriString();
-//
-//        if(imageUriString != null){
-//            Uri imageUri = Uri.parse(imageUriString);
-//
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inPreferredConfig = Bitmap.Config.RGB_565;
-//            options.inSampleSize = 2;
-//            Bitmap bitmap;
-//
-//            try {
-//                //Bitmap bitmap = BitmapFactory.decodeStream(stream, null, options);
-//                bitmap = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(imageUri), null, options);
-//                dogPhoto.setImageBitmap(bitmap);
-//
-//            }catch (FileNotFoundException e){
-//                //Todo: what's the best practice to handle exceptions in android
-//                Log.d(TAG, "FileNotFoundException");
-//            }
-//        }
-//    }
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            options.inSampleSize = 2;
+            Bitmap bitmap;
+
+            try {
+                bitmap = BitmapFactory.decodeStream(viewGroup.getContext().getContentResolver().openInputStream(imageUri), null, options);
+                imageViewComponent.setImageBitmap(bitmap);
+            }catch (FileNotFoundException e){
+                //Todo: what's the best practice to handle exceptions in android
+                Log.d(TAG, "FileNotFoundException");
+            }
+        }
+    }
 }
