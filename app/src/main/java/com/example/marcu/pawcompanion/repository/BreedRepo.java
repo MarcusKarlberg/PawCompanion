@@ -57,29 +57,6 @@ public final class BreedRepo {
         this.filteredBreeds = breeds;
     }
 
-    public Breed getBreedByName(String name){
-        Breed breed = null;
-        for(Breed b : breeds){
-            if(b.getName().equalsIgnoreCase(name)){
-                breed = b;
-            }
-        }
-        return breed;
-    }
-
-    public ArrayList<String> getAllBreedNames(){
-        ArrayList<String> names = new ArrayList<>();
-
-        for(Breed b : breeds) {
-            names.add(b.getName());
-        }
-
-        return names;
-    }
-    public Breed getByIndex(int index){
-        return breeds.get(index);
-    }
-
     public Breed get(int id){
         return filteredBreeds.get(id);
     }

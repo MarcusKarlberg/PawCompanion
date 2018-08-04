@@ -7,15 +7,15 @@
     tools:context="com.example.marcu.pawcompanion.activity.MealNotificationActivity">
 
     <com.example.marcu.pawcompanion.component.ImageViewComponent
-        android:id="@+id/imageView_walk_notification"
+        android:id="@+id/meal_notification_imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/reminderButton_meal_notification"
+        app:layout_constraintBottom_toBottomOf="@+id/meal_notification_reminderButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.451"
-        app:layout_constraintStart_toEndOf="@+id/okButton_meal_notification"
+        app:layout_constraintStart_toEndOf="@+id/meal_notification_okButton"
         app:layout_constraintTop_toTopOf="@+id/titleTextView"
         app:srcCompat="@drawable/placeholder" />
 
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.marcu.pawcompanion.component.ButtonComponent
-        android:id="@+id/reminderButton_meal_notification"
+        android:id="@+id/meal_notification_reminderButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -44,18 +44,18 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.example.marcu.pawcompanion.component.ButtonComponent
-        android:id="@+id/okButton_meal_notification"
+        android:id="@+id/meal_notification_okButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="OK"
-        app:layout_constraintBottom_toTopOf="@+id/reminderButton_meal_notification"
-        app:layout_constraintEnd_toEndOf="@+id/reminderButton_meal_notification"
-        app:layout_constraintStart_toStartOf="@+id/reminderButton_meal_notification" />
+        app:layout_constraintBottom_toTopOf="@+id/meal_notification_reminderButton"
+        app:layout_constraintEnd_toEndOf="@+id/meal_notification_reminderButton"
+        app:layout_constraintStart_toStartOf="@+id/meal_notification_reminderButton" />
 
     <TextView
-        android:id="@+id/nameTextView_meal_notification"
+        android:id="@+id/meal_notification_nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -66,12 +66,12 @@
         app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <TextView
-        android:id="@+id/portionTextView"
+        android:id="@+id/meal_notification_portionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Portion: 230g"
-        app:layout_constraintEnd_toEndOf="@+id/nameTextView_meal_notification"
-        app:layout_constraintStart_toStartOf="@+id/nameTextView_meal_notification"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView_meal_notification" />
+        app:layout_constraintEnd_toEndOf="@+id/meal_notification_nameTextView"
+        app:layout_constraintStart_toStartOf="@+id/meal_notification_nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/meal_notification_nameTextView" />
 </android.support.constraint.ConstraintLayout>

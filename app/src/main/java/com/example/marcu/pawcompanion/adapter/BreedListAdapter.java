@@ -58,7 +58,7 @@ public class BreedListAdapter extends BaseAdapter implements Filterable{
         }
 
         if(breed != null){
-            TextView breedTextView = view.findViewById(R.id.textViewBreed);
+            TextView breedTextView = view.findViewById(R.id.breed_list_item_textView);
             breedTextView.setText(breed.getName());
         }
         return view;

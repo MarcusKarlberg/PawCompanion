@@ -12,7 +12,6 @@ import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.component.ButtonComponent;
 import com.example.marcu.pawcompanion.component.ImageViewComponent;
 import com.example.marcu.pawcompanion.controller.ActionHandlerContract;
-import com.example.marcu.pawcompanion.controller.ImageHandler;
 import com.example.marcu.pawcompanion.controller.NotificationHandler;
 import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
@@ -42,6 +41,7 @@ public class WalkNotificationActivity extends AppCompatActivity implements Actio
         validateData(bundle);
         setHandlers();
         getImageViewComponent().setSelectedImage(this.dog.getImageUriString());
+
         invokeAction(HandlerType.NOTIFICATION, Action.SET_WALK_NOTIFICATION_INFO);
     }
 
@@ -91,14 +91,14 @@ public class WalkNotificationActivity extends AppCompatActivity implements Actio
     }
 
     private void findViews(){
-        nameTextView = (TextView) findViewById(R.id.nameTextView_walk_notification);
-        imageViewComponent = findViewById(R.id.imageView_walk_notification);
+        nameTextView = (TextView) findViewById(R.id.walk_notification_nameTextView);
+        imageViewComponent = findViewById(R.id.walk_notification_imageView);
         imageViewComponent.setImageViewType(ImageViewComponent.ImageViewType.IDLE);
-        walkingDistanceTextView = (TextView) findViewById(R.id.walkingDistanceTextView);
-        walkingDurationTextView = (TextView) findViewById(R.id.walkingDurationTextView);
-        okButton = findViewById(R.id.okButton_walk_notification);
+        walkingDistanceTextView = (TextView) findViewById(R.id.walk_notification_distanceTextView);
+        walkingDurationTextView = (TextView) findViewById(R.id.walk_notification_durationTextView);
+        okButton = findViewById(R.id.walk_notification_okButton);
         okButton.setButtonType(ButtonComponent.ButtonType.CLOSE_WALK_NOTIFICATION);
-        remindAgainButton = findViewById(R.id.reminderButton_walk_notification);
+        remindAgainButton = findViewById(R.id.walk_notification_reminderButton);
         remindAgainButton.setButtonType(ButtonComponent.ButtonType.REMIND_AGAIN_WALK_NOTIFICATION);
     }
 

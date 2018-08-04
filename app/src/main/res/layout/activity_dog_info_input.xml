@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.example.marcu.pawcompanion.component.ButtonComponent
-        android:id="@+id/saveCompanionButton"
+        android:id="@+id/info_input_saveCompanionButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/saveCompanionButton"
+        app:layout_constraintBottom_toTopOf="@+id/info_input_saveCompanionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -36,25 +36,25 @@
                 android:layout_height="wrap_content">
 
                 <com.example.marcu.pawcompanion.component.EditTextComponent
-                    android:id="@+id/nameTextView_walk_notification"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
+                    android:id="@+id/info_input_nameTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:text="Name"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView_walk_notification"
+                    app:layout_constraintStart_toEndOf="@+id/info_input_imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.example.marcu.pawcompanion.component.ImageViewComponent
-                    android:id="@+id/imageView_walk_notification"
+                    android:id="@+id/info_input_imageView"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginBottom="8dp"
@@ -87,7 +87,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.example.marcu.pawcompanion.component.TextViewComponent
-                    android:id="@+id/breedTextView"
+                    android:id="@+id/info_input_breedTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content">
 
                 <com.example.marcu.pawcompanion.component.TextViewComponent
-                    android:id="@+id/birthdayTextView"
+                    android:id="@+id/info_input_birthdayTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content">
 
                 <com.example.marcu.pawcompanion.component.EditTextComponent
-                    android:id="@+id/weightEditText"
+                    android:id="@+id/info_input_weightEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -190,7 +190,7 @@
                 android:layout_height="wrap_content">
 
                 <com.example.marcu.pawcompanion.component.TextViewComponent
-                    android:id="@+id/walkTimeTextView"
+                    android:id="@+id/info_input_walkTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -228,7 +228,7 @@
                 android:layout_height="wrap_content">
 
                 <com.example.marcu.pawcompanion.component.TextViewComponent
-                    android:id="@+id/mealTimeTextView"
+                    android:id="@+id/info_input_mealTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"

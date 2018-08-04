@@ -1,11 +1,8 @@
 package com.example.marcu.pawcompanion.repository;
-import android.util.Log;
 
 import com.example.marcu.pawcompanion.data.Dog;
 
 import java.util.*;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by marcu on 3/14/2018.
@@ -35,10 +32,6 @@ public class DogRepository {
         Dog dog = getByDogId(dogToUpdate.getId());
         int index = dogs.indexOf(dog);
         dogs.set(index, dogToUpdate);
-    }
-
-    public Dog getDogByListIndex(int id){
-        return dogs.get(id);
     }
 
     public List<Dog> getAllDogs(){

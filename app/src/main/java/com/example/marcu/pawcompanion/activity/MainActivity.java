@@ -3,15 +3,11 @@ package com.example.marcu.pawcompanion.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.example.marcu.pawcompanion.adapter.DogListAdapter;
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.component.ButtonComponent;
 import com.example.marcu.pawcompanion.component.DogListComponent;
 import com.example.marcu.pawcompanion.controller.ActionHandlerContract;
-import com.example.marcu.pawcompanion.controller.Handler;
-import com.example.marcu.pawcompanion.controller.ImageHandler;
 import com.example.marcu.pawcompanion.controller.MainActivityHandler;
 import com.example.marcu.pawcompanion.controller.NotificationHandler;
 import com.example.marcu.pawcompanion.controller.PreferencesHandler;
@@ -50,11 +46,6 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
         this.actionHandler = handler;
     }
 
-    //Todo: originally = getRootActionHandler method - remove this later NOT NEEDED??
-    public ActionHandlerContract.ActionHandler getActionHandler() {
-        return this.actionHandler;
-    }
-
     public DogListComponent getListComponent() {
         return this.listView;
     }
@@ -83,11 +74,11 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
     }
 
     private void findViews(){
-        deleteDogButton = findViewById(R.id.deleteDogButton);
+        deleteDogButton = findViewById(R.id.main_deleteDogButton);
         deleteDogButton.setButtonType(ButtonComponent.ButtonType.REMOVE);
-        addDogButton = findViewById(R.id.addDogButton);
+        addDogButton = findViewById(R.id.main_addDogButton);
         addDogButton.setButtonType(ButtonComponent.ButtonType.ADD);
-        listView = findViewById(R.id.dogListView);
+        listView = findViewById(R.id.main_dogListView);
     }
 
     private void setHandlers(){

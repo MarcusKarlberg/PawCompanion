@@ -33,11 +33,6 @@ public class BreedListComponent extends ListView
         initialize();
     }
 
-    private void initialize() {
-        this.setAdapter(new BreedListAdapter());
-        this.setOnItemClickListener(this);
-    }
-
     public int getSelectedPosition() {
         return selectedPosition;
     }
@@ -77,5 +72,10 @@ public class BreedListComponent extends ListView
 
         Log.d(TAG, "onItemClick: " + selectedBreed.getName() + " selected");
         this.rootActionHandler.invokeAction(HandlerType.MODEL, Action.TOGGLE_BREED_SELECT);
+    }
+
+    private void initialize() {
+        this.setAdapter(new BreedListAdapter());
+        this.setOnItemClickListener(this);
     }
 }

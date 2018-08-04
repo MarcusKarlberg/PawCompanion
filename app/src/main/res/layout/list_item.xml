@@ -8,7 +8,7 @@
     android:textSize="18sp">
 
     <TextView
-        android:id="@+id/nameTextView_walk_notification"
+        android:id="@+id/list_item_nameTextView"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
@@ -18,19 +18,19 @@
         android:text="TextView"
         android:textSize="55dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/photoImageView"
+        app:layout_constraintStart_toEndOf="@+id/list_item_imageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Rigby" />
 
     <com.example.marcu.pawcompanion.component.ImageViewComponent
-        android:id="@+id/photoImageView"
+        android:id="@+id/list_item_imageView"
         android:layout_width="80dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:fadingEdge="horizontal|vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/nameTextView_walk_notification"
+        app:layout_constraintBottom_toBottomOf="@+id/list_item_nameTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nameTextView_walk_notification"
+        app:layout_constraintTop_toTopOf="@+id/list_item_nameTextView"
         app:srcCompat="@drawable/placeholder" />
 </android.support.constraint.ConstraintLayout>

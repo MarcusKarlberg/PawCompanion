@@ -31,10 +31,6 @@ public class SelectBreedActivity extends AppCompatActivity implements ActionHand
         setHandlers();
     }
 
-    public ActionHandlerContract.ActionHandler getActionHandler() {
-        return actionHandler;
-    }
-
     public void setActionHandler(ActionHandlerContract.ActionHandler actionHandler) {
         this.actionHandler = actionHandler;
     }
@@ -61,6 +57,7 @@ public class SelectBreedActivity extends AppCompatActivity implements ActionHand
     public boolean onQueryTextChange(String s) {
         BreedListAdapter breedListAdapter = (BreedListAdapter) getBreedListComponent().getAdapter();
         breedListAdapter.getFilter().filter(s);
+
         return true;
     }
 
@@ -75,10 +72,10 @@ public class SelectBreedActivity extends AppCompatActivity implements ActionHand
     }
 
     private void findViews(){
-        listView =  findViewById(R.id.listView);
-        searchView = findViewById(R.id.searchView);
+        listView =  findViewById(R.id.select_breed_listView);
+        searchView = findViewById(R.id.select_breed_searchView);
         searchView.setOnQueryTextListener(this);
-        selectButton = findViewById(R.id.selectButton);
+        selectButton = findViewById(R.id.select_breed_button);
         selectButton.setButtonType(ButtonComponent.ButtonType.SELECT);
     }
 }

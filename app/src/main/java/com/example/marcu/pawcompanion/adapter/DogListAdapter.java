@@ -62,9 +62,9 @@ public class DogListAdapter extends BaseAdapter {
         }
 
         if(dog != null){
-            TextView dogNameTextView = view.findViewById(R.id.nameTextView_walk_notification);
-            imageViewComponent = view.findViewById(R.id.photoImageView);
-            if(StringUtils.isBlank(dog.getImageUriString())){
+            TextView dogNameTextView = view.findViewById(R.id.list_item_nameTextView);
+            imageViewComponent = view.findViewById(R.id.list_item_imageView);
+            if(!StringUtils.isBlank(dog.getImageUriString())){
                 imageViewComponent.setSelectedImage(Uri.parse(dog.getImageUriString()));
             }
             dogNameTextView.setText(dog.getName());

@@ -5,8 +5,6 @@ import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Dog;
 
-import static android.content.ContentValues.TAG;
-
 public class MainActivityHandler extends Handler implements ActionHandlerContract.ActionHandler {
 
     public ActionHandlerContract.ActionHandler nextHandler;

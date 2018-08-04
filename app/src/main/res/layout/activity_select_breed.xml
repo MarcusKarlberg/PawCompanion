@@ -7,20 +7,20 @@
     tools:context=".activity.SelectBreedActivity">
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/select_breed_searchView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/selectButton"
-        app:layout_constraintEnd_toStartOf="@+id/selectButton"
+        app:layout_constraintBottom_toBottomOf="@+id/select_breed_button"
+        app:layout_constraintEnd_toStartOf="@+id/select_breed_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/selectButton" />
+        app:layout_constraintTop_toTopOf="@+id/select_breed_button" />
 
     <com.example.marcu.pawcompanion.component.ButtonComponent
-        android:id="@+id/selectButton"
+        android:id="@+id/select_breed_button"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
@@ -30,17 +30,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.marcu.pawcompanion.component.BreedListComponent
-        android:id="@+id/listView"
+        android:id="@+id/select_breed_listView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:choiceMode="singleChoice"
         android:listSelector="@color/primary_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/select_breed_searchView" />
 </android.support.constraint.ConstraintLayout>

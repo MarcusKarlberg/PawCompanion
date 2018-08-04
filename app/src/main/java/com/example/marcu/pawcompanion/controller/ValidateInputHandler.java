@@ -3,8 +3,11 @@ package com.example.marcu.pawcompanion.controller;
 import android.view.Gravity;
 import android.widget.Toast;
 
+import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.activity.DogInfoInputActivity;
 import com.example.marcu.pawcompanion.activity.SelectBreedActivity;
+import com.example.marcu.pawcompanion.component.EditTextComponent;
+import com.example.marcu.pawcompanion.component.TextViewComponent;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Breed;
@@ -64,7 +67,14 @@ public class ValidateInputHandler extends Handler implements ActionHandlerContra
     }
 
     private boolean validateDogInput(){
-        if(StringUtils.isBlank(getDogInfoInputActivity().getNameEditText())){
+        DogInfoInputActivity activity = getDogInfoInputActivity();
+        EditTextComponent nameEditText = activity.findViewById(R.id.info_input_nameTextView);
+        TextViewComponent birthdayTextView = activity.findViewById(R.id.info_input_birthdayTextView);
+        EditTextComponent weightEditText = activity.findViewById(R.id.info_input_weightEditText);
+        TextViewComponent walkTimeTextView = activity.findViewById(R.id.info_input_walkTimeTextView);
+        TextViewComponent mealTimeTextView = activity.findViewById(R.id.info_input_mealTimeTextView);
+
+        if(StringUtils.isBlank(nameEditText.getText())){
             showToast("invalid name");
             return false;
         }
@@ -73,23 +83,23 @@ public class ValidateInputHandler extends Handler implements ActionHandlerContra
             return false;
         }
 
-        if(getDogInfoInputActivity().getBirthDayText().equalsIgnoreCase("set date")){
+        if(birthdayTextView.getText().toString().equalsIgnoreCase("set date")){
             showToast("invalid birthday");
             return false;
         }
 
-        String weight = getDogInfoInputActivity().getWeighText();
+        String weight = weightEditText.getText().toString();
         if(StringUtils.isBlank(weight) || !weight.matches("^[1-9]\\d*(\\.\\d+)?$") || Double.parseDouble(weight) == 0){
             showToast("invalid weight");
             return false;
         }
 
-        if(getDogInfoInputActivity().getWalkTimeText().equalsIgnoreCase("set time")){
+        if(walkTimeTextView.getText().toString().equalsIgnoreCase("set time")){
             showToast("invalid walktime");
             return false;
         }
 
-        if(getDogInfoInputActivity().getMealTimeText().equalsIgnoreCase("set time")){
+        if(mealTimeTextView.getText().toString().equalsIgnoreCase("set time")){
             showToast("invalid mealtime");
             return false;
         }

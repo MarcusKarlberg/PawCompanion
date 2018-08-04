@@ -9,7 +9,10 @@ import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
+import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.activity.DogInfoInputActivity;
+import com.example.marcu.pawcompanion.component.EditTextComponent;
+import com.example.marcu.pawcompanion.component.TextViewComponent;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Breed;
@@ -26,6 +29,12 @@ import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.UPDAT
 public class DogInfoInputHandler extends Handler implements ActionHandlerContract.ActionHandler {
 
     public ActionHandlerContract.ActionHandler nextHandler;
+    private EditTextComponent nameEditTex;
+    private TextViewComponent breedTextView;
+    private TextViewComponent birthdayTextView;
+    private EditTextComponent weightEditText;
+    private TextViewComponent walkTimeTextView;
+    private TextViewComponent mealTimeTextView;
 
     public DogInfoInputHandler(DogInfoInputActivity activity) {
         super(activity);
@@ -46,11 +55,13 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
     }
 
     private void updateModel(Action action){
+        findViews();
 
         switch (action){
             case SET_BREED:
                 Breed breed = getDogInfoInputActivity().getSelectedBreed();
-                getDogInfoInputActivity().setBreedText(breed.getName());
+                TextViewComponent breedTextView = getDogInfoInputActivity().findViewById(R.id.info_input_breedTextView);
+                breedTextView.setText(breed.getName());
             break;
             case SET_BIRTHDAY:
                 setDate();
@@ -86,7 +97,7 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month += 1;
                 String date = String.format("%02d", month) + "/" + String.format("%02d", day) + "/" + year;
-                getDogInfoInputActivity().setBirthdayTextView(date);
+                birthdayTextView.setText(date);
             }
         };
 
@@ -105,7 +116,7 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 String time = String.format("%02d", hour) + ":" + String.format("%02d", minute);
-                getDogInfoInputActivity().setWalkTimeTextView(time);
+                walkTimeTextView.setText(time);
             }
         });
 
@@ -122,7 +133,7 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 String time = String.format("%02d", hour) + ":" + String.format("%02d", minute);
-                getDogInfoInputActivity().setMealTimeTextView(time);
+                mealTimeTextView.setText(time);
             }
         });
 
@@ -135,14 +146,12 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
     }
 
     private void saveDog(){
-        DogInfoInputActivity activity = getDogInfoInputActivity();
-
-        String name = activity.getNameEditText();
-        Double weight = Double.parseDouble(activity.getWeighText());
-        Breed selectedBreed = activity.getSelectedBreed();
-        String birthday = activity.getBirthDayText();
-        String firstMealTime = activity.getMealTimeText();
-        String firstWalkTime = activity.getWalkTimeText();
+        String name = nameEditTex.getText().toString();
+        Double weight = Double.parseDouble(weightEditText.getText().toString());
+        Breed selectedBreed = getDogInfoInputActivity().getSelectedBreed();
+        String birthday = birthdayTextView.getText().toString();
+        String firstMealTime = mealTimeTextView.getText().toString();
+        String firstWalkTime = walkTimeTextView.getText().toString();
         Uri imageUri = getImageViewComponent().getSelectedImage();
         Dog dog = null;
 
@@ -170,15 +179,24 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
     }
 
     private void setDogInfo(Dog dog){
-        DogInfoInputActivity activity = getDogInfoInputActivity();
-        activity.setNameText(dog.getName());
-        activity.setBreedText(dog.getBreed().getName());
-        activity.setSelectedBreed(dog.getBreed());
-        activity.setWeightText(String.valueOf(dog.getWeight()));
+        nameEditTex.setText(dog.getName());
+        breedTextView.setText(dog.getBreed().getName());
+        getDogInfoInputActivity().setSelectedBreed(dog.getBreed());
         DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
-        activity.setBirthdayTextView(dog.getBirthDate().toString(formatter));
-        activity.setWalkTimeTextView(dog.getFirstWalkTime().toString("hh:mm"));
-        activity.setMealTimeTextView(dog.getFirstMealTime().toString("hh:mm"));
-        activity.invokeAction(HandlerType.IMAGE, Action.SET_IMAGE);
+        birthdayTextView.setText(dog.getBirthDate().toString(formatter));
+        weightEditText.setText(String.valueOf(dog.getWeight()));
+        walkTimeTextView.setText(dog.getFirstWalkTime().toString("hh:mm"));
+        mealTimeTextView.setText(dog.getFirstMealTime().toString("hh:mm"));
+        getDogInfoInputActivity().invokeAction(HandlerType.IMAGE, Action.SET_IMAGE);
+    }
+
+    private void findViews(){
+        DogInfoInputActivity activity = getDogInfoInputActivity();
+        this.nameEditTex = activity.findViewById(R.id.info_input_nameTextView);
+        this.birthdayTextView = activity.findViewById(R.id.info_input_birthdayTextView);
+        this.weightEditText = activity.findViewById(R.id.info_input_weightEditText);
+        this.walkTimeTextView = activity.findViewById(R.id.info_input_walkTimeTextView);
+        this.mealTimeTextView = activity.findViewById(R.id.info_input_mealTimeTextView);
+        this.breedTextView = activity.findViewById(R.id.info_input_breedTextView);
     }
 }

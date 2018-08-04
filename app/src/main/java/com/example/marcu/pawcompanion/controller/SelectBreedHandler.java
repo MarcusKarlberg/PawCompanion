@@ -1,7 +1,5 @@
 package com.example.marcu.pawcompanion.controller;
 
-import android.util.Log;
-
 import com.example.marcu.pawcompanion.activity.SelectBreedActivity;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;

@@ -1,7 +1,6 @@
 package com.example.marcu.pawcompanion.controller;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.example.marcu.pawcompanion.activity.DogInfoInputActivity;
 import com.example.marcu.pawcompanion.activity.MainActivity;
@@ -12,9 +11,7 @@ import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Dog;
 
-
 import static android.app.Activity.RESULT_OK;
-import static android.content.ContentValues.TAG;
 
 public class ViewHandler extends Handler implements ActionHandlerContract.ActionHandler{
 
@@ -70,7 +67,6 @@ public class ViewHandler extends Handler implements ActionHandlerContract.Action
                 getMainActivity().startActivityForResult(intentAdd, MainActivity.ADD_DOG_REQUEST);
             break;
             case OPEN_SELECT_BREED_VIEW:
-                Log.d(TAG, "updateView: set breed tex pressed");
                 Intent intentBreedSelect = new Intent(getDogInfoInputActivity(), SelectBreedActivity.class);
                 getDogInfoInputActivity().startActivityForResult(intentBreedSelect, DogInfoInputActivity.SELECT_BREED_REQUEST);
             break;

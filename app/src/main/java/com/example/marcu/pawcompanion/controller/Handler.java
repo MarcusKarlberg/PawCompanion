@@ -37,7 +37,6 @@ public abstract class Handler {
         this.walkNotificationActivity = activity;
     }
 
-
     public MainActivity getMainActivity() {
         return mainActivity;
     }

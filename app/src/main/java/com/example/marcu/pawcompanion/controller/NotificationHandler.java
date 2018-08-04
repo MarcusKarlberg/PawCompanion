@@ -1,8 +1,6 @@
 package com.example.marcu.pawcompanion.controller;
 
 import android.net.Uri;
-import android.util.Log;
-
 import com.example.marcu.pawcompanion.activity.MainActivity;
 import com.example.marcu.pawcompanion.activity.MealNotificationActivity;
 import com.example.marcu.pawcompanion.activity.WalkNotificationActivity;
@@ -13,8 +11,6 @@ import com.example.marcu.pawcompanion.notification.NotificationMngr;
 import com.example.marcu.pawcompanion.utility.ImageUtils;
 
 import org.joda.time.LocalTime;
-
-import static android.content.ContentValues.TAG;
 
 public class NotificationHandler extends Handler implements ActionHandlerContract.ActionHandler{
 

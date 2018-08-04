@@ -2,7 +2,6 @@ package com.example.marcu.pawcompanion.component;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,12 +25,6 @@ public class DogListComponent extends ListView
         this.rootActionHandler = (ActionHandlerContract.RootActionHandler) context;
 
         initialize();
-    }
-
-    private void initialize() {
-        this.setAdapter(new DogListAdapter());
-        this.setOnItemClickListener(this);
-        this.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -67,5 +60,11 @@ public class DogListComponent extends ListView
 
         this.rootActionHandler.invokeAction(HandlerType.VIEW, Action.OPEN_DOG_INFO_UPDATE_VIEW);
         return false;
+    }
+
+    private void initialize() {
+        this.setAdapter(new DogListAdapter());
+        this.setOnItemClickListener(this);
+        this.setOnItemLongClickListener(this);
     }
 }

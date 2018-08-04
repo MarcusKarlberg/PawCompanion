@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.marcu.pawcompanion.R;
@@ -23,6 +22,8 @@ import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Breed;
 import com.example.marcu.pawcompanion.data.Dog;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class DogInfoInputActivity extends AppCompatActivity implements ActionHandlerContract.RootActionHandler{
     private static final String TAG = "DogInfoInputActivity";
@@ -55,70 +56,20 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         actionHandler.handle(handlerType, action);
     }
 
-    //Todo: is this method really needed
-    public ActionHandlerContract.ActionHandler getActionHandler() {
-        return this.actionHandler;
-    }
-
     public void setActionHandler(ActionHandlerContract.ActionHandler handler){
         this.actionHandler = handler;
-    }
-
-    public void setBreedText(String breedName){
-        Log.d(TAG, "setBreedText: " + breedName);
-        breedTextView.setText(breedName);
     }
 
     public ImageViewComponent getImageViewComponent() {
         return imageViewComponent;
     }
 
-    public void setBirthdayTextView(String birthday){
-        birthdayTextView.setText(birthday);
-    }
-
     public void setImageViewComponent(Bitmap bitmap){
         imageViewComponent.setImageBitmap(bitmap);
     }
 
-    public void setWalkTimeTextView(String time){
-        walkTimeTextView.setText(time);
-    }
-
-    public void setMealTimeTextView(String time){
-        mealTimeTextView.setText(time);
-    }
-
-    public String getBirthDayText(){
-        return birthdayTextView.getText().toString();
-    }
-
-    public String getWalkTimeText(){
-        return walkTimeTextView.getText().toString();
-    }
-
-    public String getMealTimeText(){
-        return mealTimeTextView.getText().toString();
-    }
-
-    public String getWeighText(){
-        return weightEditText.getText().toString();
-    }
-
-    public String getNameEditText(){
-        return nameEditText.getText().toString();
-    }
-
     public Breed getSelectedBreed(){
         return this.selectedBreed;
-    }
-
-    public void setNameText(String name) {
-        this.nameEditText.setText(name);
-    }
-
-    public void setWeightText(String weight) {
-        this.weightEditText.setText(weight);
     }
 
     public void setSelectedBreed(Breed selectedBreed) {
@@ -169,27 +120,39 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         if(dog != null){
             this.dog = dog;
             purposeOfActivity = UPDATE;
-            getImageViewComponent().setSelectedImage(dog.getImageUriString());
+            if(!isBlank(dog.getImageUriString())){
+                getImageViewComponent().setSelectedImage(dog.getImageUriString());
+            } else {
+               imageViewComponent.setImageDrawable(getApplicationContext()
+                       .getResources().getDrawable(R.drawable.placeholder));
+            }
             invokeAction(HandlerType.MODEL, Action.SET_DOG_INFO);
         }
     }
 
     private void findViews(){
-        nameEditText = findViewById(R.id.nameTextView_walk_notification);
+        nameEditText = findViewById(R.id.info_input_nameTextView);
         nameEditText.setEditTextType(EditTextComponent.EditTextType.SET_NAME);
-        birthdayTextView = findViewById(R.id.birthdayTextView);
+
+        birthdayTextView = findViewById(R.id.info_input_birthdayTextView);
         birthdayTextView.setTextViewType(TextViewComponent.TextViewType.SET_BIRTHDAY);
-        weightEditText = findViewById(R.id.weightEditText);
+
+        weightEditText = findViewById(R.id.info_input_weightEditText);
         weightEditText.setEditTextType(EditTextComponent.EditTextType.SET_WEIGHT);
-        walkTimeTextView = findViewById(R.id.walkTimeTextView);
+
+        walkTimeTextView = findViewById(R.id.info_input_walkTimeTextView);
         walkTimeTextView.setTextViewType(TextViewComponent.TextViewType.SET_WALK_TIME);
-        mealTimeTextView = findViewById(R.id.mealTimeTextView);
+
+        mealTimeTextView = findViewById(R.id.info_input_mealTimeTextView);
         mealTimeTextView.setTextViewType(TextViewComponent.TextViewType.SET_MEAL_TIME);
-        breedTextView = findViewById(R.id.breedTextView);
+
+        breedTextView = findViewById(R.id.info_input_breedTextView);
         breedTextView.setTextViewType(TextViewComponent.TextViewType.BREED_SELECT);
-        saveDogButton = findViewById(R.id.saveCompanionButton);
+
+        saveDogButton = findViewById(R.id.info_input_saveCompanionButton);
         saveDogButton.setButtonType(ButtonComponent.ButtonType.SAVE);
-        imageViewComponent = findViewById(R.id.imageView_walk_notification);
+
+        imageViewComponent = findViewById(R.id.info_input_imageView);
         imageViewComponent.setImageViewType(ImageViewComponent.ImageViewType.BUTTON);
     }
 

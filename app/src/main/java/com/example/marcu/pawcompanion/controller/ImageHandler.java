@@ -3,26 +3,15 @@ package com.example.marcu.pawcompanion.controller;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 
 import com.example.marcu.pawcompanion.activity.DogInfoInputActivity;
-import com.example.marcu.pawcompanion.activity.MealNotificationActivity;
-import com.example.marcu.pawcompanion.activity.WalkNotificationActivity;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
-import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.utility.ImageUtils;
-
-import java.io.FileNotFoundException;
-
-import static android.content.ContentValues.TAG;
 import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.ACCESS_PHOTO_LIB;
-import static org.apache.commons.lang3.StringUtils.isBlank;
+
 
 public class ImageHandler extends Handler implements ActionHandlerContract.ActionHandler {
 

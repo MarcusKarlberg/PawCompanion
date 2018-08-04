@@ -141,8 +141,6 @@ public final class Dog implements Serializable{
         this.portionSize = portionSize;
     }
 
-    //Todo: intervals - should be in minutes. 60min would be 1h interval between reminder
-
     public void setIntervalMealTime(){
         int ageInMonths = getAgeInMonths(this.birthDate);
 

@@ -1,7 +1,6 @@
 package com.example.marcu.pawcompanion.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.component.ButtonComponent;
 import com.example.marcu.pawcompanion.component.ImageViewComponent;
 import com.example.marcu.pawcompanion.controller.ActionHandlerContract;
-import com.example.marcu.pawcompanion.controller.ImageHandler;
 import com.example.marcu.pawcompanion.controller.NotificationHandler;
 import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
@@ -84,13 +82,13 @@ public class MealNotificationActivity extends AppCompatActivity implements Actio
     }
 
     private void findViews(){
-        nameTextView = findViewById(R.id.nameTextView_meal_notification);
-        imageViewComponent = findViewById(R.id.imageView_meal_notification);
+        nameTextView = findViewById(R.id.meal_notification_nameTextView);
+        imageViewComponent = findViewById(R.id.meal_notification_imageView);
         imageViewComponent.setImageViewType(ImageViewComponent.ImageViewType.IDLE);
-        portionTextView = findViewById(R.id.portionTextView);
-        okButton = findViewById(R.id.okButton_meal_notification);
+        portionTextView = findViewById(R.id.meal_notification_portionTextView);
+        okButton = findViewById(R.id.meal_notification_okButton);
         okButton.setButtonType(ButtonComponent.ButtonType.CLOSE_MEAL_NOTIFICATION);
-        remindAgainButton = findViewById(R.id.reminderButton_meal_notification);
+        remindAgainButton = findViewById(R.id.meal_notification_reminderButton);
         remindAgainButton.setButtonType(ButtonComponent.ButtonType.REMIND_AGAIN_MEAL_NOTIFICATION);
     }
 
