@@ -7,7 +7,7 @@
     tools:context="com.example.marcu.pawcompanion.activity.MealNotificationActivity">
 
     <TextView
-        android:id="@+id/callEditText"
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -20,34 +20,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/remindAgainButton"
+    <com.example.marcu.pawcompanion.component.ButtonComponent
+        android:id="@+id/reminderButton_meal_notification"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:text="Remind Me Again"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/okButton"
-        app:layout_constraintStart_toStartOf="@+id/okButton" />
+        app:layout_constraintEnd_toEndOf="@+id/okButton_meal_notification"
+        app:layout_constraintStart_toStartOf="@+id/okButton_meal_notification" />
 
-    <Button
-        android:id="@+id/okButton"
+    <com.example.marcu.pawcompanion.component.ButtonComponent
+        android:id="@+id/okButton_meal_notification"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:text="OK"
-        app:layout_constraintBottom_toTopOf="@+id/remindAgainButton"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView" />
+        app:layout_constraintBottom_toTopOf="@+id/reminderButton_meal_notification"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_meal_notification"
+        app:layout_constraintStart_toStartOf="@+id/imageView_meal_notification" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <com.example.marcu.pawcompanion.component.ImageViewComponent
+        android:id="@+id/imageView_meal_notification"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -57,11 +53,11 @@
         app:layout_constraintBottom_toTopOf="@+id/portionTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView_meal_notification"
         app:srcCompat="@drawable/placeholder" />
 
     <TextView
-        android:id="@+id/nameEditText"
+        android:id="@+id/nameTextView_meal_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -71,17 +67,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/callEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <TextView
         android:id="@+id/portionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:text="Portion: 230g"
-        app:layout_constraintBottom_toTopOf="@+id/okButton"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView" />
+        app:layout_constraintBottom_toTopOf="@+id/okButton_meal_notification"
+        tools:layout_editor_absoluteX="150dp" />
 </android.support.constraint.ConstraintLayout>

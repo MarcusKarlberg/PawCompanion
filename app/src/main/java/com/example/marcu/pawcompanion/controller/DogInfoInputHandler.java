@@ -2,7 +2,6 @@ package com.example.marcu.pawcompanion.controller;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -20,7 +19,6 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.CREATE;
 import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.UPDATE;
@@ -65,7 +63,7 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
             break;
             case CREATE_DOG:
                 saveDog();
-                getDogInfoInputRootActionHandler().invokeAction(HandlerType.VIEW, Action.FINISH_DOG_INFO_INPUT_VIEW);
+                getDogInfoInputRootActionHandler().invokeAction(HandlerType.VIEW, Action.CLOSE_DOG_INFO_INPUT_VIEW);
             break;
             case SET_DOG_INFO:
                 Dog dog = getDogInfoInputActivity().getDog();

@@ -1,23 +1,21 @@
 package com.example.marcu.pawcompanion.adapter;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marcu.pawcompanion.R;
-import com.example.marcu.pawcompanion.component.DogListComponent;
 import com.example.marcu.pawcompanion.component.ImageViewComponent;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.repository.DogRepository;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileNotFoundException;
 
@@ -64,9 +62,11 @@ public class DogListAdapter extends BaseAdapter {
         }
 
         if(dog != null){
-            TextView dogNameTextView = view.findViewById(R.id.dogNameTextView);
+            TextView dogNameTextView = view.findViewById(R.id.nameTextView_walk_notification);
             imageViewComponent = view.findViewById(R.id.photoImageView);
-            imageViewComponent.setSelectedImage(Uri.parse(dog.getImageUriString()));
+            if(StringUtils.isBlank(dog.getImageUriString())){
+                imageViewComponent.setSelectedImage(Uri.parse(dog.getImageUriString()));
+            }
             dogNameTextView.setText(dog.getName());
             setImageView(dog.getImageUriString(), viewGroup);
         }

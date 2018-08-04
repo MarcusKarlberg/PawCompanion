@@ -11,13 +11,18 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.example.marcu.pawcompanion.activity.DogInfoInputActivity;
+import com.example.marcu.pawcompanion.activity.MealNotificationActivity;
+import com.example.marcu.pawcompanion.activity.WalkNotificationActivity;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
+import com.example.marcu.pawcompanion.data.Dog;
+import com.example.marcu.pawcompanion.utility.ImageUtils;
 
 import java.io.FileNotFoundException;
 
 import static android.content.ContentValues.TAG;
 import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.ACCESS_PHOTO_LIB;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class ImageHandler extends Handler implements ActionHandlerContract.ActionHandler {
 
@@ -41,39 +46,17 @@ public class ImageHandler extends Handler implements ActionHandlerContract.Actio
 
     private void updateImage(Action action){
         switch (action){
-
             case REQUEST_ACCESS_PHOTO_LIB:
                 requestAccessPhotoLibrary();
             break;
-
             case ACCESS_PHOTO_LIB:
                 accessPhotoLibrary();
             break;
-
             case SET_IMAGE:
-                setImage(getImageViewComponent().getSelectedImage().toString());
+                ImageUtils imageUtils = new ImageUtils(getDogInfoInputActivity());
+                getDogInfoInputActivity().setImageViewComponent(imageUtils
+                        .setImage(getImageViewComponent().getSelectedImage()));
             break;
-        }
-    }
-
-    private void setImage(String imageUriString){
-
-        if(imageUriString != null){
-            Uri imageUri = Uri.parse(imageUriString);
-
-            //to minimize memory -  outofmemoryerror
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.RGB_565;
-            options.inSampleSize = 2;
-            Bitmap bitmap;
-
-            try {
-                bitmap = BitmapFactory.decodeStream(getDogInfoInputActivity().getContentResolver().openInputStream(imageUri), null, options);
-                getDogInfoInputActivity().imageViewComponent.setImageBitmap(bitmap);
-            }catch (FileNotFoundException e){
-                //Todo: what's the best practice to handle exceptions in android
-                Log.d(TAG, "FileNotFoundException");
-            }
         }
     }
 

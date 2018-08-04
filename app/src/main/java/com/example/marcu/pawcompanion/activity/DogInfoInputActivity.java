@@ -3,7 +3,6 @@ package com.example.marcu.pawcompanion.activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,8 +37,8 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
     private EditTextComponent nameEditText, weightEditText;
     private Breed selectedBreed;
     private Dog dog;
+    private ImageViewComponent imageViewComponent;
     public int purposeOfActivity = CREATE;
-    public ImageViewComponent imageViewComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +75,10 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
 
     public void setBirthdayTextView(String birthday){
         birthdayTextView.setText(birthday);
+    }
+
+    public void setImageViewComponent(Bitmap bitmap){
+        imageViewComponent.setImageBitmap(bitmap);
     }
 
     public void setWalkTimeTextView(String time){
@@ -166,13 +169,13 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         if(dog != null){
             this.dog = dog;
             purposeOfActivity = UPDATE;
-            getImageViewComponent().setSelectedImage(Uri.parse(dog.getImageUriString()));
+            getImageViewComponent().setSelectedImage(dog.getImageUriString());
             invokeAction(HandlerType.MODEL, Action.SET_DOG_INFO);
         }
     }
 
     private void findViews(){
-        nameEditText = findViewById(R.id.dogNameEditText);
+        nameEditText = findViewById(R.id.nameTextView_walk_notification);
         nameEditText.setEditTextType(EditTextComponent.EditTextType.SET_NAME);
         birthdayTextView = findViewById(R.id.birthdayTextView);
         birthdayTextView.setTextViewType(TextViewComponent.TextViewType.SET_BIRTHDAY);
@@ -186,8 +189,8 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         breedTextView.setTextViewType(TextViewComponent.TextViewType.BREED_SELECT);
         saveDogButton = findViewById(R.id.saveCompanionButton);
         saveDogButton.setButtonType(ButtonComponent.ButtonType.SAVE);
-        imageViewComponent = findViewById(R.id.imageView);
-        imageViewComponent.setImageViewType(ImageViewComponent.ImageViewType.ADD);
+        imageViewComponent = findViewById(R.id.imageView_walk_notification);
+        imageViewComponent.setImageViewType(ImageViewComponent.ImageViewType.BUTTON);
     }
 
     private void setHandlers(){

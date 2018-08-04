@@ -13,6 +13,7 @@ import com.example.marcu.pawcompanion.controller.ActionHandlerContract;
 import com.example.marcu.pawcompanion.controller.Handler;
 import com.example.marcu.pawcompanion.controller.ImageHandler;
 import com.example.marcu.pawcompanion.controller.MainActivityHandler;
+import com.example.marcu.pawcompanion.controller.NotificationHandler;
 import com.example.marcu.pawcompanion.controller.PreferencesHandler;
 import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
@@ -71,11 +72,11 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
             switch (requestCode){
                 case ADD_DOG_REQUEST:
                     invokeAction(HandlerType.MODEL, Action.ADD_DOG);
-                    invokeAction(HandlerType.IMAGE, Action.SET_IMAGE);
                     invokeAction(HandlerType.NOTIFICATION, Action.ADD_NOTIFICATION);
                 break;
                 case UPDATE_DOG_REQUEST:
                     invokeAction(HandlerType.MODEL, Action.UPDATE_DOG);
+                    invokeAction(HandlerType.NOTIFICATION, Action.ADD_NOTIFICATION);
                 break;
             }
         }
@@ -90,12 +91,14 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
     }
 
     private void setHandlers(){
-        ActionHandlerContract.ActionHandler modelHandler = new MainActivityHandler(this);
+        ActionHandlerContract.ActionHandler mainActivityHandler = new MainActivityHandler(this);
         ActionHandlerContract.ActionHandler viewHandler = new ViewHandler(this);
         ActionHandlerContract.ActionHandler preferencesHandler = new PreferencesHandler(this);
+        ActionHandlerContract.ActionHandler notificationHandler = new NotificationHandler(this);
 
-        viewHandler.setNextHandler(modelHandler);
-        modelHandler.setNextHandler(preferencesHandler);
+        viewHandler.setNextHandler(mainActivityHandler);
+        mainActivityHandler.setNextHandler(preferencesHandler);
+        preferencesHandler.setNextHandler(notificationHandler);
         setActionHandler(viewHandler);
     }
 }

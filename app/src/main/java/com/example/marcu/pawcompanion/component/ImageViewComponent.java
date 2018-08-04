@@ -11,7 +11,7 @@ import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 
 public class ImageViewComponent extends AppCompatImageView {
     public enum ImageViewType {
-        ADD
+        BUTTON, IDLE
     }
 
     private ActionHandlerContract.RootActionHandler rootActionHandler;
@@ -19,6 +19,10 @@ public class ImageViewComponent extends AppCompatImageView {
 
     public Uri getSelectedImage() {
         return selectedImage;
+    }
+
+    public void setSelectedImage(String uriString){
+        setSelectedImage(Uri.parse(uriString));
     }
 
     public void setSelectedImage(Uri selectedImage) {
@@ -32,7 +36,7 @@ public class ImageViewComponent extends AppCompatImageView {
 
     public void setImageViewType(ImageViewType type){
         switch (type){
-            case ADD:
+            case BUTTON:
                 this.setOnClickListener(onClickAddImage());
             break;
         }

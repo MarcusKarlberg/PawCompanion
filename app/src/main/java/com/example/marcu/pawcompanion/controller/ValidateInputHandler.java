@@ -42,7 +42,7 @@ public class ValidateInputHandler extends Handler implements ActionHandlerContra
             case VALIDATE_BREED:
                 Breed breed = getBreedListComponent().getSelectedBreed();
                 if(validateSelectedBreed(breed)){
-                    getSelectBreedRootActionHandler().invokeAction(HandlerType.VIEW, Action.FINISH_SELECT_BREED_VIEW);
+                    getSelectBreedRootActionHandler().invokeAction(HandlerType.VIEW, Action.CLOSE_SELECT_BREED_VIEW);
                 }
             break;
 

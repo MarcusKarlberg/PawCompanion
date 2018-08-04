@@ -34,24 +34,6 @@ public class DogListComponent extends ListView
         this.setOnItemLongClickListener(this);
     }
 
-//    @Override
-//    public boolean onMenuItemClick(MenuItem menuItem) {
-//        AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) menuItem.getMenuInfo();
-//        this.setSelectedPosition(menuInfo.position);
-//        this.setSelectedDog((Dog) getItemAtPosition(menuInfo.position));
-//
-//        String menuActionSelection = menuItem.getTitle().toString();
-//
-//        if(menuActionSelection.equals("Update")) {
-//            rootActionHandler.invokeAction(HandlerType.VIEW, Action.OPEN_DOG_INFO_UPDATE_VIEW);
-//        }
-//        else if(menuActionSelection.equals("Remove")) {
-//            rootActionHandler.invokeAction(HandlerType.MODEL, Action.REMOVE_DOG);
-//        }
-//        return false;
-//    }
-
-
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         setSelectedPosition(i);

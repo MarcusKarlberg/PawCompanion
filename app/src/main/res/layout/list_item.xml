@@ -8,7 +8,7 @@
     android:textSize="18sp">
 
     <TextView
-        android:id="@+id/dogNameTextView"
+        android:id="@+id/nameTextView_walk_notification"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
@@ -29,8 +29,8 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:fadingEdge="horizontal|vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/dogNameTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/nameTextView_walk_notification"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dogNameTextView"
+        app:layout_constraintTop_toTopOf="@+id/nameTextView_walk_notification"
         app:srcCompat="@drawable/placeholder" />
 </android.support.constraint.ConstraintLayout>
