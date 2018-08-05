@@ -14,6 +14,7 @@ import com.example.marcu.pawcompanion.controller.ValidateInputHandler;
 import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
+import com.example.marcu.pawcompanion.exception.ExceptionHandler;
 
 public class SelectBreedActivity extends AppCompatActivity implements ActionHandlerContract.RootActionHandler, SearchView.OnQueryTextListener{
 
@@ -25,6 +26,7 @@ public class SelectBreedActivity extends AppCompatActivity implements ActionHand
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_select_breed);
 
         findViews();

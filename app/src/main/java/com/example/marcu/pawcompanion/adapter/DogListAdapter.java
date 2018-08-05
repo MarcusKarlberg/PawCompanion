@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.component.ImageViewComponent;
 import com.example.marcu.pawcompanion.data.Dog;
+import com.example.marcu.pawcompanion.exception.ExceptionHandler;
 import com.example.marcu.pawcompanion.repository.DogRepository;
 
 import org.apache.commons.lang3.StringUtils;
@@ -87,8 +89,9 @@ public class DogListAdapter extends BaseAdapter {
                 bitmap = BitmapFactory.decodeStream(viewGroup.getContext().getContentResolver().openInputStream(imageUri), null, options);
                 imageViewComponent.setImageBitmap(bitmap);
             }catch (FileNotFoundException e){
-                //Todo: what's the best practice to handle exceptions in android
                 Log.d(TAG, "FileNotFoundException");
+                Toast.makeText(viewGroup.getContext(), "Photo Not Found",
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }

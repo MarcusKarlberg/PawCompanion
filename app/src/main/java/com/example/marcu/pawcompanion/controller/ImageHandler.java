@@ -57,7 +57,6 @@ public class ImageHandler extends Handler implements ActionHandlerContract.Actio
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
 
-        //Todo: figure out what flags do and if this flag is necessary
         intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         getDogInfoInputActivity().startActivityForResult(intent, ACCESS_PHOTO_LIB);
 

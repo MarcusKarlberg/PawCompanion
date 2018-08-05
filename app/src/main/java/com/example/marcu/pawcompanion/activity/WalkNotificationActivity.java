@@ -17,6 +17,7 @@ import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Dog;
+import com.example.marcu.pawcompanion.exception.ExceptionHandler;
 
 public class WalkNotificationActivity extends AppCompatActivity implements ActionHandlerContract.RootActionHandler{
 
@@ -34,6 +35,7 @@ public class WalkNotificationActivity extends AppCompatActivity implements Actio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_walk_notification);
 
         findViews();

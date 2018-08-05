@@ -120,7 +120,6 @@ public class NotificationHandler extends Handler implements ActionHandlerContrac
         }
     }
 
-    //Todo: cant this be calculated int the dog data class??
     private double getDistancePerWalk(Dog dog) {
         double distancePerDay = dog.getWalkingDistancePerDay();
         int numberOfWalksPerDay;

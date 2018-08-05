@@ -22,6 +22,7 @@ import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Breed;
 import com.example.marcu.pawcompanion.data.Dog;
+import com.example.marcu.pawcompanion.exception.ExceptionHandler;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -44,6 +45,7 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_dog_info_input);
 
         findViews();

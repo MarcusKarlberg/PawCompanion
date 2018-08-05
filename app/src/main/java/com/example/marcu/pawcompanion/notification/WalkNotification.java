@@ -63,7 +63,6 @@ public class WalkNotification extends BroadcastReceiver {
         if(bundle != null){
             dog = (Dog)bundle.getSerializable("dogData");
         }else {
-            //Todo: best practive to handle exceptions in android?
             Log.d(TAG, "DOG DATA EMPTY:");
         }
     }
@@ -71,7 +70,6 @@ public class WalkNotification extends BroadcastReceiver {
     private void setupPendingIntent(Bundle bundle, Context context){
         this.iteratingIntent = new Intent(context, WalkNotificationActivity.class);
         iteratingIntent.putExtra("bundle", bundle);
-        //Todo: figure out how flags work
         iteratingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.pendingIntent = PendingIntent.getActivity(context,
                 (int)dog.getId().longValue()+1,

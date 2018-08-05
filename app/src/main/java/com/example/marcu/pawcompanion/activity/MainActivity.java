@@ -15,6 +15,7 @@ import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Dog;
+import com.example.marcu.pawcompanion.exception.ExceptionHandler;
 
 public class MainActivity extends AppCompatActivity implements ActionHandlerContract.RootActionHandler{
 
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_main);
 
         findViews();
