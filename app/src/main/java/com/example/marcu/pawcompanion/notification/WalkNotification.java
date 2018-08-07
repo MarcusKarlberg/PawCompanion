@@ -14,6 +14,7 @@ import android.util.Log;
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.activity.WalkNotificationActivity;
 import com.example.marcu.pawcompanion.data.Dog;
+import com.example.marcu.pawcompanion.utility.DogCalculator;
 
 /**
  * Created by marcu on 3/19/2018.
@@ -82,8 +83,8 @@ public class WalkNotification extends BroadcastReceiver {
                 .setContentTitle("Walk " + dog.getName() + "!")
                 .setSmallIcon(R.drawable.ic_notification2)
                 .setStyle(new NotificationCompat.InboxStyle()
-                .addLine("Distance: " + dog.getWalkingDistancePerDay())
-                .addLine("Duration: " + dog.getWalkingDurationPerDay() + "minutes"))
+                        .addLine("Distance: " + DogCalculator.getDistancePerWalk(dog) + " km")
+                        .addLine("Duration: " + DogCalculator.getDistancePerWalk(dog) + " mins"))
                 .setColorized(true)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setContentIntent(pendingIntent)

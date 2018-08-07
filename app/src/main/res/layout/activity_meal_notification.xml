@@ -23,12 +23,15 @@
     <com.example.marcu.pawcompanion.component.ButtonComponent
         android:id="@+id/meal_notification_reminderButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="Remind Me Again"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/meal_notification_okButton"
-        app:layout_constraintStart_toStartOf="@+id/meal_notification_okButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.example.marcu.pawcompanion.component.ButtonComponent
         android:id="@+id/meal_notification_okButton"
@@ -36,19 +39,21 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="OK"
         app:layout_constraintBottom_toTopOf="@+id/meal_notification_reminderButton"
-        app:layout_constraintEnd_toEndOf="@+id/meal_notification_imageView"
-        app:layout_constraintStart_toStartOf="@+id/meal_notification_imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/meal_notification_reminderButton"
+        app:layout_constraintStart_toStartOf="@+id/meal_notification_reminderButton" />
 
     <com.example.marcu.pawcompanion.component.ImageViewComponent
         android:id="@+id/meal_notification_imageView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toTopOf="@+id/meal_notification_portionTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +78,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="Portion: 230g"
         app:layout_constraintBottom_toTopOf="@+id/meal_notification_okButton"
-        tools:layout_editor_absoluteX="150dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

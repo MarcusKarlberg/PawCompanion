@@ -8,6 +8,7 @@ import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.notification.NotificationMngr;
+import com.example.marcu.pawcompanion.utility.DogCalculator;
 import com.example.marcu.pawcompanion.utility.ImageUtils;
 
 import org.joda.time.LocalTime;
@@ -67,10 +68,6 @@ public class NotificationHandler extends Handler implements ActionHandlerContrac
 
     private void addNotifications(){
         Dog dog = getDogListComponent().getSelectedDog();
-        dog.setWalkingDurationPerDay(dog.getBreed().getActivityLevel());
-        dog.setWalkingDistancePerDay(dog.getBreed().getActivityLevel());
-        dog.setIntervalWalkTime(dog.getBreed().getActivityLevel());
-        dog.setIntervalMealTime();
 
         NotificationMngr notificationMngr = new NotificationMngr(getMainActivity());
         notificationMngr.setWalkNotification(dog);
@@ -111,49 +108,12 @@ public class NotificationHandler extends Handler implements ActionHandlerContrac
     private void setWalkNotificationInfo(Dog dog, WalkNotificationActivity activity){
         if (dog != null) {
             activity.setNameTextView(dog.getName());
-            activity.setWalkingDistanceTextView(String.format("Distance %.1f km", getDistancePerWalk(dog)));
-            activity.setWalkingDurationTextView(String.format("Duration: %d min", getDurationPerWalk(dog)));
+            activity.setWalkingDistanceTextView(String.format("Distance %.1f km", DogCalculator.getDistancePerWalk(dog)));
+            activity.setWalkingDurationTextView(String.format("Duration: %d min", DogCalculator.getDurationPerWalk(dog)));
 
             ImageUtils imageUtils = new ImageUtils(getWalkNotificationActivity());
             getWalkNotificationActivity().setImageViewComponent(imageUtils
                     .setImage(Uri.parse(getWalkNotificationActivity().getDog().getImageUriString())));
         }
-    }
-
-    private double getDistancePerWalk(Dog dog) {
-        double distancePerDay = dog.getWalkingDistancePerDay();
-        int numberOfWalksPerDay;
-
-        switch (dog.getIntervalWalkTime()){
-            case 180: numberOfWalksPerDay = 7;
-                break;
-            case 240: numberOfWalksPerDay = 5;
-                break;
-            case 300: numberOfWalksPerDay = 4;
-                break;
-            case 360: numberOfWalksPerDay = 3;
-                break;
-            default: numberOfWalksPerDay = 3;
-        }
-        return distancePerDay/numberOfWalksPerDay;
-    }
-
-    private int getDurationPerWalk(Dog dog){
-        double durationPerDay = dog.getWalkingDurationPerDay();
-        int numberOfWalksPerDay;
-
-        switch (dog.getIntervalWalkTime()){
-            case 180: numberOfWalksPerDay = 7;
-                break;
-            case 240: numberOfWalksPerDay = 5;
-                break;
-            case 300: numberOfWalksPerDay = 4;
-                break;
-            case 360: numberOfWalksPerDay = 3;
-                break;
-            default: numberOfWalksPerDay = 3;
-        }
-
-        return (int) Math.round(Math.abs(durationPerDay/numberOfWalksPerDay));
     }
 }

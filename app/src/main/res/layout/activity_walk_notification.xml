@@ -35,15 +35,15 @@
     <com.example.marcu.pawcompanion.component.ButtonComponent
         android:id="@+id/walk_notification_reminderButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Remind Me Again"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/walk_notification_okButton"
-        app:layout_constraintStart_toStartOf="@+id/walk_notification_okButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.example.marcu.pawcompanion.component.ButtonComponent
         android:id="@+id/walk_notification_okButton"
@@ -55,17 +55,17 @@
         android:layout_marginStart="8dp"
         android:text="OK"
         app:layout_constraintBottom_toTopOf="@+id/walk_notification_reminderButton"
-        app:layout_constraintEnd_toEndOf="@+id/walk_notification_imageView"
-        app:layout_constraintStart_toStartOf="@+id/walk_notification_imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/walk_notification_reminderButton"
+        app:layout_constraintStart_toStartOf="@+id/walk_notification_reminderButton" />
 
     <com.example.marcu.pawcompanion.component.ImageViewComponent
         android:id="@+id/walk_notification_imageView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toTopOf="@+id/walk_notification_distanceTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,10 +77,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="distance: 2.5 km"
         app:layout_constraintBottom_toTopOf="@+id/walk_notification_durationTextView"
-        app:layout_constraintEnd_toEndOf="@+id/walk_notification_imageView"
-        app:layout_constraintStart_toStartOf="@+id/walk_notification_imageView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/walk_notification_durationTextView"
