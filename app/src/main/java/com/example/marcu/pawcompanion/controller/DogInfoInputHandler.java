@@ -18,6 +18,7 @@ import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Breed;
 import com.example.marcu.pawcompanion.data.Dog;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -88,7 +89,7 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
         int year, month, day;
 
         LocalDate currentDate = LocalDate.now();
-        year = currentDate.getYear();
+        year = currentDate.getYear() - 1;
         month = currentDate.getMonthOfYear();
         day = currentDate.getDayOfMonth();
 
@@ -106,6 +107,7 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
                 birthdayDateSetListener,
                 year, month, day);
 
+        dialog.getDatePicker().setMaxDate(DateTime.now().getMillis());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }

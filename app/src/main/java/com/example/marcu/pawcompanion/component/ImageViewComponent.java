@@ -9,6 +9,8 @@ import com.example.marcu.pawcompanion.controller.ActionHandlerContract;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 public class ImageViewComponent extends AppCompatImageView {
     public enum ImageViewType {
         BUTTON, IDLE
@@ -22,7 +24,9 @@ public class ImageViewComponent extends AppCompatImageView {
     }
 
     public void setSelectedImage(String uriString){
-        setSelectedImage(Uri.parse(uriString));
+        if(!isBlank(uriString)){
+            setSelectedImage(Uri.parse(uriString));
+        }
     }
 
     public void setSelectedImage(Uri selectedImage) {

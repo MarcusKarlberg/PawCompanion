@@ -13,6 +13,10 @@ import com.example.marcu.pawcompanion.utility.ImageUtils;
 
 import org.joda.time.LocalTime;
 
+import java.util.Locale;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 public class NotificationHandler extends Handler implements ActionHandlerContract.ActionHandler{
 
     public ActionHandlerContract.ActionHandler nextHandler;
@@ -100,20 +104,27 @@ public class NotificationHandler extends Handler implements ActionHandlerContrac
             activity.setNameTextView(dog.getName());
 
             ImageUtils imageUtils = new ImageUtils(getMealNotificationActivity());
-            getMealNotificationActivity().setImageViewComponent(imageUtils
-                    .setImage(Uri.parse(getMealNotificationActivity().getDog().getImageUriString())));
+            String uri = getMealNotificationActivity().getDog().getImageUriString();
+            if(!isBlank(uri)){
+                getMealNotificationActivity().setImageViewComponent(imageUtils
+                        .setImage(Uri.parse(uri)));
+            }
         }
     }
 
     private void setWalkNotificationInfo(Dog dog, WalkNotificationActivity activity){
         if (dog != null) {
             activity.setNameTextView(dog.getName());
-            activity.setWalkingDistanceTextView(String.format("Distance %.1f km", DogCalculator.getDistancePerWalk(dog)));
-            activity.setWalkingDurationTextView(String.format("Duration: %d min", DogCalculator.getDurationPerWalk(dog)));
+            double distance = DogCalculator.getDistancePerWalk(dog);
+            activity.setWalkingDistanceTextView(String.format(Locale.getDefault(),"Distance %.1f km  |  %.1f mi", distance, (distance * 0.62)));
+            activity.setWalkingDurationTextView(String.format(Locale.getDefault(),"Duration: ~ %d min", DogCalculator.getDurationPerWalk(dog)));
 
             ImageUtils imageUtils = new ImageUtils(getWalkNotificationActivity());
-            getWalkNotificationActivity().setImageViewComponent(imageUtils
-                    .setImage(Uri.parse(getWalkNotificationActivity().getDog().getImageUriString())));
+            String uri = getWalkNotificationActivity().getDog().getImageUriString();
+            if(!isBlank(uri)){
+                getWalkNotificationActivity().setImageViewComponent(imageUtils
+                        .setImage(Uri.parse(uri)));
+            }
         }
     }
 }

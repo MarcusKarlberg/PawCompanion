@@ -19,6 +19,8 @@ import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.exception.ExceptionHandler;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 public class WalkNotificationActivity extends AppCompatActivity implements ActionHandlerContract.RootActionHandler{
 
     private static final String TAG = "WalkNotificationActivity";
@@ -42,7 +44,11 @@ public class WalkNotificationActivity extends AppCompatActivity implements Actio
         Bundle bundle = (getIntent().getExtras().getBundle("bundle"));
         validateData(bundle);
         setHandlers();
-        getImageViewComponent().setSelectedImage(this.dog.getImageUriString());
+
+        String uri = this.dog.getImageUriString();
+        if(!isBlank(uri)){
+            getImageViewComponent().setSelectedImage(this.dog.getImageUriString());
+        }
 
         invokeAction(HandlerType.NOTIFICATION, Action.SET_WALK_NOTIFICATION_INFO);
     }
