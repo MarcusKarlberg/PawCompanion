@@ -14,39 +14,39 @@ public final class BreedRepo {
     private List<Breed> breeds = new LinkedList<>();
     private List<Breed> filteredBreeds = new LinkedList<>();
 
-    // Todo: Add all breeds and assign a 5 level system for activity level and size level.
+    //Todo: add at least the 200 most common dog breeds
     public BreedRepo() {
-//        breeds.add(new Breed(0,"Australian Sheperds",0 ,0 ));
-//        breeds.add(new Breed(1,"Beagle",0 ,0 ));
-//        breeds.add(new Breed(2,"Bernese Mountain Dog",0 ,0 ));
-//        breeds.add(new Breed(3, "Boston Terrier",0 ,0 ));
-//        breeds.add(new Breed(4, "Boxer",0 ,0 ));
-//        breeds.add(new Breed(5,"Brittany",0 ,0 ));
-//        breeds.add(new Breed(6, "Bulldog",0 ,0 ));
-//        breeds.add(new Breed(7,"Cavalier King Charles",0 ,0 ));
-//        breeds.add(new Breed(8,"Chihuaua",0 ,0 ));
-//        breeds.add(new Breed(9,"Dachshound",0 ,0 ));
-//        breeds.add(new Breed(10,"Doberman Pinscher",0 ,0 ));
-        breeds.add(new Breed(0,"French Bulldog",2 ,2 ));
-//        breeds.add(new Breed(12, "German Shepherd", 0, 0));
-//        breeds.add(new Breed(13,"Golden Retriever", 0, 0));
-        breeds.add(new Breed(1, "Greate Dane",5 ,5 ));
-//        breeds.add(new Breed(15,"Havanese",0 ,0 ));
-//        breeds.add(new Breed(16,"Labrador", 0, 0));
-//        breeds.add(new Breed(17,"Mastiffs",0 ,0 ));
-        breeds.add(new Breed(2, "Miniature Schnauzer",4 ,2 ));
-//        breeds.add(new Breed(19,"Pointer, short haired",0 ,0 ));
-//        breeds.add(new Breed(20,"Pomeranian",0 ,0 ));
-//        breeds.add(new Breed(21,"Poodle",0 ,0 ));
-//        breeds.add(new Breed(3,"Pug",3 ,0 ));
-//        breeds.add(new Breed(23, "Rottweiler",0 ,0 ));
-//        breeds.add(new Breed(24, "Shetland Sheepdog",0 ,0 ));
-//        breeds.add(new Breed(25,"Shih Tzu",0 ,0 ));
-        breeds.add(new Breed(4,"Siberian Husky",5 ,3 ));
-//        breeds.add(new Breed(27,"Spaniel, Cocker",0 ,0 ));
-//        breeds.add(new Breed(28,"Spaniel, English Springer",0 ,0 ));
-//        breeds.add(new Breed(29,"Vizslas",0 ,0 ));
-//        breeds.add(new Breed(30,"Yorkshire Terrier",0 ,0 ));
+        breeds.add(new Breed(1,"Australian Sheperds",5 ,3 ));
+        breeds.add(new Breed(2,"Beagle",5 ,2 ));
+        breeds.add(new Breed(3,"Bernese Mountain Dog",4 ,5 ));
+        breeds.add(new Breed(4,"Boston Terrier",4,2));
+        breeds.add(new Breed(5,"Boxer",5,3));
+        breeds.add(new Breed(6,"Brittany",5,3));
+        breeds.add(new Breed(7, "Bulldog",3,2));
+        breeds.add(new Breed(8,"Cavalier King Charles",3,2));
+        breeds.add(new Breed(9,"Chihuahua",3,1));
+        breeds.add(new Breed(10,"Dachshund",3,1));
+        breeds.add(new Breed(11,"Doberman Pinscher",4,4));
+        breeds.add(new Breed(12,"French Bulldog",2 ,2 ));
+        breeds.add(new Breed(13, "German Shepherd", 5, 4));
+        breeds.add(new Breed(14,"Golden Retriever", 5, 3));
+        breeds.add(new Breed(15, "Greate Dane",5 ,5 ));
+        breeds.add(new Breed(16,"Havanese",3,2));
+        breeds.add(new Breed(17,"Labrador", 5, 4));
+        breeds.add(new Breed(18,"Mastiffs",3,5));
+        breeds.add(new Breed(19, "Miniature Schnauzer",4 ,2 ));
+        breeds.add(new Breed(20,"Shorthaired Pointer",5,3));
+        breeds.add(new Breed(21,"Pomeranian",3,1));
+        breeds.add(new Breed(22,"Poodle",4,4));
+        breeds.add(new Breed(23,"Pug",2,2));
+        breeds.add(new Breed(24, "Rottweiler",4,3));
+        breeds.add(new Breed(25, "Shetland Sheepdog",4,1));
+        breeds.add(new Breed(26,"Shih Tzu",2,1));
+        breeds.add(new Breed(27,"Siberian Husky",5,3));
+        breeds.add(new Breed(28,"Cocker Spaniel",3,2));
+        breeds.add(new Breed(29,"English Springer Spaniel",5,3));
+        breeds.add(new Breed(30,"Vizslas",5,3));
+        breeds.add(new Breed(31,"Yorkshire Terrier",4,1));
     }
 
     public List<Breed> getAllBreeds(){
