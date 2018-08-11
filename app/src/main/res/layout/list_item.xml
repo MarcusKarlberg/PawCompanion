@@ -15,9 +15,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
         android:textColor="@color/primary_text"
-        android:textSize="50dp"
+        android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/list_item_imageView"
         app:layout_constraintTop_toTopOf="parent"
@@ -44,7 +43,8 @@
         android:textColor="@color/secondary_text"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/list_item_nameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/list_item_nameTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/list_item_nameTextView"
+        tools:text="Next Walk: 08:00 " />
 
     <TextView
         android:id="@+id/list_item_nextMeal_textView"
@@ -57,5 +57,6 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/list_item_nameTextView"
         app:layout_constraintStart_toEndOf="@+id/list_item_nextWalk_textView"
-        app:layout_constraintTop_toBottomOf="@+id/list_item_nameTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/list_item_nameTextView"
+        tools:text="Next Meal: 09:00" />
 </android.support.constraint.ConstraintLayout>

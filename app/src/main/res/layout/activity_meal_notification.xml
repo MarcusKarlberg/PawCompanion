@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Feed Me!"
+        android:text="@string/textView_feed_me"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -28,7 +28,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Remind Me Again"
+        android:text="@string/btn_remind"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -41,7 +41,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="OK"
+        android:text="@string/btn_ok"
         app:layout_constraintBottom_toTopOf="@+id/meal_notification_reminderButton"
         app:layout_constraintEnd_toEndOf="@+id/meal_notification_reminderButton"
         app:layout_constraintStart_toStartOf="@+id/meal_notification_reminderButton" />
@@ -66,12 +66,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="(dogName)"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        tools:text="(dogName)" />
 
     <TextView
         android:id="@+id/meal_notification_portionTextView"
@@ -80,7 +80,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Portion: 230g"
+        android:text="@string/textView_portion"
         app:layout_constraintBottom_toTopOf="@+id/meal_notification_okButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

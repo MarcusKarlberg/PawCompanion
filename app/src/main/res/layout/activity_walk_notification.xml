@@ -13,7 +13,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Walk me!"
+        android:text="@string/textView_walk_me"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,11 +26,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="dogName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        tools:text="dogName" />
 
     <com.example.marcu.pawcompanion.component.ButtonComponent
         android:id="@+id/walk_notification_reminderButton"
@@ -40,7 +40,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Remind Me Again"
+        android:text="@string/btn_remind"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -53,7 +53,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="OK"
+        android:text="@string/btn_ok"
         app:layout_constraintBottom_toTopOf="@+id/walk_notification_reminderButton"
         app:layout_constraintEnd_toEndOf="@+id/walk_notification_reminderButton"
         app:layout_constraintStart_toStartOf="@+id/walk_notification_reminderButton" />
@@ -79,17 +79,16 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="distance: 2.5 km"
         app:layout_constraintBottom_toTopOf="@+id/walk_notification_durationTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="stance: 2.5 km" />
 
     <TextView
         android:id="@+id/walk_notification_durationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="duration: 20 min"
         app:layout_constraintBottom_toTopOf="@+id/walk_notification_okButton"
         app:layout_constraintEnd_toEndOf="@+id/walk_notification_distanceTextView"
         app:layout_constraintStart_toStartOf="@+id/walk_notification_distanceTextView" />
