@@ -125,7 +125,7 @@ public class DogCalculator {
             }
         }
         if(nextTime == null){
-            nextTime = firstTimeUnit.toString("HH:mm (Tomorrow)");
+            nextTime = firstTimeUnit.toString("HH:mm");
         }
 
         return nextTime;

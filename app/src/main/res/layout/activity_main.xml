@@ -39,6 +39,8 @@
         android:layout_marginBottom="8dp"
         android:choiceMode="singleChoice"
         android:listSelector="@color/primary_dark"
+        android:divider="@color/primary_dark"
+        android:dividerHeight="1.0sp"
         app:layout_constraintBottom_toTopOf="@+id/main_addDogButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

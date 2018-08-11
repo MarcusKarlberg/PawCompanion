@@ -1,6 +1,8 @@
 package com.example.marcu.pawcompanion.controller;
 
 import android.net.Uri;
+import android.util.Log;
+
 import com.example.marcu.pawcompanion.activity.MainActivity;
 import com.example.marcu.pawcompanion.activity.MealNotificationActivity;
 import com.example.marcu.pawcompanion.activity.WalkNotificationActivity;
@@ -15,6 +17,7 @@ import org.joda.time.LocalTime;
 
 import java.util.Locale;
 
+import static android.content.ContentValues.TAG;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class NotificationHandler extends Handler implements ActionHandlerContract.ActionHandler{
@@ -54,6 +57,7 @@ public class NotificationHandler extends Handler implements ActionHandlerContrac
                 Dog dog = getDogListComponent().getSelectedDog();
                 NotificationMngr notificationMngr = new NotificationMngr(getMainActivity());
                 notificationMngr.deleteNotifications(dog);
+                Log.d(TAG, "updateNotification: NOTIFICATIONS REMOVED for:  " + dog.toString());
             break;
             case SET_MEAL_REMINDER:
                 setMealNotificationReminder();

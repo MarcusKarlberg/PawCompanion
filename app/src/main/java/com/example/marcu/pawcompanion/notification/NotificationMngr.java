@@ -58,7 +58,7 @@ public class NotificationMngr {
         intent.putExtra("bundle", bundle);
         PendingIntent walkPendingIntent = PendingIntent
                 .getBroadcast(context.getApplicationContext(), (int)dog.getId()
-                        .longValue()+1,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        .longValue()+1000,intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstWalkTime, timeBetweenWalks, walkPendingIntent);
@@ -74,10 +74,11 @@ public class NotificationMngr {
         intent.putExtra("bundle", bundle);
         PendingIntent pendingIntent = PendingIntent
                 .getBroadcast(context.getApplicationContext(), (int)dog.getId()
-                        .longValue()+2,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        .longValue()+2000,intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC, midnight, pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, midnight, pendingIntent);
+        Log.d(TAG, "Notification: ALARM RESET Broadcaster ACTIVATED");
     }
 
     public void deleteNotifications(Dog dog){
@@ -94,7 +95,7 @@ public class NotificationMngr {
 
         PendingIntent walkPendingIntent = PendingIntent
                 .getBroadcast(context.getApplicationContext(), (int)dog.getId()
-                        .longValue()+1,walkIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        .longValue()+1000,walkIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         PendingIntent mealPendingIntent = PendingIntent
                 .getBroadcast(context.getApplicationContext(), (int)dog.getId()

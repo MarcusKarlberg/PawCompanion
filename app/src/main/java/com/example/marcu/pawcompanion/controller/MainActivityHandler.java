@@ -36,6 +36,7 @@ public class MainActivityHandler extends Handler implements ActionHandlerContrac
             break;
             case REMOVE_DOG:
                 getDogRepo().removeDog(dog);
+                getMainRootActionHandler().invokeAction(HandlerType.NOTIFICATION, Action.REMOVE_NOTIFICATION);
             break;
             case TOGGLE_DOG_SELECT:
                 dog.setSelected(!dog.isSelected());

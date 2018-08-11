@@ -75,7 +75,7 @@ public class WalkNotification extends BroadcastReceiver {
         iteratingIntent.putExtra("bundle", bundle);
         iteratingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.pendingIntent = PendingIntent.getActivity(context,
-                (int)dog.getId().longValue()+1,
+                (int)dog.getId().longValue()+1000,
                 iteratingIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
