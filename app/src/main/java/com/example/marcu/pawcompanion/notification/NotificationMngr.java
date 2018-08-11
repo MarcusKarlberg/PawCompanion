@@ -31,7 +31,7 @@ public class NotificationMngr {
 
     public void setMealNotification(Dog dog){
         long timeBetweenMeals = TimeUnit.MINUTES.toMillis(DogCalculator
-                .getIntervalMealTimeInMins(dog.getBirthDate(), dog.getFirstMealTime(), dog.getFirstWalkTime()));
+                .getIntervalMealTimeInMins(dog));
         long firstMealTime = localTimeToMillis(dog.getFirstMealTime());
 
         Intent intent = new Intent(context.getApplicationContext(), MealNotification.class);

@@ -16,6 +16,8 @@ import com.example.marcu.pawcompanion.activity.WalkNotificationActivity;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.utility.DogCalculator;
 
+import java.util.Locale;
+
 /**
  * Created by marcu on 3/19/2018.
  */
@@ -79,12 +81,16 @@ public class WalkNotification extends BroadcastReceiver {
     }
 
     public void buildNotification(Context context){
+        double result = DogCalculator.getDistancePerWalk(dog);
+        String distance = String.format(Locale.getDefault(),"Distance %.1f km  |  %.1f mi", result, (result * 0.62));
+        String duration = String.format(Locale.getDefault(),"Duration: ~ %d min", DogCalculator.getDurationPerWalk(dog));
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channelId)
                 .setContentTitle("Walk " + dog.getName() + "!")
                 .setSmallIcon(R.drawable.ic_notification2)
                 .setStyle(new NotificationCompat.InboxStyle()
-                        .addLine("Distance: " + DogCalculator.getDistancePerWalk(dog) + " km")
-                        .addLine("Duration: " + DogCalculator.getDistancePerWalk(dog) + " mins"))
+                        .addLine(distance)
+                        .addLine(duration))
                 .setColorized(true)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setContentIntent(pendingIntent)

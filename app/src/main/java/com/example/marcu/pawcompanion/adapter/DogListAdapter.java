@@ -16,6 +16,7 @@ import com.example.marcu.pawcompanion.component.ImageViewComponent;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.exception.ExceptionHandler;
 import com.example.marcu.pawcompanion.repository.DogRepository;
+import com.example.marcu.pawcompanion.utility.DogCalculator;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -65,11 +66,17 @@ public class DogListAdapter extends BaseAdapter {
 
         if(dog != null){
             TextView dogNameTextView = view.findViewById(R.id.list_item_nameTextView);
+            TextView nextWalkTimeTextView = view.findViewById(R.id.list_item_nextWalk_textView);
+            TextView nextMealTimeTextView = view.findViewById(R.id.list_item_nextMeal_textView);
+
             imageViewComponent = view.findViewById(R.id.list_item_imageView);
             if(!StringUtils.isBlank(dog.getImageUriString())){
                 imageViewComponent.setSelectedImage(Uri.parse(dog.getImageUriString()));
             }
             dogNameTextView.setText(dog.getName());
+            //Todo: add countdown
+            nextWalkTimeTextView.setText( view.getContext().getString(R.string.next_walk_time, DogCalculator.getNextWalkTime(dog)));
+            nextMealTimeTextView.setText(view.getContext().getString(R.string.next_meal_time, DogCalculator.getNextMealTime(dog)));
             setImageView(dog.getImageUriString(), viewGroup);
         }
 
