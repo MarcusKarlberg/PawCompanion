@@ -1,15 +1,25 @@
 <resources>
     <string name="app_name">PawCompanion</string>
+    <string name="next_walk_time">Next Walk: %1$s</string>
+    <string name="next_meal_time">Next Meal: %1$s</string>
     <string name="btn_addDog">Add New Companion</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_remind">Remind Me Again</string>
     <string name="btn_saveDog">Save Companion</string>
-
-    <string-array name="breed_array">
-        <item>Jack Russell</item>
-        <item>Lagatto</item>
-        <item>Mini Schnauzer</item>
-        <item>Pug</item>
-        <item>Tax</item>
-    </string-array>
-
-
+    <string name="btn_ok">OK</string>
+    <string name="btn_select">Select</string>
+    <string name="textView_feed_me">Feed Me!</string>
+    <string name="textView_walk_me">Walk Me!</string>
+    <string name="textView_name">Name</string>
+    <string name="textView_portion">Portion:</string>
+    <string name="textView_breed">Breed:</string>
+    <string name="textView_set_breed">Set Breed</string>
+    <string name="textView_set_date">Set Date</string>
+    <string name="textView_birthday">Birthday:</string>
+    <string name="textView_set_weight">Set Weight</string>
+    <string name="textView_weight">Weight (Kg):</string>
+    <string name="textView_set_time">Set Time</string>
+    <string name="textView_first_meal">First Meal of the Day:</string>
+    <string name="textView_first_walk">First Walk of the Day:</string>
+    <string name="error_report">Error Report</string>
 </resources>

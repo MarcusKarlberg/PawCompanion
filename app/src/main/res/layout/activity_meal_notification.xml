@@ -7,12 +7,12 @@
     tools:context="com.example.marcu.pawcompanion.activity.MealNotificationActivity">
 
     <TextView
-        android:id="@+id/callEditText"
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Feed Me!"
+        android:text="@string/textView_feed_me"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -20,68 +20,68 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/remindAgainButton"
+    <com.example.marcu.pawcompanion.component.ButtonComponent
+        android:id="@+id/meal_notification_reminderButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Remind Me Again"
+        android:text="@string/btn_remind"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/okButton"
-        app:layout_constraintStart_toStartOf="@+id/okButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/okButton"
+    <com.example.marcu.pawcompanion.component.ButtonComponent
+        android:id="@+id/meal_notification_okButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="OK"
-        app:layout_constraintBottom_toTopOf="@+id/remindAgainButton"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView" />
+        android:text="@string/btn_ok"
+        app:layout_constraintBottom_toTopOf="@+id/meal_notification_reminderButton"
+        app:layout_constraintEnd_toEndOf="@+id/meal_notification_reminderButton"
+        app:layout_constraintStart_toStartOf="@+id/meal_notification_reminderButton" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
+    <com.example.marcu.pawcompanion.component.ImageViewComponent
+        android:id="@+id/meal_notification_imageView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/portionTextView"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/meal_notification_portionTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/meal_notification_nameTextView"
         app:srcCompat="@drawable/placeholder" />
 
     <TextView
-        android:id="@+id/nameEditText"
+        android:id="@+id/meal_notification_nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="(dogName)"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/callEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        tools:text="(dogName)" />
 
     <TextView
-        android:id="@+id/portionTextView"
+        android:id="@+id/meal_notification_portionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Portion: 230g"
-        app:layout_constraintBottom_toTopOf="@+id/okButton"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView" />
+        android:text="@string/textView_portion"
+        app:layout_constraintBottom_toTopOf="@+id/meal_notification_okButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -7,13 +7,13 @@
     tools:context="com.example.marcu.pawcompanion.activity.WalkNotificationActivity">
 
     <TextView
-        android:id="@+id/callEditText"
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Walk me!"
+        android:text="@string/textView_walk_me"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,72 +21,75 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/dogNameEditText"
+        android:id="@+id/walk_notification_nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="dogName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/callEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        tools:text="dogName" />
 
-    <Button
-        android:id="@+id/okButton"
+    <com.example.marcu.pawcompanion.component.ButtonComponent
+        android:id="@+id/walk_notification_reminderButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/btn_remind"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.example.marcu.pawcompanion.component.ButtonComponent
+        android:id="@+id/walk_notification_okButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="OK"
-        app:layout_constraintBottom_toTopOf="@+id/remindAgainButton"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView" />
+        android:text="@string/btn_ok"
+        app:layout_constraintBottom_toTopOf="@+id/walk_notification_reminderButton"
+        app:layout_constraintEnd_toEndOf="@+id/walk_notification_reminderButton"
+        app:layout_constraintStart_toStartOf="@+id/walk_notification_reminderButton" />
 
-    <Button
-        android:id="@+id/remindAgainButton"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+    <com.example.marcu.pawcompanion.component.ImageViewComponent
+        android:id="@+id/walk_notification_imageView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Remind me again"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/okButton"
-        app:layout_constraintStart_toStartOf="@+id/okButton" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/walkingDistanceTextView"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/walk_notification_distanceTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dogNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/walk_notification_nameTextView"
         app:srcCompat="@drawable/placeholder" />
 
     <TextView
-        android:id="@+id/walkingDistanceTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="distance: 2.5 km"
-        app:layout_constraintBottom_toTopOf="@+id/walkingDurationTextView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView" />
-
-    <TextView
-        android:id="@+id/walkingDurationTextView"
+        android:id="@+id/walk_notification_distanceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="duration: 20 min"
-        app:layout_constraintBottom_toTopOf="@+id/okButton"
-        app:layout_constraintEnd_toEndOf="@+id/walkingDistanceTextView"
-        app:layout_constraintStart_toStartOf="@+id/walkingDistanceTextView" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/walk_notification_durationTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="stance: 2.5 km" />
+
+    <TextView
+        android:id="@+id/walk_notification_durationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/walk_notification_okButton"
+        app:layout_constraintEnd_toEndOf="@+id/walk_notification_distanceTextView"
+        app:layout_constraintStart_toStartOf="@+id/walk_notification_distanceTextView" />
 </android.support.constraint.ConstraintLayout>

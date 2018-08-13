@@ -32,29 +32,17 @@ public class MealNotification extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if(manager == null){
-            //To display the notification
             this.manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         }
 
-        Bundle bundle = intent.getBundleExtra("bundle");
-        if(bundle != null){
-            dog = (Dog)bundle.getSerializable("dogData");
-        }else {
-            Log.d(TAG, "DOG DATA EMPTY:");
-        }
-
         createChannel();
-        //to start new notification when clicked
-        this.iteratingIntent = new Intent(context, MealNotificationActivity.class);
-        //flag_activity_clear_top - the current activity called will replace the same old activity
-        iteratingIntent.putExtra("bundle", bundle);
-        iteratingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        this.pendingIntent = PendingIntent.getActivity(context, (int)dog.getId().longValue(), iteratingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Bundle bundle = intent.getBundleExtra("bundle");
+        validateData(bundle);
+        setupPendingIntent(bundle, context);
         buildNotification(context);
     }
 
-    public void createChannel(){
+    private void createChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
             channel.enableLights(true);
@@ -66,8 +54,23 @@ public class MealNotification extends BroadcastReceiver {
             Log.d(TAG, "createChannel: MEAL CHANNEL CREATED");
         }
     }
-    //Todo: TEST: added channel .setChannelId(channel2Id) and removed .setPriority(Notification.PRIORITY_MAX)
-    public void buildNotification(Context context){
+
+    private void validateData(Bundle bundle){
+        if(bundle != null){
+            dog = (Dog)bundle.getSerializable("dogData");
+        }else {
+            Log.d(TAG, "DOG DATA EMPTY:");
+        }
+    }
+
+    private void setupPendingIntent(Bundle bundle, Context context){
+        this.iteratingIntent = new Intent(context, MealNotificationActivity.class);
+        iteratingIntent.putExtra("bundle", bundle);
+        iteratingIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.pendingIntent = PendingIntent.getActivity(context, (int)dog.getId().longValue(), iteratingIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private void buildNotification(Context context){
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, channelId)
                 .setContentTitle("Feed: " + dog.getName() + "!")
                 .setSmallIcon(R.drawable.ic_notification2)

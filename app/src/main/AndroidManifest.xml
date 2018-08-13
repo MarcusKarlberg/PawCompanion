@@ -33,7 +33,13 @@
 
         <receiver android:name=".notification.WalkNotification" />
 
-        <activity android:name=".activity.SelectBreedActivity"></activity>
+        <receiver android:name=".notification.ResetAlarmsBroadcastReceiver"/>
+
+        <activity android:name=".activity.SelectBreedActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.marcu.pawcompanion.activity.SelectBreedActivity" />
+        </activity>
     </application>
 
 </manifest>

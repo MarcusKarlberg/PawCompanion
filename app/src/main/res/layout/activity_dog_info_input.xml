@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/saveCompanionButton"
+    <com.example.marcu.pawcompanion.component.ButtonComponent
+        android:id="@+id/info_input_saveCompanionButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Save Companion"
+        android:text="@string/btn_saveDog"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -21,40 +20,40 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/saveCompanionButton"
+        app:layout_constraintBottom_toTopOf="@+id/info_input_saveCompanionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/dogNameEditText"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
+                <com.example.marcu.pawcompanion.component.EditTextComponent
+                    android:id="@+id/info_input_nameTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Name"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@string/textView_name"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintStart_toEndOf="@+id/info_input_imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView"
+                <com.example.marcu.pawcompanion.component.ImageViewComponent
+                    android:id="@+id/info_input_imageView"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginBottom="8dp"
@@ -78,7 +77,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="Breed"
+                    android:text="@string/textView_breed"
                     android:textColor="@color/primary_text"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -86,8 +85,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/breedTextView"
+                <com.example.marcu.pawcompanion.component.TextViewComponent
+                    android:id="@+id/info_input_breedTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -95,7 +94,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="Set Breed"
+                    android:text="@string/textView_set_breed"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -110,8 +109,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/birthdayTextView"
+                <com.example.marcu.pawcompanion.component.TextViewComponent
+                    android:id="@+id/info_input_birthdayTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -121,7 +120,7 @@
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="date"
-                    android:text="Set Date"
+                    android:text="@string/textView_set_date"
                     android:textColor="@color/secondary_text"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -136,7 +135,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="Birthday:"
+                    android:text="@string/textView_birthday"
                     android:textColor="@color/primary_text"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -149,8 +148,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/weightEditText"
+                <com.example.marcu.pawcompanion.component.EditTextComponent
+                    android:id="@+id/info_input_weightEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -160,7 +159,7 @@
                     android:background="@android:color/transparent"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="Set Weight"
+                    android:hint="@string/textView_set_weight"
                     android:inputType="numberDecimal"
                     android:textColor="@color/secondary_text"
                     android:textSize="14sp"
@@ -176,7 +175,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text=" Weight (Kg):"
+                    android:text="@string/textView_weight"
                     android:textColor="@color/primary_text"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -189,8 +188,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/walkTimeTextView"
+                <com.example.marcu.pawcompanion.component.TextViewComponent
+                    android:id="@+id/info_input_walkTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -199,7 +198,7 @@
                     android:layout_marginTop="8dp"
                     android:ems="10"
                     android:inputType="time"
-                    android:text="Set Time"
+                    android:text="@string/textView_set_time"
                     android:textAlignment="center"
                     android:textColor="@color/secondary_text"
                     android:textSize="14sp"
@@ -213,7 +212,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="First Walk of the Day:"
+                    android:text="@string/textView_first_walk"
                     android:textColor="@color/primary_text"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -227,8 +226,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/mealTimeTextView"
+                <com.example.marcu.pawcompanion.component.TextViewComponent
+                    android:id="@+id/info_input_mealTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -237,7 +236,7 @@
                     android:layout_marginTop="8dp"
                     android:ems="10"
                     android:inputType="time"
-                    android:text="Set Time"
+                    android:text="@string/textView_set_time"
                     android:textAlignment="center"
                     android:textColor="@color/secondary_text"
                     android:textSize="14sp"
@@ -254,7 +253,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="First Meal of the Day"
+                    android:text="@string/textView_first_meal"
                     android:textColor="@color/primary_text"
                     android:textSize="14sp"
                     android:textStyle="bold"

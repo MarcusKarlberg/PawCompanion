@@ -6,42 +6,42 @@
     android:layout_height="match_parent"
     tools:context="com.example.marcu.pawcompanion.activity.MainActivity">
 
-    <Button
-        android:id="@+id/addDog_btn"
+    <com.example.marcu.pawcompanion.component.ButtonComponent
+        android:id="@+id/main_addDogButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:onClick="goToDogInfoInputActivity"
         android:text="@string/btn_addDog"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteDogButton"
+        app:layout_constraintEnd_toStartOf="@+id/main_deleteDogButton"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/deleteDogButton"
+    <com.example.marcu.pawcompanion.component.ButtonComponent
+        android:id="@+id/main_deleteDogButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:onClick="goToDogInfoInputActivity"
-        android:text="Delete"
+        android:text="@string/btn_delete"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ListView
-        android:id="@+id/dogListView"
+    <com.example.marcu.pawcompanion.component.DogListComponent
+        android:id="@+id/main_dogListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:choiceMode="singleChoice"
         android:listSelector="@color/primary_dark"
-        app:layout_constraintBottom_toTopOf="@+id/addDog_btn"
+        android:divider="@color/primary_dark"
+        android:dividerHeight="1.0sp"
+        app:layout_constraintBottom_toTopOf="@+id/main_addDogButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
