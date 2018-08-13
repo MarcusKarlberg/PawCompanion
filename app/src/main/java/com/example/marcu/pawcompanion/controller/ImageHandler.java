@@ -57,6 +57,7 @@ public class ImageHandler extends Handler implements ActionHandlerContract.Actio
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
 
+        //Todo: is the flag needed?
         intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         getDogInfoInputActivity().startActivityForResult(intent, ACCESS_PHOTO_LIB);
 
@@ -74,7 +75,7 @@ public class ImageHandler extends Handler implements ActionHandlerContract.Actio
             } else {
                 intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             }
-
+            //Todo: is the flag needed?
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             getDogInfoInputActivity().startActivityForResult(intent, ACCESS_PHOTO_LIB);
         }

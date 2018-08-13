@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.DatePicker;
-import android.widget.TimePicker;
 
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.activity.DogInfoInputActivity;
@@ -23,13 +21,16 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.Locale;
+import java.util.Objects;
+
 import static android.content.ContentValues.TAG;
 import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.CREATE;
 import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.UPDATE;
 
 public class DogInfoInputHandler extends Handler implements ActionHandlerContract.ActionHandler {
 
-    public ActionHandlerContract.ActionHandler nextHandler;
+    private ActionHandlerContract.ActionHandler nextHandler;
     private EditTextComponent nameEditTex;
     private TextViewComponent breedTextView;
     private TextViewComponent birthdayTextView;
@@ -93,13 +94,11 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
         month = currentDate.getMonthOfYear();
         day = currentDate.getDayOfMonth();
 
-        DatePickerDialog.OnDateSetListener birthdayDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month += 1;
-                String date = String.format("%02d", month) + "/" + String.format("%02d", day) + "/" + year;
-                birthdayTextView.setText(date);
-            }
+        DatePickerDialog.OnDateSetListener birthdayDateSetListener = (datePicker, year1, month1, day1) -> {
+            month1 += 1;
+            String date = String.format(Locale.getDefault(),"%02d", month1) + "/" +
+                          String.format(Locale.getDefault(),"%02d", day1) + "/" + year1;
+            birthdayTextView.setText(date);
         };
 
         DatePickerDialog dialog = new DatePickerDialog(getDogInfoInputActivity(),
@@ -107,43 +106,40 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
                 birthdayDateSetListener,
                 year, month, day);
 
+        //Todo: read about 'requiredNonNull' method. What does it do exactly?
         dialog.getDatePicker().setMaxDate(DateTime.now().getMillis());
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 
 
     private void setWalkTime(){
-        TimePickerDialog.OnTimeSetListener walkTimeSetListener = (new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                String time = String.format("%02d", hour) + ":" + String.format("%02d", minute);
-                walkTimeTextView.setText(time);
-            }
+        TimePickerDialog.OnTimeSetListener walkTimeSetListener = ((timePicker, hour, minute) -> {
+            String time = String.format(Locale.getDefault(),"%02d", hour) + ":" +
+                        String.format(Locale.getDefault(),"%02d", minute);
+            walkTimeTextView.setText(time);
         });
 
         TimePickerDialog dialog = new TimePickerDialog(getDogInfoInputActivity(),
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
                 walkTimeSetListener, 7,0, true);
 
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 
     private void setMealTime(){
-        TimePickerDialog.OnTimeSetListener mealTimeSetListener = (new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                String time = String.format("%02d", hour) + ":" + String.format("%02d", minute);
-                mealTimeTextView.setText(time);
-            }
+        TimePickerDialog.OnTimeSetListener mealTimeSetListener = ((timePicker, hour, minute) -> {
+            String time = String.format(Locale.getDefault(),"%02d", hour) + ":" +
+                        String.format(Locale.getDefault(),"%02d", minute);
+            mealTimeTextView.setText(time);
         });
 
         TimePickerDialog dialog = new TimePickerDialog(getDogInfoInputActivity(),
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
                 mealTimeSetListener, 7,0, true);
 
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 

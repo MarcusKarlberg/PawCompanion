@@ -33,14 +33,10 @@ public class EditTextComponent extends AppCompatEditText{
     }
 
     OnClickListener onClickOpenEditTextName() {
-        return view -> {
-            rootActionHandler.invokeAction(HandlerType.MODEL, Action.SET_NAME);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.MODEL, Action.SET_NAME);
     }
 
     OnClickListener onClickOpenEditTextWeight() {
-        return view -> {
-            rootActionHandler.invokeAction(HandlerType.MODEL, Action.SET_WEIGHT);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.MODEL, Action.SET_WEIGHT);
     }
 }

@@ -41,8 +41,7 @@ public class WalkNotificationActivity extends AppCompatActivity implements Actio
         setContentView(R.layout.activity_walk_notification);
 
         findViews();
-        Bundle bundle = (getIntent().getExtras().getBundle("bundle"));
-        validateData(bundle);
+        getData();
         setHandlers();
 
         String uri = this.dog.getImageUriString();
@@ -87,14 +86,18 @@ public class WalkNotificationActivity extends AppCompatActivity implements Actio
     }
 
     @SuppressLint("LongLogTag")
-    private boolean validateData(Bundle bundle){
+    private void getData(){
+        Bundle bundle = getIntent().getExtras();
+        Bundle dogData = null;
+
         if(bundle != null){
-            dog = (Dog)bundle.getSerializable("dogData");
-            Log.d(TAG, "DOG DATA:" + dog.toString() );
-            return true;
+            dogData = bundle.getBundle("bundle");
+        }
+
+        if(dogData != null){
+            dog = (Dog)dogData.getSerializable("dogData");
         }else {
             Log.d(TAG, "DOG DATA EMPTY:");
-            return false;
         }
     }
 

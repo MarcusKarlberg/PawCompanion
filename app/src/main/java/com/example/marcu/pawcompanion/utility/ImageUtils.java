@@ -18,20 +18,19 @@ public class ImageUtils {
     }
 
     public Bitmap setImage(Uri uri) {
-        Bitmap bitmap = null;
         if (uri != null) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.RGB_565;
             options.inSampleSize = 2;
 
             try {
-                bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options);
+                Bitmap bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options);
                 return bitmap;
             }catch (FileNotFoundException e) {
                 Log.d(TAG, "FileNotFoundException");
             }
         }
 
-        return bitmap;
+        return null;
     }
 }

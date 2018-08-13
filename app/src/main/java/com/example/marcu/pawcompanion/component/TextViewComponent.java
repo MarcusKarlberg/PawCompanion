@@ -41,26 +41,18 @@ public class TextViewComponent extends AppCompatTextView{
      }
 
      OnClickListener onClickOpenSelectBreedActivity(){
-        return view -> {
-            rootActionHandler.invokeAction(HandlerType.VIEW, Action.OPEN_SELECT_BREED_VIEW);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.VIEW, Action.OPEN_SELECT_BREED_VIEW);
      }
 
      OnClickListener onClickOpenDatePicker(){
-        return view -> {
-            rootActionHandler.invokeAction(HandlerType.MODEL, Action.SET_BIRTHDAY);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.MODEL, Action.SET_BIRTHDAY);
      }
 
      OnClickListener onClickOpenWalkTimePicker(){
-         return view -> {
-             rootActionHandler.invokeAction(HandlerType.MODEL, Action.SET_WALK_TIME);
-         };
+         return view -> rootActionHandler.invokeAction(HandlerType.MODEL, Action.SET_WALK_TIME);
      }
 
     OnClickListener onClickOpenMealTimePicker(){
-        return view -> {
-            rootActionHandler.invokeAction(HandlerType.MODEL, Action.SET_MEAL_TIME);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.MODEL, Action.SET_MEAL_TIME);
     }
 }

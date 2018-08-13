@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.component.ImageViewComponent;
 import com.example.marcu.pawcompanion.data.Dog;
-import com.example.marcu.pawcompanion.exception.ExceptionHandler;
 import com.example.marcu.pawcompanion.repository.DogRepository;
 import com.example.marcu.pawcompanion.utility.DogCalculator;
 

@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.example.marcu.pawcompanion.data.Dog;
 
-import static android.content.ContentValues.TAG;
+import java.util.Objects;
 
 public class ResetAlarmsBroadcastReceiver extends BroadcastReceiver {
 
@@ -20,7 +20,7 @@ public class ResetAlarmsBroadcastReceiver extends BroadcastReceiver {
         Log.d(TAG, "onReceive: ResetAlarmsBroadcastReceiver INITIATED");
         NotificationMngr notificationManager = new NotificationMngr(context);
 
-        Bundle bundle = (intent.getExtras().getBundle("bundle"));
+        Bundle bundle = (Objects.requireNonNull(intent.getExtras()).getBundle("bundle"));
         if(bundle != null){
             dog = (Dog)bundle.getSerializable("dogData");
             Log.d(TAG, "onReceive: DOG DATA:" + dog.toString());

@@ -13,12 +13,10 @@ public class DogCalculator {
 
     public static String getNextWalkTime(Dog dog){
         LocalTime firstWalkTime = dog.getFirstWalkTime();
-
-        int timeIntervalBetweenWalksInMins = getIntervalWalkTimeInMins(dog.getBirthDate());
+        int timeIntervalBetweenWalksInMins = getIntervalWalkTimeInMins(dog.getBirthDate(), dog.getBreed().getSizeLevel());
         int numberOfWalksPerDay = getNumberOfWalksPerDay(timeIntervalBetweenWalksInMins);
 
         ArrayList<LocalTime> walkTimes = new ArrayList<>();
-
         for(int i = 0; i < numberOfWalksPerDay; i++){
             walkTimes.add(new LocalTime(firstWalkTime.plusMinutes(timeIntervalBetweenWalksInMins*i)));
         }
@@ -41,7 +39,7 @@ public class DogCalculator {
 
     public static double getDistancePerWalk(Dog dog) {
         double distancePerDay = getWalkingDistancePerDayInKm(dog.getBirthDate(), dog.getBreed().getActivityLevel());
-        int intervalWalkTime = getIntervalWalkTimeInMins(dog.getBirthDate());
+        int intervalWalkTime = getIntervalWalkTimeInMins(dog.getBirthDate(), dog.getBreed().getSizeLevel());
         int numberOfWalksPerDay = getNumberOfWalksPerDay(intervalWalkTime);
 
         return distancePerDay/numberOfWalksPerDay;
@@ -49,7 +47,7 @@ public class DogCalculator {
 
     public static int getDurationPerWalk(Dog dog){
         double durationPerDay = getWalkingDurationPerDayInMins(dog.getBirthDate(), dog.getBreed().getActivityLevel());
-        int intervalWalkTime = getIntervalWalkTimeInMins(dog.getBirthDate());
+        int intervalWalkTime = getIntervalWalkTimeInMins(dog.getBirthDate(), dog.getBreed().getSizeLevel());
         int numberOfWalksPerDay = getNumberOfWalksPerDay(intervalWalkTime);
 
         return (int) Math.round(Math.abs(durationPerDay/numberOfWalksPerDay));
@@ -60,15 +58,15 @@ public class DogCalculator {
         LocalTime firstMealTime = dog.getFirstMealTime();
         LocalTime firstWalkTime = dog.getFirstWalkTime();
 
-        int intervalMealTimeInMins = 0;
+        int intervalMealTimeInMins;
         int ageInMonths = getAgeInMonths(dog.getBirthDate());
 
-        LocalTime latestMealTime = firstWalkTime.minusHours(10);
+        LocalTime latestMealTime = firstWalkTime.minusHours(8);
 
         if(ageInMonths <= 2){
             intervalMealTimeInMins = 240;
         }
-        else if(ageInMonths > 2 && ageInMonths < 6){
+        else if(ageInMonths < 6){
             intervalMealTimeInMins = 360;
         }
         else {
@@ -84,29 +82,26 @@ public class DogCalculator {
         return intervalMealTimeInMins;
     }
 
-    //Todo: include dog size to equation
-    public static int getIntervalWalkTimeInMins(LocalDate birthday){
+    public static int getIntervalWalkTimeInMins(LocalDate birthday, int size){
         int intervalWalkTimeInMins;
         int ageInMonths = getAgeInMonths(birthday);
 
-        // puppy - break every one to two hours
-        if(ageInMonths <= 2){
+        if(ageInMonths < 3){
             intervalWalkTimeInMins = 120;
         }
-
-        //can hold it for as many hours as she is months old
-        else if(ageInMonths > 2 && ageInMonths < 5){
+        else if(ageInMonths < 6){
             intervalWalkTimeInMins = ageInMonths * 60;
         }
 
-        //can hold it for as many hours as she is months old, plus one
-        else if((ageInMonths > 4) && (ageInMonths < 7)){
-            intervalWalkTimeInMins = 60 * ageInMonths + 60;
-        }
         else {
-            //a dog should not have to hold it longer than 8 hours
-            intervalWalkTimeInMins = 480;
+            if(size < 3){
+                intervalWalkTimeInMins = 300;
+            }
+            else {
+                intervalWalkTimeInMins = 360;
+            }
         }
+
         return intervalWalkTimeInMins;
     }
 
@@ -119,7 +114,7 @@ public class DogCalculator {
                 nextTime = t.toString("HH:mm");
                 break;
             }
-            else if(t.isEqual(currentTime)){
+            else if(currentTime.isAfter(t.minusMinutes(1)) && currentTime.isBefore(t.plusMinutes(11))){
                 nextTime = "now";
                 break;
             }
@@ -150,11 +145,8 @@ public class DogCalculator {
             case 360:
                 numberOfWalksPerDay = 3;
                 break;
-            case 420:
-                numberOfWalksPerDay = 3;
-                break;
             default:
-                numberOfWalksPerDay = 2;
+                numberOfWalksPerDay = 3;
         }
         return numberOfWalksPerDay;
     }
@@ -162,7 +154,7 @@ public class DogCalculator {
     //Todo: include dog size to equation
     private static int getNumberOfMealsPerDay(Dog dog){
         int timeIntervalBetweenMealsInMins = getIntervalMealTimeInMins(dog);
-        int numberOfMealsPerDay = 0;
+        int numberOfMealsPerDay;
 
         switch (timeIntervalBetweenMealsInMins){
             case 240:
@@ -187,7 +179,6 @@ public class DogCalculator {
             walkingDurationPerDayInMins = 35;
         }
         else {
-
             if(activityLevel == 5){
                 duration = 5.83 * ageInMonths;
                 walkingDurationPerDayInMins = duration <= 70 ? duration : 70;
@@ -244,6 +235,20 @@ public class DogCalculator {
         }
 
         return walkingDistancePerDayInKm;
+    }
+
+    //Todo: figure out how to set the last walktime
+    public static LocalTime getLastWalkTime(Dog dog){
+        LocalTime firstWalkTime = dog.getFirstWalkTime();
+        int timeIntervalBetweenWalksInMins = getIntervalWalkTimeInMins(dog.getBirthDate(), dog.getBreed().getSizeLevel());
+        int numberOfWalksPerDay = getNumberOfWalksPerDay(timeIntervalBetweenWalksInMins);
+
+        ArrayList<LocalTime> walkTimes = new ArrayList<>();
+        for(int i = 0; i < numberOfWalksPerDay; i++){
+            walkTimes.add(new LocalTime(firstWalkTime.plusMinutes(timeIntervalBetweenWalksInMins*i)));
+        }
+
+        return walkTimes.get(walkTimes.size() -1);
     }
 
     private static int getAgeInMonths(LocalDate birthDate){

@@ -84,7 +84,7 @@ public class PreferencesHandler extends Handler implements ActionHandlerContract
         List<Dog> dogs = gson.fromJson(json, dogListType);
 
         if(dogs == null){
-            dogs = new LinkedList<Dog>();
+            dogs = new LinkedList<>();
         }
 
         Log.d(TAG, "load: SHAREDPREFERENCES LOADED! " + dogs.toString());

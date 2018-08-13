@@ -8,7 +8,6 @@ import com.example.marcu.pawcompanion.R;
 
 public class ExceptionActivity extends Activity{
 
-    TextView titleTextView;
     TextView errorTextView;
 
     @Override
@@ -17,8 +16,6 @@ public class ExceptionActivity extends Activity{
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_exception);
 
-        titleTextView = (TextView) findViewById(R.id.activity_exception_titleTextView);
-        errorTextView = (TextView) findViewById(R.id.activity_exception_textView);
         errorTextView.setText(getIntent().getStringExtra("error"));
     }
 }

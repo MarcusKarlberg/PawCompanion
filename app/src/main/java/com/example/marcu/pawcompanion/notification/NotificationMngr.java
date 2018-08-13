@@ -13,6 +13,7 @@ import com.example.marcu.pawcompanion.utility.DogCalculator;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import static android.content.Context.ALARM_SERVICE;
 
@@ -43,13 +44,13 @@ public class NotificationMngr {
                         .longValue(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstMealTime, timeBetweenMeals, mealPendingIntent);
+        Objects.requireNonNull(alarmManager).setRepeating(AlarmManager.RTC_WAKEUP, firstMealTime, timeBetweenMeals, mealPendingIntent);
         Log.d(TAG, "Notification: MEAL NOTIFICATION SET: " + dog.getFirstMealTime());
     }
 
     public void setWalkNotification(Dog dog){
         long timeBetweenWalks = TimeUnit.MINUTES.toMillis(DogCalculator
-                .getIntervalWalkTimeInMins(dog.getBirthDate()));
+                .getIntervalWalkTimeInMins(dog.getBirthDate(), dog.getBreed().getSizeLevel()));
         long firstWalkTime = localTimeToMillis(dog.getFirstWalkTime());
 
         Intent intent = new Intent(context.getApplicationContext(), WalkNotification.class);
@@ -61,7 +62,7 @@ public class NotificationMngr {
                         .longValue()+1000,intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstWalkTime, timeBetweenWalks, walkPendingIntent);
+        Objects.requireNonNull(alarmManager).setRepeating(AlarmManager.RTC_WAKEUP, firstWalkTime, timeBetweenWalks, walkPendingIntent);
         Log.d(TAG, "Notification: WALK NOTIFICATION SET: " + dog.getFirstWalkTime());
     }
 
@@ -77,7 +78,7 @@ public class NotificationMngr {
                         .longValue()+2000,intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, midnight, pendingIntent);
+        Objects.requireNonNull(alarmManager).set(AlarmManager.RTC_WAKEUP, midnight, pendingIntent);
         Log.d(TAG, "Notification: ALARM RESET Broadcaster ACTIVATED");
     }
 
@@ -102,8 +103,10 @@ public class NotificationMngr {
                         .longValue(), mealIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.cancel(walkPendingIntent);
-        alarmManager.cancel(mealPendingIntent);
+        if (alarmManager != null) {
+            alarmManager.cancel(walkPendingIntent);
+            alarmManager.cancel(mealPendingIntent);
+        }
     }
 
     private static long localTimeToMillis(LocalTime time){

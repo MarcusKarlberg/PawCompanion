@@ -53,50 +53,34 @@ public class ButtonComponent extends AppCompatButton{
     }
 
     OnClickListener onClickOpenDogInfoInputView(){
-        return view -> {
-            rootActionHandler.invokeAction(HandlerType.VIEW, Action.OPEN_DOG_INFO_ADD_VIEW);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.VIEW, Action.OPEN_DOG_INFO_ADD_VIEW);
     }
 
     OnClickListener onClickRemoveDog(){
-        return view -> {
-          rootActionHandler.invokeAction(HandlerType.MODEL, Action.REMOVE_DOG);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.MODEL, Action.REMOVE_DOG);
     }
 
     OnClickListener onClickSelectBreed(){
-        return view -> {
-            rootActionHandler.invokeAction(HandlerType.USER_INPUT, Action.VALIDATE_BREED);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.USER_INPUT, Action.VALIDATE_BREED);
     }
 
     OnClickListener onClickSaveDog(){
-        return view -> {
-            rootActionHandler.invokeAction(HandlerType.USER_INPUT, Action.VALIDATE_DOG);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.USER_INPUT, Action.VALIDATE_DOG);
     }
 
     OnClickListener onClickCloseMealNotification(){
-        return view -> {
-            rootActionHandler.invokeAction(HandlerType.VIEW, Action.CLOSE_MEAL_NOTIFICATION_VIEW);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.VIEW, Action.CLOSE_MEAL_NOTIFICATION_VIEW);
     }
 
     OnClickListener onClickRemindAgainMealNotification(){
-        return view -> {
-          rootActionHandler.invokeAction(HandlerType.NOTIFICATION, Action.SET_MEAL_REMINDER);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.NOTIFICATION, Action.SET_MEAL_REMINDER);
     }
 
     OnClickListener onClickCloseWalkNotification(){
-        return view -> {
-            rootActionHandler.invokeAction(HandlerType.VIEW, Action.ClOSE_WALK_NOTIFICATION_VIEW);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.VIEW, Action.ClOSE_WALK_NOTIFICATION_VIEW);
     }
 
     OnClickListener onClickRemindAgainWalkNotification(){
-        return view -> {
-            rootActionHandler.invokeAction(HandlerType.NOTIFICATION, Action.SET_WALK_REMINDER);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.NOTIFICATION, Action.SET_WALK_REMINDER);
     }
 }

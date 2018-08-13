@@ -47,9 +47,7 @@ public class ImageViewComponent extends AppCompatImageView {
     }
 
     private OnClickListener onClickAddImage(){
-        return view -> {
-          rootActionHandler.invokeAction(HandlerType.IMAGE, Action.REQUEST_ACCESS_PHOTO_LIB);
-        };
+        return view -> rootActionHandler.invokeAction(HandlerType.IMAGE, Action.REQUEST_ACCESS_PHOTO_LIB);
     }
 
 }
