@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-
 import com.example.marcu.pawcompanion.activity.DogInfoInputActivity;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.utility.ImageUtils;
+
 import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.ACCESS_PHOTO_LIB;
 
 
@@ -44,7 +44,7 @@ public class ImageHandler extends Handler implements ActionHandlerContract.Actio
             case SET_IMAGE:
                 ImageUtils imageUtils = new ImageUtils(getDogInfoInputActivity());
                 getDogInfoInputActivity().setImageViewComponent(imageUtils
-                        .setImage(getImageViewComponent().getSelectedImage()));
+                        .getBitmap(getImageViewComponent().getSelectedImage()));
             break;
         }
     }
@@ -57,10 +57,7 @@ public class ImageHandler extends Handler implements ActionHandlerContract.Actio
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
 
-        //Todo: is the flag needed?
-        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         getDogInfoInputActivity().startActivityForResult(intent, ACCESS_PHOTO_LIB);
-
     }
 
     private void requestAccessPhotoLibrary(){
@@ -75,8 +72,7 @@ public class ImageHandler extends Handler implements ActionHandlerContract.Actio
             } else {
                 intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             }
-            //Todo: is the flag needed?
-            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+
             getDogInfoInputActivity().startActivityForResult(intent, ACCESS_PHOTO_LIB);
         }
     }

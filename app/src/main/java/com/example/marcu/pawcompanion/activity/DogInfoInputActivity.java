@@ -68,6 +68,7 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
 
     public void setImageViewComponent(Bitmap bitmap){
         imageViewComponent.setImageBitmap(bitmap);
+        //imageViewComponent.setScaleY(-1f);
     }
 
     public Breed getSelectedBreed(){

@@ -110,8 +110,7 @@ public class NotificationHandler extends Handler implements ActionHandlerContrac
             ImageUtils imageUtils = new ImageUtils(getMealNotificationActivity());
             String uri = getMealNotificationActivity().getDog().getImageUriString();
             if(!isBlank(uri)){
-                getMealNotificationActivity().setImageViewComponent(imageUtils
-                        .setImage(Uri.parse(uri)));
+                getMealNotificationActivity().setImageViewComponent(imageUtils.getBitmap(Uri.parse(uri)));
             }
         }
     }
@@ -126,8 +125,7 @@ public class NotificationHandler extends Handler implements ActionHandlerContrac
             ImageUtils imageUtils = new ImageUtils(getWalkNotificationActivity());
             String uri = getWalkNotificationActivity().getDog().getImageUriString();
             if(!isBlank(uri)){
-                getWalkNotificationActivity().setImageViewComponent(imageUtils
-                        .setImage(Uri.parse(uri)));
+                getWalkNotificationActivity().setImageViewComponent(imageUtils.getBitmap(Uri.parse(uri)));
             }
         }
     }
