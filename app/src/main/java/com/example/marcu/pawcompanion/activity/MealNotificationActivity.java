@@ -57,6 +57,10 @@ public class MealNotificationActivity extends AppCompatActivity implements Actio
         nameTextView.setText(text);
     }
 
+    public void setPortionTextView(String text) {
+        portionTextView.setText(text);
+    }
+
     public void setImage(Bitmap bitmap){
         imageViewComponent.setImageBitmap(bitmap);
     }

@@ -24,6 +24,57 @@ public class DogCalculator {
         return findNextTimeUnit(walkTimes, firstWalkTime);
     }
 
+    public static double getDailyPortionInGrams(Dog dog){
+        double weightInKg = dog.getWeight();
+        int ageInMonths = getAgeInMonths(dog.getBirthDate());
+        double portion = 0;
+
+        if(ageInMonths < 4){
+           if(weightInKg < 4){
+               portion = weightInKg * 45;
+           }else {
+               portion = weightInKg * 39;
+           }
+        }
+
+        else if(ageInMonths < 10){
+            if(weightInKg < 6){
+                portion = weightInKg * 32;
+            }else if(weightInKg < 11){
+                portion = weightInKg * 27.5;
+            }else {
+                portion = weightInKg * 23;
+            }
+        }
+
+        else if(ageInMonths < 13){
+            if(weightInKg < 6){
+                portion = weightInKg * 26;
+            }else if(weightInKg < 11){
+                portion = weightInKg * 22;
+            }else if (weightInKg < 16){
+                portion = weightInKg * 19.6;
+            }else {
+                portion = weightInKg * 17.4;
+            }
+        }
+
+        else {
+            if(weightInKg < 3){
+                portion = weightInKg * 35;
+            } else if(weightInKg < 6){
+                portion = weightInKg * 21;
+            } else if(weightInKg < 11){
+                portion = weightInKg * 18;
+            }else if(weightInKg < 31){
+                portion = weightInKg * 13;
+            }else {
+                portion = weightInKg * 11;
+            }
+        }
+        return portion;
+    }
+
     public static String getNextMealTime(Dog dog){
         LocalTime firstMealTime = dog.getFirstMealTime();
         int timeIntervalBetweenMealsInMins = getIntervalMealTimeInMins(dog);
@@ -105,6 +156,15 @@ public class DogCalculator {
         return intervalWalkTimeInMins;
     }
 
+    public static boolean isAdult(Dog dog){
+        int size = dog.getBreed().getSizeLevel();
+        int ageInMonths = getAgeInMonths(dog.getBirthDate());
+
+        if(size < 3) return ageInMonths >= 14;
+        else if(size == 3) return ageInMonths >= 17;
+        else return ageInMonths >= 23;
+    }
+
     private static String findNextTimeUnit(ArrayList<LocalTime> times, LocalTime firstTimeUnit){
         LocalTime currentTime = LocalTime.now();
         String nextTime = null;
@@ -152,7 +212,7 @@ public class DogCalculator {
     }
 
     //Todo: include dog size to equation
-    private static int getNumberOfMealsPerDay(Dog dog){
+    public static int getNumberOfMealsPerDay(Dog dog){
         int timeIntervalBetweenMealsInMins = getIntervalMealTimeInMins(dog);
         int numberOfMealsPerDay;
 
@@ -237,7 +297,6 @@ public class DogCalculator {
         return walkingDistancePerDayInKm;
     }
 
-    //Todo: figure out how to set the last walktime
     public static LocalTime getLastWalkTime(Dog dog){
         LocalTime firstWalkTime = dog.getFirstWalkTime();
         int timeIntervalBetweenWalksInMins = getIntervalWalkTimeInMins(dog.getBirthDate(), dog.getBreed().getSizeLevel());

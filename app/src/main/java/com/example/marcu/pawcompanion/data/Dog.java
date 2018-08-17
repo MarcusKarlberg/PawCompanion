@@ -21,8 +21,6 @@ public final class Dog implements Serializable{
     private Breed breed;
     private LocalDate birthDate;
     private double weightInKgs;
-    private String food;
-    private Double portionSizeInGrams;
     private LocalTime firstMealTime;
     private LocalTime firstWalkTime;
     private String imageUriString;
@@ -107,22 +105,6 @@ public final class Dog implements Serializable{
 
     public void setWeight(double weight) {
         this.weightInKgs = weight;
-    }
-
-    public String getFood() {
-        return food;
-    }
-
-    public void setFood(String food) {
-        this.food = food;
-    }
-
-    public Double getPortionSize() {
-        return portionSizeInGrams;
-    }
-
-    public void setPortionSize(Double portionSize) {
-        this.portionSizeInGrams = portionSize;
     }
 
     @Override

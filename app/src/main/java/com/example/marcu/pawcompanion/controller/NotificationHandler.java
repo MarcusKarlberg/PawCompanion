@@ -107,6 +107,11 @@ public class NotificationHandler extends Handler implements ActionHandlerContrac
         if (dog != null) {
             activity.setNameTextView(dog.getName());
 
+            double mealInGrams = DogCalculator.getDailyPortionInGrams(dog)/DogCalculator.getNumberOfMealsPerDay(dog);
+            activity.setPortionTextView(String
+                .format(Locale.getDefault(), "Approx Portion: %.1f grams | %.1f dl | %.1f cups",
+                        mealInGrams, mealInGrams/52.8, ((mealInGrams/52.8) * 0.422675)));
+
             ImageUtils imageUtils = new ImageUtils(getMealNotificationActivity());
             String uri = getMealNotificationActivity().getDog().getImageUriString();
             if(!isBlank(uri)){

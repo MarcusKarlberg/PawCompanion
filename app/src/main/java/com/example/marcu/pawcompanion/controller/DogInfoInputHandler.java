@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.activity.DogInfoInputActivity;
@@ -18,6 +20,7 @@ import com.example.marcu.pawcompanion.data.Dog;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -118,6 +121,8 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
             String time = String.format(Locale.getDefault(),"%02d", hour) + ":" +
                         String.format(Locale.getDefault(),"%02d", minute);
             walkTimeTextView.setText(time);
+
+            adviseUserOfNotificationStart(time, "Walk");
         });
 
         TimePickerDialog dialog = new TimePickerDialog(getDogInfoInputActivity(),
@@ -133,6 +138,8 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
             String time = String.format(Locale.getDefault(),"%02d", hour) + ":" +
                         String.format(Locale.getDefault(),"%02d", minute);
             mealTimeTextView.setText(time);
+
+            adviseUserOfNotificationStart(time, "Meal");
         });
 
         TimePickerDialog dialog = new TimePickerDialog(getDogInfoInputActivity(),
@@ -196,5 +203,21 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
         this.walkTimeTextView = activity.findViewById(R.id.info_input_walkTimeTextView);
         this.mealTimeTextView = activity.findViewById(R.id.info_input_mealTimeTextView);
         this.breedTextView = activity.findViewById(R.id.info_input_breedTextView);
+    }
+
+    private void adviseUserOfNotificationStart(String notificationTime, String notificationType){
+        DateTime currentTime = DateTime.now();
+        LocalTime localNotificationTime = LocalTime.parse(notificationTime);
+        DateTime notificationDateTime = DateTime.now().withTime(localNotificationTime);
+
+        if(currentTime.isAfter(notificationDateTime)){
+            showToast(notificationType + " Notifications Starts Tomorrow at: " + notificationTime);
+        }
+    }
+
+    private void showToast(String message){
+        Toast toast = Toast.makeText(getDogInfoInputActivity().getBaseContext(), message, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_VERTICAL| Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
     }
 }

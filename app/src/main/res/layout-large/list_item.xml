@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/appTextView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textSize="18sp">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/list_item_nameTextView"
@@ -16,7 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/primary_text"
-        android:textSize="50sp"
+        android:textSize="80sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/list_item_imageView"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,27 +23,27 @@
 
     <com.example.marcu.pawcompanion.component.ImageViewComponent
         android:id="@+id/list_item_imageView"
-        android:layout_width="80dp"
+        android:layout_width="120dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:fadingEdge="horizontal|vertical"
         app:layout_constraintBottom_toBottomOf="@+id/list_item_nextWalk_textView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/list_item_nameTextView"
-        app:srcCompat="@drawable/placeholder" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/list_item_nextWalk_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/next_walk_time"
         android:textColor="@color/secondary_text"
-        android:textSize="12sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/list_item_nameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/list_item_nameTextView"
-        tools:text="Next Walk: 08:00 " />
+        app:layout_constraintTop_toBottomOf="@+id/list_item_nameTextView" />
 
     <TextView
         android:id="@+id/list_item_nextMeal_textView"
@@ -52,11 +51,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/next_meal_time"
         android:textColor="@color/secondary_text"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/list_item_nameTextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/list_item_nextWalk_textView"
-        app:layout_constraintTop_toBottomOf="@+id/list_item_nameTextView"
-        tools:text="Next Meal: 09:00" />
+        app:layout_constraintTop_toBottomOf="@+id/list_item_nameTextView" />
 </android.support.constraint.ConstraintLayout>
