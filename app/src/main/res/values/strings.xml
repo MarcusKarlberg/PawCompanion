@@ -22,4 +22,20 @@
     <string name="textView_first_meal">First Meal of the Day:</string>
     <string name="textView_first_walk">First Walk of the Day:</string>
     <string name="error_report">Error Report</string>
+    <string name="disclaimer_dialog_fragment_paragraph_1">
+        The app’s recommendations are only guidelines established from the given age,
+        weight and breed, and may not apply exactly to your dog’s feeding and exercise needs.
+    </string>
+    <string name="disclaimer_dialog_fragment_paragraph_2">
+        The app’s daily dietary recommendations are based on a dog with normal activity.
+        Your dog’s food intake requirements may vary depending on health, activity, environment,
+        brand of food, and should be adjusted accordingly. Best is always to consult with your vet.
+    </string>
+    <string name="btn_accept_disclaimer_dialog">Accept and Continue</string>
+    <string name="btn_quit_disclaimer_dialog">Quit</string>
+    <string name="title__disclaimer_dialog">Disclaimer:</string>
+    <string name="sharedpreference_dog_key">shared prefs key dog</string>
+    <string name="sharedpreference_dog_info">dog info</string>
+    <string name="sharedpreference_disclaimer_key">shared prefs key disclaimer</string>
+    <string name="sharedpreference_disclaimer_info">dog info</string>
 </resources>

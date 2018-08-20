@@ -1,25 +1,21 @@
 package com.example.marcu.pawcompanion.adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.util.Log;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.component.ImageViewComponent;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.repository.DogRepository;
 import com.example.marcu.pawcompanion.utility.DogCalculator;
+import com.example.marcu.pawcompanion.utility.ImageUtils;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.FileNotFoundException;
 
 /**
  * Created by marcu on 3/15/2018.
@@ -29,7 +25,6 @@ public class DogListAdapter extends BaseAdapter {
 
     private static final String TAG = "ListAdapter";
     private DogRepository dogRepository;
-    private ImageViewComponent imageViewComponent;
 
     public DogListAdapter(){
         this.dogRepository = new DogRepository();
@@ -57,48 +52,48 @@ public class DogListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         Dog dog = (Dog) this.getItem(position);
+        ViewHolder viewHolder;
 
         if(view == null){
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.list_item, viewGroup, false);
+            viewHolder = new ViewHolder(view);
+            view.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) view.getTag();
         }
 
         if(dog != null){
-            TextView dogNameTextView = view.findViewById(R.id.list_item_nameTextView);
-            TextView nextWalkTimeTextView = view.findViewById(R.id.list_item_nextWalk_textView);
-            TextView nextMealTimeTextView = view.findViewById(R.id.list_item_nextMeal_textView);
-
-            imageViewComponent = view.findViewById(R.id.list_item_imageView);
             if(!StringUtils.isBlank(dog.getImageUriString())){
-                imageViewComponent.setSelectedImage(Uri.parse(dog.getImageUriString()));
+                //Picasso.get().load(dog.getImageUri()).into(viewHolder.imageViewComponent);
+                ImageUtils imageUtils = new ImageUtils(view.getContext());
+                viewHolder.imageViewComponent.setImageBitmap(imageUtils.getBitmap(dog.getImageUri()));
             }
-            dogNameTextView.setText(dog.getName());
+            else {
+                viewHolder.imageViewComponent.setImageDrawable(viewHolder.placeHolder);
+            }
+            viewHolder.dogNameTextView.setText(dog.getName());
             //Todo: add countdown
-            nextWalkTimeTextView.setText( view.getContext().getString(R.string.next_walk_time, DogCalculator.getNextWalkTime(dog)));
-            nextMealTimeTextView.setText(view.getContext().getString(R.string.next_meal_time, DogCalculator.getNextMealTime(dog)));
-            setImageView(dog.getImageUriString(), viewGroup);
+            viewHolder.nextWalkTimeTextView.setText( view.getContext().getString(R.string.next_walk_time, DogCalculator.getNextWalkTimeString(dog)));
+            viewHolder.nextMealTimeTextView.setText(view.getContext().getString(R.string.next_meal_time, DogCalculator.getNextMealTimeString(dog)));
         }
 
         return view;
     }
 
-    private void setImageView(String imageUriString, ViewGroup viewGroup){
-        if(imageUriString != null){
-            Uri imageUri = Uri.parse(imageUriString);
+    private class ViewHolder {
+        TextView dogNameTextView;
+        TextView nextWalkTimeTextView;
+        TextView nextMealTimeTextView;
+        ImageViewComponent imageViewComponent;
+        Drawable placeHolder;
 
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.RGB_565;
-            options.inSampleSize = 2;
-            Bitmap bitmap;
-
-            try {
-                bitmap = BitmapFactory.decodeStream(viewGroup.getContext().getContentResolver().openInputStream(imageUri), null, options);
-                imageViewComponent.setImageBitmap(bitmap);
-            }catch (FileNotFoundException e){
-                Log.d(TAG, "FileNotFoundException");
-                Toast.makeText(viewGroup.getContext(), "Photo Not Found",
-                        Toast.LENGTH_SHORT).show();
-            }
+        public ViewHolder(View view){
+            dogNameTextView = view.findViewById(R.id.list_item_nameTextView);
+            nextWalkTimeTextView = view.findViewById(R.id.list_item_nextWalk_textView);
+            nextMealTimeTextView = view.findViewById(R.id.list_item_nextMeal_textView);
+            imageViewComponent = view.findViewById(R.id.list_item_imageView);
+            placeHolder = view.getContext().getResources().getDrawable(R.drawable.placeholder);
         }
     }
 }

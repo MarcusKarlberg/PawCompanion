@@ -61,7 +61,11 @@ public class ValidateInputHandler extends Handler implements ActionHandlerContra
         if(breed != null){
             return true;
         } else {
-            showToast("Invalid Breed - Choose a breed");
+            Toast toast = Toast.makeText(getSelectBreedActivity()
+                    .getBaseContext(), "Invalid Breed - Choose a breed", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity
+                    .CENTER_VERTICAL| Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
             return false;
         }
     }

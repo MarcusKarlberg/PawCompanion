@@ -11,6 +11,7 @@ import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.utility.DogCalculator;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalTime;
 
 import java.util.Objects;
@@ -33,7 +34,9 @@ public class NotificationMngr {
     public void setMealNotification(Dog dog){
         long timeBetweenMeals = TimeUnit.MINUTES.toMillis(DogCalculator
                 .getIntervalMealTimeInMins(dog));
-        long firstMealTime = localTimeToMillis(dog.getFirstMealTime());
+
+        LocalTime nextMealTime = DogCalculator.getNextMealTime(dog);
+        long nextMeal = localTimeToMillis(nextMealTime);
 
         Intent intent = new Intent(context.getApplicationContext(), MealNotification.class);
         Bundle bundle = new Bundle();
@@ -44,14 +47,16 @@ public class NotificationMngr {
                         .longValue(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        Objects.requireNonNull(alarmManager).setRepeating(AlarmManager.RTC_WAKEUP, firstMealTime, timeBetweenMeals, mealPendingIntent);
-        Log.d(TAG, "Notification: MEAL NOTIFICATION SET: " + dog.getFirstMealTime());
+        Objects.requireNonNull(alarmManager).setRepeating(AlarmManager.RTC_WAKEUP, nextMeal, timeBetweenMeals, mealPendingIntent);
+        Log.d(TAG, "Notification: MEAL NOTIFICATION SET: " + nextMealTime);
     }
 
     public void setWalkNotification(Dog dog){
         long timeBetweenWalks = TimeUnit.MINUTES.toMillis(DogCalculator
                 .getIntervalWalkTimeInMins(dog.getBirthDate(), dog.getBreed().getSizeLevel()));
-        long firstWalkTime = localTimeToMillis(dog.getFirstWalkTime());
+
+        LocalTime nextWalkTime = DogCalculator.getNextWalkTime(dog);
+        long nextWalk = localTimeToMillis(nextWalkTime);
 
         Intent intent = new Intent(context.getApplicationContext(), WalkNotification.class);
         Bundle bundle = new Bundle();
@@ -62,12 +67,19 @@ public class NotificationMngr {
                         .longValue()+1000,intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        Objects.requireNonNull(alarmManager).setRepeating(AlarmManager.RTC_WAKEUP, firstWalkTime, timeBetweenWalks, walkPendingIntent);
-        Log.d(TAG, "Notification: WALK NOTIFICATION SET: " + dog.getFirstWalkTime());
+        Objects.requireNonNull(alarmManager).setRepeating(AlarmManager.RTC_WAKEUP, nextWalk, timeBetweenWalks, walkPendingIntent);
+        Log.d(TAG, "Notification: WALK NOTIFICATION SET: " + nextWalkTime);
     }
 
     public void setAlarmToResetDailyNotificationAlarms(Dog dog){
-        long midnight = localTimeToMillis(LocalTime.MIDNIGHT);
+        LocalTime time = DogCalculator.getLastWalkTime(dog).plusHours(1);
+        DateTime dateTime = DateTime.now().withTime(time);
+
+        if(time.isBefore(LocalTime.now())){
+            dateTime = dateTime.plusDays(1);
+        }
+        long timeToReset = dateTime.getMillis();
+
         Intent intent = new Intent(context.getApplicationContext(), ResetAlarmsBroadcastReceiver.class);
 
         Bundle bundle = new Bundle();
@@ -78,8 +90,7 @@ public class NotificationMngr {
                         .longValue()+2000,intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        Objects.requireNonNull(alarmManager).set(AlarmManager.RTC_WAKEUP, midnight, pendingIntent);
-        Log.d(TAG, "Notification: ALARM RESET Broadcaster ACTIVATED");
+        Objects.requireNonNull(alarmManager).set(AlarmManager.RTC_WAKEUP, timeToReset, pendingIntent);
     }
 
     public void deleteNotifications(Dog dog){
@@ -112,11 +123,6 @@ public class NotificationMngr {
     private static long localTimeToMillis(LocalTime time){
         DateTime dateTime = DateTime.now().withTime(time);
 
-        if(time.isBefore(LocalTime.now())){
-            return dateTime.plusDays(1).getMillis();
-        }
-        else{
             return dateTime.getMillis();
-        }
     }
 }

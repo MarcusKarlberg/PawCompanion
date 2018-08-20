@@ -1,5 +1,7 @@
 package com.example.marcu.pawcompanion.data;
 
+import android.net.Uri;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
@@ -48,6 +50,10 @@ public final class Dog implements Serializable{
 
     public String getImageUriString() {
         return imageUriString;
+    }
+
+    public Uri getImageUri() {
+        return Uri.parse(imageUriString);
     }
 
     public void setImageUriString(String imageUriString) {

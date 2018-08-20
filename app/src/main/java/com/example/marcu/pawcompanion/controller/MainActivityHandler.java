@@ -48,6 +48,6 @@ public class MainActivityHandler extends Handler implements ActionHandlerContrac
             break;
         }
 
-        getMainRootActionHandler().invokeAction(HandlerType.PREFERENCES, Action.SAVE_PREFERENCES);
+        getMainRootActionHandler().invokeAction(HandlerType.PREFERENCES, Action.SAVE_DOGS_PREFERENCES);
     }
 }

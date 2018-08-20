@@ -24,8 +24,6 @@ import com.example.marcu.pawcompanion.data.Breed;
 import com.example.marcu.pawcompanion.data.Dog;
 import com.example.marcu.pawcompanion.exception.ExceptionHandler;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-
 public class DogInfoInputActivity extends AppCompatActivity implements ActionHandlerContract.RootActionHandler{
     private static final String TAG = "DogInfoInputActivity";
     public static final int ACCESS_PHOTO_LIB = 7686;
@@ -68,7 +66,6 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
 
     public void setImageViewComponent(Bitmap bitmap){
         imageViewComponent.setImageBitmap(bitmap);
-        //imageViewComponent.setScaleY(-1f);
     }
 
     public Breed getSelectedBreed(){
@@ -123,12 +120,6 @@ public class DogInfoInputActivity extends AppCompatActivity implements ActionHan
         if(dog != null){
             this.dog = dog;
             purposeOfActivity = UPDATE;
-            if(!isBlank(dog.getImageUriString())){
-                getImageViewComponent().setSelectedImage(dog.getImageUriString());
-            } else {
-               imageViewComponent.setImageDrawable(getApplicationContext()
-                       .getResources().getDrawable(R.drawable.placeholder));
-            }
             invokeAction(HandlerType.MODEL, Action.SET_DOG_INFO);
         }
     }

@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.marcu.pawcompanion"
         minSdkVersion 17
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -24,14 +24,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    compile group: 'com.android.support', name: 'appcompat-v7', version: '28.0.0-rc01'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.android.support:cardview-v7:26.1.0'
+    compile group: 'com.android.support', name: 'cardview-v7', version: '28.0.0-rc01'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     compile 'joda-time:joda-time:2.9.9'
     compile group: 'com.fatboyindustrial.gson-jodatime-serialisers', name: 'gson-jodatime-serialisers', version: '1.6.0'
+    implementation 'com.android.support:exifinterface:28.0.0-rc01'
 }

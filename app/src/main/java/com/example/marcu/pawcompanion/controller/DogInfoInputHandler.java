@@ -6,12 +6,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.Log;
-import android.view.Gravity;
-import android.widget.Toast;
 
 import com.example.marcu.pawcompanion.R;
 import com.example.marcu.pawcompanion.activity.DogInfoInputActivity;
 import com.example.marcu.pawcompanion.component.EditTextComponent;
+import com.example.marcu.pawcompanion.component.ImageViewComponent;
 import com.example.marcu.pawcompanion.component.TextViewComponent;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
@@ -30,6 +29,7 @@ import java.util.Objects;
 import static android.content.ContentValues.TAG;
 import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.CREATE;
 import static com.example.marcu.pawcompanion.activity.DogInfoInputActivity.UPDATE;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class DogInfoInputHandler extends Handler implements ActionHandlerContract.ActionHandler {
 
@@ -40,6 +40,7 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
     private EditTextComponent weightEditText;
     private TextViewComponent walkTimeTextView;
     private TextViewComponent mealTimeTextView;
+    private ImageViewComponent imageViewComponent;
 
     public DogInfoInputHandler(DogInfoInputActivity activity) {
         super(activity);
@@ -105,13 +106,10 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
         };
 
         DatePickerDialog dialog = new DatePickerDialog(getDogInfoInputActivity(),
-                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
                 birthdayDateSetListener,
                 year, month, day);
 
-        //Todo: read about 'requiredNonNull' method. What does it do exactly?
         dialog.getDatePicker().setMaxDate(DateTime.now().getMillis());
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 
@@ -121,15 +119,11 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
             String time = String.format(Locale.getDefault(),"%02d", hour) + ":" +
                         String.format(Locale.getDefault(),"%02d", minute);
             walkTimeTextView.setText(time);
-
-            adviseUserOfNotificationStart(time, "Walk");
         });
 
         TimePickerDialog dialog = new TimePickerDialog(getDogInfoInputActivity(),
-                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
                 walkTimeSetListener, 7,0, true);
 
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 
@@ -138,15 +132,11 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
             String time = String.format(Locale.getDefault(),"%02d", hour) + ":" +
                         String.format(Locale.getDefault(),"%02d", minute);
             mealTimeTextView.setText(time);
-
-            adviseUserOfNotificationStart(time, "Meal");
         });
 
         TimePickerDialog dialog = new TimePickerDialog(getDogInfoInputActivity(),
-                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
                 mealTimeSetListener, 7,0, true);
 
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 
@@ -192,7 +182,10 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
         weightEditText.setText(String.valueOf(dog.getWeight()));
         walkTimeTextView.setText(dog.getFirstWalkTime().toString("hh:mm"));
         mealTimeTextView.setText(dog.getFirstMealTime().toString("hh:mm"));
-        getDogInfoInputActivity().invokeAction(HandlerType.IMAGE, Action.SET_IMAGE);
+        if(!isBlank(dog.getImageUriString())){
+            getImageViewComponent().setSelectedImage(dog.getImageUriString());
+            getDogInfoInputActivity().invokeAction(HandlerType.IMAGE, Action.SET_IMAGE);
+        }
     }
 
     private void findViews(){
@@ -203,21 +196,6 @@ public class DogInfoInputHandler extends Handler implements ActionHandlerContrac
         this.walkTimeTextView = activity.findViewById(R.id.info_input_walkTimeTextView);
         this.mealTimeTextView = activity.findViewById(R.id.info_input_mealTimeTextView);
         this.breedTextView = activity.findViewById(R.id.info_input_breedTextView);
-    }
-
-    private void adviseUserOfNotificationStart(String notificationTime, String notificationType){
-        DateTime currentTime = DateTime.now();
-        LocalTime localNotificationTime = LocalTime.parse(notificationTime);
-        DateTime notificationDateTime = DateTime.now().withTime(localNotificationTime);
-
-        if(currentTime.isAfter(notificationDateTime)){
-            showToast(notificationType + " Notifications Starts Tomorrow at: " + notificationTime);
-        }
-    }
-
-    private void showToast(String message){
-        Toast toast = Toast.makeText(getDogInfoInputActivity().getBaseContext(), message, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER_VERTICAL| Gravity.CENTER_HORIZONTAL, 0, 0);
-        toast.show();
+        this.imageViewComponent = activity.findViewById(R.id.info_input_imageView);
     }
 }

@@ -11,7 +11,19 @@ import java.util.ArrayList;
 
 public class DogCalculator {
 
-    public static String getNextWalkTime(Dog dog){
+    public static String getNextWalkTimeString(Dog dog){
+        LocalTime firstWalkTime = dog.getFirstWalkTime();
+        int timeIntervalBetweenWalksInMins = getIntervalWalkTimeInMins(dog.getBirthDate(), dog.getBreed().getSizeLevel());
+        int numberOfWalksPerDay = getNumberOfWalksPerDay(timeIntervalBetweenWalksInMins);
+
+        ArrayList<LocalTime> walkTimes = new ArrayList<>();
+        for(int i = 0; i < numberOfWalksPerDay; i++){
+            walkTimes.add(new LocalTime(firstWalkTime.plusMinutes(timeIntervalBetweenWalksInMins*i)));
+        }
+
+        return findNextTimeUnitString(walkTimes, firstWalkTime);
+    }
+    public static LocalTime getNextWalkTime(Dog dog){
         LocalTime firstWalkTime = dog.getFirstWalkTime();
         int timeIntervalBetweenWalksInMins = getIntervalWalkTimeInMins(dog.getBirthDate(), dog.getBreed().getSizeLevel());
         int numberOfWalksPerDay = getNumberOfWalksPerDay(timeIntervalBetweenWalksInMins);
@@ -75,7 +87,20 @@ public class DogCalculator {
         return portion;
     }
 
-    public static String getNextMealTime(Dog dog){
+    public static String getNextMealTimeString(Dog dog){
+        LocalTime firstMealTime = dog.getFirstMealTime();
+        int timeIntervalBetweenMealsInMins = getIntervalMealTimeInMins(dog);
+        int numberOfMealsPerDay = getNumberOfMealsPerDay(dog);
+        ArrayList<LocalTime> mealTimes = new ArrayList<>();
+
+        for(int i = 0; i < numberOfMealsPerDay; i++){
+            mealTimes.add(new LocalTime(firstMealTime.plusMinutes(timeIntervalBetweenMealsInMins*i)));
+        }
+
+        return findNextTimeUnitString(mealTimes, dog.getFirstMealTime());
+    }
+
+    public static LocalTime getNextMealTime(Dog dog){
         LocalTime firstMealTime = dog.getFirstMealTime();
         int timeIntervalBetweenMealsInMins = getIntervalMealTimeInMins(dog);
         int numberOfMealsPerDay = getNumberOfMealsPerDay(dog);
@@ -104,7 +129,6 @@ public class DogCalculator {
         return (int) Math.round(Math.abs(durationPerDay/numberOfWalksPerDay));
     }
 
-
     public static int getIntervalMealTimeInMins(Dog dog){
         LocalTime firstMealTime = dog.getFirstMealTime();
         LocalTime firstWalkTime = dog.getFirstWalkTime();
@@ -121,7 +145,7 @@ public class DogCalculator {
             intervalMealTimeInMins = 360;
         }
         else {
-            LocalTime nextMealTime = firstMealTime.plusHours(12);
+            LocalTime nextMealTime = firstMealTime.plusHours(11);
 
             if(nextMealTime.isAfter(latestMealTime)){
                 nextMealTime = latestMealTime;
@@ -165,7 +189,7 @@ public class DogCalculator {
         else return ageInMonths >= 23;
     }
 
-    private static String findNextTimeUnit(ArrayList<LocalTime> times, LocalTime firstTimeUnit){
+    private static String findNextTimeUnitString(ArrayList<LocalTime> times, LocalTime firstTimeUnit){
         LocalTime currentTime = LocalTime.now();
         String nextTime = null;
 
@@ -181,6 +205,23 @@ public class DogCalculator {
         }
         if(nextTime == null){
             nextTime = firstTimeUnit.toString("HH:mm");
+        }
+
+        return nextTime;
+    }
+
+    private static LocalTime findNextTimeUnit(ArrayList<LocalTime> times, LocalTime firstTimeUnit){
+        LocalTime currentTime = LocalTime.now();
+        LocalTime nextTime = null;
+
+        for(LocalTime t : times){
+            if(t.isAfter(currentTime)){
+                nextTime = t;
+                break;
+            }
+        }
+        if(nextTime == null){
+            nextTime = firstTimeUnit;
         }
 
         return nextTime;
@@ -211,7 +252,6 @@ public class DogCalculator {
         return numberOfWalksPerDay;
     }
 
-    //Todo: include dog size to equation
     public static int getNumberOfMealsPerDay(Dog dog){
         int timeIntervalBetweenMealsInMins = getIntervalMealTimeInMins(dog);
         int numberOfMealsPerDay;

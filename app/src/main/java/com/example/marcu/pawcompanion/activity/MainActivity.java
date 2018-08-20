@@ -15,10 +15,10 @@ import com.example.marcu.pawcompanion.controller.ViewHandler;
 import com.example.marcu.pawcompanion.controller.constant.Action;
 import com.example.marcu.pawcompanion.controller.constant.HandlerType;
 import com.example.marcu.pawcompanion.data.Dog;
+import com.example.marcu.pawcompanion.dialog.DisclaimerDialog;
 import com.example.marcu.pawcompanion.exception.ExceptionHandler;
 
 public class MainActivity extends AppCompatActivity implements ActionHandlerContract.RootActionHandler{
-
     public static final int ADD_DOG_REQUEST = 0;
     public static final int UPDATE_DOG_REQUEST = 1;
 
@@ -32,11 +32,12 @@ public class MainActivity extends AppCompatActivity implements ActionHandlerCont
         super.onCreate(savedInstanceState);
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_main);
-
+        DisclaimerDialog dialog = new DisclaimerDialog();
+        dialog.show(this);
         findViews();
         setHandlers();
 
-        invokeAction(HandlerType.PREFERENCES, Action.LOAD_PREFERENCES);
+        invokeAction(HandlerType.PREFERENCES, Action.LOAD_DOGS_PREFERENCES);
     }
 
     @Override
